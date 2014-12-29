@@ -1,6 +1,11 @@
 {
-	"name": "pastey",
+	"name": "unorderedlist",
 	"version": "0.0.1",
+	"author": "John Rodler <john@jrod.io>",
+	"repository": {
+		"type": "git",
+		"url": "git://github.com/jrodl3r/unorderedlist.git"
+	},
 	"devDependencies": {
 		"socket.io": "^1.2.1",
 		"express": "^4.10.6"

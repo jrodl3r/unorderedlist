@@ -1,31 +1,33 @@
 
 $(document).ready(function() {
 
-  var socket       = io.connect(),
-      pastey_form  = $('#pastey-form'),
-      pastey_input = $('#new-pastey'),
-      pastey_list  = $('#pastey-list');
+  var socket         = io.connect(),
+      add_item_form  = $('#add-item-form'),
+      new_item       = $('#new-item'),
+      item_list      = $('#item-list');
 
-  // helper: add item
+
+  // add item
   function add_item(data) {
-    pastey_list.prepend('<li>' + data + '</li>');
+    item_list.prepend('<li>' + data + '</li>');
   }
 
-  // helper: load history
+  // load history
   function load_history(list) {
-    var i = list.length -1;
-    pastey_list.empty();
-    while(i) {
-      pastey_list.append('<li>' + list[i].item + '</li>');
-      i--;
+    if(list.length) {
+      var i = list.length;
+      item_list.empty();
+      while(i--) {
+        item_list.append('<li>' + list[i].item + '</li>');
+      }
     }
   }
 
-  // submit item
-  pastey_form.submit(function(e) {
+  // submit
+  add_item_form.submit(function(e) {
     e.preventDefault();
-    socket.emit('add item', pastey_input.val());
-    pastey_input.val('');
+    socket.emit('add item', new_item.val());
+    new_item.val('');
   });
 
   // load history

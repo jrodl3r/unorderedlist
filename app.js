@@ -7,20 +7,22 @@ var express  = require('express'),
 
 server.listen(3000);
 
+
 // init mongodb
-mongoose.connect('mongodb://localhost/pastey', function(err){
+mongoose.connect('mongodb://localhost/ul', function(err){
   if(err) {
     console.log(err);
   } else {
-    console.log('Connected to mongodb');
+    console.log('...Connected to mongodb');
   }
 });
 
-var pastey_schema = mongoose.Schema({
-                      item: String,
-                      time: { type: Date, default: Date.now }
-                    }),
-     pastey_model = mongoose.model('Pastey', pastey_schema);
+var ul_schema = mongoose.Schema({
+                  item: String,
+                  time: { type: Date, default: Date.now }
+                }),
+     ul_model = mongoose.model('UL', ul_schema);
+
 
 // config routes/paths
 app.get('/', function(req, res) {
@@ -29,20 +31,21 @@ app.get('/', function(req, res) {
 app.use('/css', express.static(__dirname + '/css'));
 app.use('/js', express.static(__dirname + '/js'));
 
-// config events
+
+// config i/o
 io.sockets.on('connection', function(socket){
 
   // load history
-  pastey_model.find({}, function(err, docs){
+  ul_model.find({}, function(err, docs){
     if(err) {
       console.log(err);
     }
     socket.emit('load history', docs);
   });
 
-  // add new item
+  // add item
   socket.on('add item', function(data){
-    var new_item = new pastey_model({ item: data });
+    var new_item = new ul_model({ item: data });
     new_item.save(function(err) {
       if(err) {
         console.log(err);
