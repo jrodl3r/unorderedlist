@@ -1,0 +1,2 @@
+- 'get everything on a live server (see: nitrous.io)'
+- 'setup auto-clipboard smart timer functionality'
