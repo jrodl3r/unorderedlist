@@ -40,14 +40,14 @@ io.sockets.on('connection', function(socket){
     socket.emit('load history', docs);
   });
 
-  // add item
-  socket.on('add pastey', function(data){
-    var new_pastey = new pastey_model({ item: data });
-    new_pastey.save(function(err) {
+  // add new item
+  socket.on('add item', function(data){
+    var new_item = new pastey_model({ item: data });
+    new_item.save(function(err) {
       if(err) {
         console.log(err);
       }
-      io.sockets.emit('add pastey', data);
+      io.sockets.emit('add item', data);
     });
   });
 });

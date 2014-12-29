@@ -6,35 +6,35 @@ $(document).ready(function() {
       pastey_input = $('#new-pastey'),
       pastey_list  = $('#pastey-list');
 
-  // add new
-  function add_pastey(data) {
+  // helper: add item
+  function add_item(data) {
     pastey_list.prepend('<li>' + data + '</li>');
   }
 
-  // load history
-  function load_history(data) {
-    pastey_list.append('<li>' + data + '</li>');
+  // helper: load history
+  function load_history(list) {
+    var i = list.length -1;
+    pastey_list.empty();
+    while(i) {
+      pastey_list.append('<li>' + list[i].item + '</li>');
+      i--;
+    }
   }
 
-  // submit data
+  // submit item
   pastey_form.submit(function(e) {
     e.preventDefault();
-    socket.emit('add pastey', pastey_input.val());
+    socket.emit('add item', pastey_input.val());
     pastey_input.val('');
   });
 
-  // load history handler
+  // load history
   socket.on('load history', function(docs) {
-    var i = docs.length -1;
-    pastey_list.empty();
-    while(i) {
-      load_history(docs[i].item);
-      i--;
-    }
+    load_history(docs);
   });
 
-  // add new handler
-  socket.on('add pastey', function(data) {
-    add_pastey(data);
+  // add item
+  socket.on('add item', function(data) {
+    add_item(data);
   });
 });
