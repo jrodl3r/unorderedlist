@@ -2,6 +2,7 @@
 - 'add content-type auto-detection logic'
 - 'setup content-type display styles (image, link, text, etc.)'
 - 'setup jasmine node + core tests'
+- 'setup chrome extension (auto put/get clipboard logic)'
 
 
 #NOW
@@ -10,7 +11,6 @@
 - 'add list_name pseudo-login logic'
 - 'add delete item button + logic'
 - 'add page-load timestamp save/check logic'
-- 'add auto add-to/copy-from clipboard logic (using page-load timestamp)'
 
 
 #READY
