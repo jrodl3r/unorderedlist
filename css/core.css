@@ -24,7 +24,7 @@ h1 span {
   color: gray;
 }
 
-#warning {
+#list-title {
   visibility: hidden;
   height: 24px;
   color: fuchsia;

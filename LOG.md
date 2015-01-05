@@ -9,12 +9,13 @@
 - 'add icon/favicon'
 
 #NOW
-- 'cleanup styles, center content'
-- 'add new/load list logic'
+- 'add new list button + logic'
 - 'add (hover) remove item button + logic'
 - 'add page-load timestamp save/check logic'
 
 
 #READY
+- 'add new/load list logic'
+- 'cleanup styles, center content'
 - 'get everything on a live server (see: nitrous.io)'
 - 'setup node/express/socket/mongodb stack'

@@ -7,15 +7,13 @@
 <body>
   <div id="site">
     <h1>Unordered<span>List</span></h1>
-    <div id="warning">A list with this name already exists</div>
+    <div id="list-title">{{list_title}}</div>
     <form id="load-list-form">
-      <input type="text" id="load-list"></input>
-      <input type="submit" id="new-list-button" value="New"></input>
-      <input type="submit" id="open-list-button" value="Open"></input>
+      <input type="text" id="load-list-input"></input>
+      <input type="submit" id="new-list-button" value="Go"></input>
     </form>
-
     <form id="add-item-form">
-      <input type="text" id="new-item"></input>
+      <input type="text" id="new-item-input"></input>
       <input type="submit" id="add-item-button" value="Add"></input>
     </form>
     <ul id="item-list"></ul>
