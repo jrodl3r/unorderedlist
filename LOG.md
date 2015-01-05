@@ -1,15 +1,17 @@
 #LATER
-- 'add content-type auto-detection logic'
-- 'setup content-type display styles (image, link, text, etc.)'
+- 'setup content-type auto-detection logic'
+- 'setup content-type styles (link, text, image, etc.)'
+- 'setup chrome button auto-clipboard logic'
+- 'add chrome button download link'
 - 'setup jasmine node + core tests'
-- 'setup chrome extension (auto put/get clipboard logic)'
-
+- 'setup grunt build (sass, lint, jasmine, etc.)'
+- 'add content-type icons'
+- 'add icon/favicon'
 
 #NOW
-- 'setup grunt build (sass, lint, jasmine, etc.)'
 - 'cleanup styles, center content'
-- 'add list_name pseudo-login logic'
-- 'add delete item button + logic'
+- 'add new/load list logic'
+- 'add (hover) remove item button + logic'
 - 'add page-load timestamp save/check logic'
 
 
