@@ -14,7 +14,7 @@
 }
 
 h1 {
-  margin-bottom: 24px;
+  margin-bottom: 0;
   color: fuchsia;
   font-family: monospace;
   font-size: 28px;
@@ -22,6 +22,16 @@ h1 {
 
 h1 span {
   color: gray;
+}
+
+#warning {
+  visibility: hidden;
+  height: 24px;
+  color: fuchsia;
+  font-size: 10px;
+  font-family: Arial;
+  line-height: 30px;
+  opacity: 0.5;
 }
 
 form {
@@ -34,13 +44,17 @@ input {
   text-align: center;
   border: 1px solid #DDD;
   border-radius: 2px;
+  outline: none;
 }
 
 input[type=text] {
   width: 100%;
   margin-bottom: 16px;
   padding: 4px;
-  outline: none;
+}
+
+input[type=text].warning {
+  border-color: fuchsia;
 }
 
 input[type=submit] {
