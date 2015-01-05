@@ -1,2 +1,81 @@
-h1 { color: fuchsia; }
-h1 span { color: #BBB; }
+/*****************************************************/
+/* UnorderedList                                     */
+/*****************************************************/
+
+* {
+  box-sizing: border-box;
+}
+
+#site {
+  display: block;
+  width: 50%;
+  margin: 8% auto;
+  text-align: center;
+}
+
+h1 {
+  margin-bottom: 24px;
+  color: fuchsia;
+  font-family: monospace;
+  font-size: 28px;
+}
+
+h1 span {
+  color: gray;
+}
+
+form {
+  width: 360px;
+  margin: 0 auto;
+}
+
+input {
+  color: #888;
+  text-align: center;
+  border: 1px solid #DDD;
+  border-radius: 2px;
+}
+
+input[type=text] {
+  width: 100%;
+  margin-bottom: 16px;
+  padding: 4px;
+  outline: none;
+}
+
+input[type=submit] {
+  padding: 4px 14px;
+  color: #666;
+  font-size: 10px;
+  font-weight: bold;
+  background: linear-gradient(#FCFCFC, #EEE);
+}
+
+input[type=submit]:last-of-type {
+  margin-left: 8px;
+}
+
+input[type=submit]:hover {
+  color: #555;
+  border-color: #CCC;
+  box-shadow: 0 1px 1px rgba(0,0,0,0.1);
+  cursor: pointer;
+}
+
+/*
+#load-list-form {}
+#new-item-button {}
+#open-item-button {}
+*/
+
+#add-item-form {
+  display: none;
+}
+
+#new-item {}
+
+#add-item-button {}
+
+#item-list {
+  display: none;
+}

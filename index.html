@@ -5,12 +5,20 @@
   <link rel="stylesheet" href="css/core.css">
 </head>
 <body>
-  <h1>Unordered<span>List</span></h1>
-  <form id="add-item-form">
-    <input type="text" id="new-item"></input>
-    <input type="submit" value="Add"></input>
-  </form>
-  <ul id="item-list"></ul>
+  <div id="site">
+    <h1>Unordered<span>List</span></h1>
+    <form id="load-list-form">
+      <input type="text" id="load-item"></input>
+      <input type="submit" id="new-item-button" value="New"></input>
+      <input type="submit" id="open-item-button" value="Open"></input>
+    </form>
+
+    <form id="add-item-form">
+      <input type="text" id="new-item"></input>
+      <input type="submit" id="add-item-button" value="Add"></input>
+    </form>
+    <ul id="item-list"></ul>
+  </div>
 
   <script src="/socket.io/socket.io.js"></script>
   <script src="js/jquery.js"></script>
