@@ -7,6 +7,7 @@
 - 'setup grunt build (sass, lint, jasmine, etc.)'
 - 'add content-type icons'
 - 'add icon/favicon'
+- 'add list input auto-complete'
 
 #NOW
 - 'add new list button + logic'

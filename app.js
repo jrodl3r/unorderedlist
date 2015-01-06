@@ -101,17 +101,19 @@ io.sockets.on('connection', function (socket) {
       if(err) {
         console.error(err);
 
-      // save + update
       } else {
 
         // TODO Check if item exists first...
 
+        // update data
         data = {
           body: data,
           active: true,
           itemId: new mongoose.Types.ObjectId,
           added: new Date
         };
+
+        // save item
         doc.items.push(data);
         doc.save( function (err) {
           if(err) {

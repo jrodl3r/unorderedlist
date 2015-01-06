@@ -37,6 +37,7 @@ $(document).ready( function() {
       item_list.append('<li data-active="' + item.active + '" data-id="' + item._id + '">' + item.body + '</li>');
     } else {
       item_list.prepend('<li data-active="' + item.active + '" data-id="' + item._id + '">' + item.body + '</li>');
+      new_item_input.val('');
     }
   }
 
@@ -55,14 +56,19 @@ $(document).ready( function() {
   // load list
   load_list_form.submit( function (e) {
     e.preventDefault();
-    socket.emit('load list', load_list_input.val());
+    title = load_list_input.val().trim().toLowerCase();
+    if (title != '') {
+      socket.emit('load list', title);
+    }
   });
 
   // submit item
   add_item_form.submit( function (e) {
     e.preventDefault();
-    socket.emit('add item', new_item_input.val());
-    new_item_input.val('');
+    item = new_item_input.val().trim();
+    if (item != '') {
+      socket.emit('add item', item);
+    }
   });
 
   // add item
