@@ -9,12 +9,12 @@
 #site {
   display: block;
   width: 50%;
-  margin: 8% auto;
+  margin: 5% auto;
   text-align: center;
 }
 
 h1 {
-  margin-bottom: 0;
+  margin-bottom: 10px;
   color: fuchsia;
   font-family: monospace;
   font-size: 28px;
@@ -26,12 +26,12 @@ h1 span {
 
 #list-title {
   visibility: hidden;
-  height: 24px;
-  color: fuchsia;
-  font-size: 10px;
-  font-family: Arial;
+  height: 30px;
+  color: #999;
+  font-size: 11px;
+  font-family: monospace;
+  text-transform: capitalize;
   line-height: 30px;
-  opacity: 0.5;
 }
 
 form {
@@ -53,20 +53,12 @@ input[type=text] {
   padding: 4px;
 }
 
-input[type=text].warning {
-  border-color: fuchsia;
-}
-
 input[type=submit] {
   padding: 4px 14px;
   color: #666;
   font-size: 10px;
   font-weight: bold;
   background: linear-gradient(#FCFCFC, #EEE);
-}
-
-input[type=submit]:last-of-type {
-  margin-left: 8px;
 }
 
 input[type=submit]:hover {
@@ -76,20 +68,28 @@ input[type=submit]:hover {
   cursor: pointer;
 }
 
-/*
-#load-list-form {}
-#new-item-button {}
-#open-item-button {}
-*/
-
 #add-item-form {
   display: none;
 }
 
-#new-item {}
-
-#add-item-button {}
-
 #item-list {
   display: none;
+  width: 70%;
+  margin: 20px auto;
+  padding: 30px;
+  list-style-type: none;
+  /*padding: 20px 15px 20px 45px;
+  list-style-type: circle;
+  border: 1px solid #eee;
+  border-radius: 2px;*/
+}
+
+#item-list li {
+  padding: 10px;
+  text-align: center;
+  color: darkslategray;
+  /* color: gray; */
+  font-family: Helvetica;
+  font-size: 14px;
+  line-height: 18px;
 }
