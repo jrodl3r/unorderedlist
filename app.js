@@ -124,6 +124,9 @@ io.sockets.on('connection', function (socket) {
     });
   });
 
-  // TODO disconnect
+  // user disconnected
+  socket.on('disconnect', function () {
+    console.log('User Disconnected - ' + new Date());
+  });
 
 });
