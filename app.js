@@ -35,7 +35,7 @@ var listSchema = mongoose.Schema({
                    items: [{
                      body: String,
                      active: Boolean,
-                     id: mongoose.Schema.Types.ObjectId,
+                     _id: mongoose.Schema.Types.ObjectId,
                      added: { type: Date, default: Date.now }
                    }],
                    date: { type: Date, default: Date.now }
@@ -102,18 +102,12 @@ io.sockets.on('connection', function (socket) {
         console.error(err);
 
       } else {
-
-        // TODO Check if item exists first...
-
-        // update data
         data = {
           body: data,
           active: true,
-          itemId: new mongoose.Types.ObjectId,
+          _id: new mongoose.Types.ObjectId,
           added: new Date
         };
-
-        // save item
         doc.items.push(data);
         doc.save( function (err) {
           if(err) {
@@ -122,6 +116,15 @@ io.sockets.on('connection', function (socket) {
             io.sockets.emit('add item', data);
           }
         });
+      }
+    });
+  });
+
+  // remove item (mark inactive)
+  socket.on('remove item', function (id) {
+    List.update({ 'items._id': id }, { '$set': { 'items.$.active': false } }, function (err) {
+      if(err) {
+        console.error(err);
       }
     });
   });

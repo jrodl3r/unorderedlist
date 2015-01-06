@@ -6,16 +6,17 @@
 - 'setup jasmine node + core tests'
 - 'setup grunt build (sass, lint, jasmine, etc.)'
 - 'add content-type icons'
-- 'add icon/favicon'
 - 'add list input auto-complete'
 
 #NOW
-- 'add new list button + logic'
-- 'add (hover) remove item button + logic'
+- 'add icon/favicon'
+- 'add home icon + logic'
 - 'add page-load timestamp save/check logic'
+- 'add ZeroClipboard copy item button + logic (http://goo.gl/Z9N9YW)'
 
 
 #READY
+- 'setup UL namespace, add remove item button + logic'
 - 'setup load list mongo proc'
 - 'setup create list mongo proc'
 - 'setup add item to list logic + proc'
