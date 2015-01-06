@@ -1,3 +1,7 @@
+/*****************************************************/
+/* UnorderedList                                     */
+/*****************************************************/
+
 
 $(document).ready( function() {
 
@@ -25,7 +29,7 @@ $(document).ready( function() {
 
   // Helper - add item
   function add_item(data) {
-    item_list.prepend('<li>' + data + '</li>');
+    item_list.prepend('<li data-active="' + data.active + '" data-id="' + data.itemId + '">' + data.body + '</li>');
   }
 
   // Helper - load history

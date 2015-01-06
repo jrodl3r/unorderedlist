@@ -1,3 +1,8 @@
+/*****************************************************/
+/* UnorderedList                                     */
+/*****************************************************/
+
+
 // init
 var express        = require('express'),
     app            = express(),
@@ -21,7 +26,12 @@ mongoose.connect('mongodb://localhost/ul', function (err) {
 // schema
 var listSchema = mongoose.Schema({
                    name: String,
-                  items: [String],  // TODO We Need More Context....
+                   items: [{
+                     body: String,
+                     active: Boolean,
+                     id: mongoose.Schema.Types.ObjectId,
+                     added: { type: Date, default: Date.now }
+                   }],
                    date: { type: Date, default: Date.now }
                  }),
           List = mongoose.model('List', listSchema);
@@ -48,6 +58,7 @@ io.sockets.on('connection', function (socket) {
     List.find({ 'name' : data }, function (err, doc) {
       if(err) {
         console.error(err);
+
       // create list
       } else if (!doc.length) {
         var new_list = new List({ name: data });
@@ -59,23 +70,21 @@ io.sockets.on('connection', function (socket) {
             callback(true);
           }
         });
+
       // found list
       } else {
         socket.list_name = data;
         // TODO load list items
+        // List.find({ name: socket.list_name }, function (err, docs) {
+        //   if(err) {
+        //     console.log(err);
+        //   }
+        //   socket.emit('load history', docs);
+        // });
         callback(false);
       }
     });
   });
-
-
-  // TODO load history
-  // ul_model.find({}, function (err, docs) {
-  //   if(err) {
-  //     console.log(err);
-  //   }
-  //   socket.emit('load history', docs);
-  // });
 
 
   // add item
@@ -83,7 +92,20 @@ io.sockets.on('connection', function (socket) {
     List.findOne({ name: socket.list_name }, function (err, doc) {
       if(err) {
         console.error(err);
+
       } else {
+
+        // update data
+        data = {
+          body: data,
+          active: true,
+          itemId: new mongoose.Types.ObjectId,
+          added: new Date
+        };
+
+        // TODO Check If Item Exists
+
+        // save item
         doc.items.push(data);
         doc.save( function (err) {
           if(err) {
@@ -98,4 +120,6 @@ io.sockets.on('connection', function (socket) {
 
 
   // TODO disconnect
+
+
 });

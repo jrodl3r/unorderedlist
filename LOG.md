@@ -9,13 +9,14 @@
 - 'add icon/favicon'
 
 #NOW
-- 'setup create/load list mongo proc'
+- 'setup load list mongo proc'
 - 'add new list button + logic'
 - 'add (hover) remove item button + logic'
 - 'add page-load timestamp save/check logic'
 
 
 #READY
+- 'setup create list mongo proc'
 - 'setup add item to list logic + proc'
 - 'add new/load list logic'
 - 'cleanup styles, center content'
