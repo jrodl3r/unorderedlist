@@ -9,12 +9,14 @@
 - 'add icon/favicon'
 
 #NOW
+- 'setup create/load list mongo proc'
 - 'add new list button + logic'
 - 'add (hover) remove item button + logic'
 - 'add page-load timestamp save/check logic'
 
 
 #READY
+- 'setup add item to list logic + proc'
 - 'add new/load list logic'
 - 'cleanup styles, center content'
 - 'get everything on a live server (see: nitrous.io)'

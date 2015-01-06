@@ -3,8 +3,7 @@ var express        = require('express'),
     app            = express(),
     server         = require('http').createServer(app),
     io             = require('socket.io').listen(server),
-    mongoose       = require('mongoose'),
-    list_names     = [];
+    mongoose       = require('mongoose');
 
 
 // connect
@@ -12,26 +11,20 @@ server.listen(3000);
 
 mongoose.connect('mongodb://localhost/ul', function (err) {
   if(err) {
-    console.log(err);
+    console.error(err);
   } else {
     console.log('...Connected to mongodb');
   }
 });
 
-var ul_schema = mongoose.Schema({
-                  item: String,
-                  time: { type: Date, default: Date.now }
-                }),
-     ul_model = mongoose.model('UL', ul_schema);
 
-// Schema({
-//   name: String,
-//   items: [{ body: String,
-//             time: { type: Date, default: Date.now }
-//          }],
-//   date: { type: Date, default: Date.now }
-// });
-
+// schema
+var listSchema = mongoose.Schema({
+                   name: String,
+                  items: [String],  // TODO We Need More Context....
+                   date: { type: Date, default: Date.now }
+                 }),
+          List = mongoose.model('List', listSchema);
 
 
 // config
@@ -45,23 +38,34 @@ app.use('/js', express.static(__dirname + '/js'));
 // events
 io.sockets.on('connection', function (socket) {
 
+
+  // user connected
   console.log('User Connected - ' + new Date());
+
 
   // load list
   socket.on('load list', function (data, callback) {
-
-    // found list » load it
-    if (list_names.indexOf(data) !== -1) {
-      callback(false);
-
-    // no list found » create new
-    } else {
-      callback(true);
-      socket.list_name = data;
-      list_names.push(socket.list_name);
-    }
-
-    console.log(list_names.toString());
+    List.find({ 'name' : data }, function (err, doc) {
+      if(err) {
+        console.error(err);
+      // create list
+      } else if (!doc.length) {
+        var new_list = new List({ name: data });
+        new_list.save( function (err) {
+          if (err) {
+            console.error(err);
+          } else {
+            socket.list_name = data;
+            callback(true);
+          }
+        });
+      // found list
+      } else {
+        socket.list_name = data;
+        // TODO load list items
+        callback(false);
+      }
+    });
   });
 
 
@@ -74,16 +78,23 @@ io.sockets.on('connection', function (socket) {
   // });
 
 
-  // TODO add item
-  // socket.on('add item', function (data) {
-  //   var new_item = new ul_model({ item: data });
-  //   new_item.save( function (err) {
-  //     if(err) {
-  //       console.log(err);
-  //     }
-  //     io.sockets.emit('add item', data);
-  //   });
-  // });
+  // add item
+  socket.on('add item', function (data) {
+    List.findOne({ name: socket.list_name }, function (err, doc) {
+      if(err) {
+        console.error(err);
+      } else {
+        doc.items.push(data);
+        doc.save( function (err) {
+          if(err) {
+            console.error(err);
+          } else {
+            io.sockets.emit('add item', data);
+          }
+        });
+      }
+    });
+  });
 
 
   // TODO disconnect
