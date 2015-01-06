@@ -1,9 +1,11 @@
-/*****************************************************/
-/* UnorderedList                                     */
-/*****************************************************/
+// ==========================================================================
+// UnorderedList
+// ==========================================================================
 
 
-// init
+// Init
+// --------------------------------------------------------------------------
+
 var express        = require('express'),
     app            = express(),
     server         = require('http').createServer(app),
@@ -11,7 +13,9 @@ var express        = require('express'),
     mongoose       = require('mongoose');
 
 
-// connect
+// Connect
+// --------------------------------------------------------------------------
+
 server.listen(3000);
 
 mongoose.connect('mongodb://localhost/ul', function (err) {
@@ -23,7 +27,9 @@ mongoose.connect('mongodb://localhost/ul', function (err) {
 });
 
 
-// schema
+// Schema
+// --------------------------------------------------------------------------
+
 var listSchema = mongoose.Schema({
                    name: String,
                    items: [{
@@ -37,7 +43,9 @@ var listSchema = mongoose.Schema({
           List = mongoose.model('List', listSchema);
 
 
-// config
+// Config
+// --------------------------------------------------------------------------
+
 app.get('/', function (req, res) {
   res.sendFile(__dirname + '/index.html');
 });
@@ -45,47 +53,47 @@ app.use('/css', express.static(__dirname + '/css'));
 app.use('/js', express.static(__dirname + '/js'));
 
 
-// events
-io.sockets.on('connection', function (socket) {
+// Events
+// --------------------------------------------------------------------------
 
+io.sockets.on('connection', function (socket) {
 
   // user connected
   console.log('User Connected - ' + new Date());
 
-
   // load list
-  socket.on('load list', function (data, callback) {
+  socket.on('load list', function (data) {
     List.find({ 'name' : data }, function (err, doc) {
       if(err) {
         console.error(err);
 
-      // create list
+      // create new
       } else if (!doc.length) {
         var new_list = new List({ name: data });
         new_list.save( function (err) {
           if (err) {
             console.error(err);
+
           } else {
             socket.list_name = data;
-            callback(true);
+            socket.emit('new list');
           }
         });
 
-      // found list
+      // load history
       } else {
         socket.list_name = data;
-        // TODO load list items
-        // List.find({ name: socket.list_name }, function (err, docs) {
-        //   if(err) {
-        //     console.log(err);
-        //   }
-        //   socket.emit('load history', docs);
-        // });
-        callback(false);
+        List.find({ name: socket.list_name }, function (err, docs) {
+          if(err) {
+            console.error(err);
+
+          } else {
+            socket.emit('load list', docs[0].items);
+          }
+        });
       }
     });
   });
-
 
   // add item
   socket.on('add item', function (data) {
@@ -93,19 +101,17 @@ io.sockets.on('connection', function (socket) {
       if(err) {
         console.error(err);
 
+      // save + update
       } else {
 
-        // update data
+        // TODO Check if item exists first...
+
         data = {
           body: data,
           active: true,
           itemId: new mongoose.Types.ObjectId,
           added: new Date
         };
-
-        // TODO Check If Item Exists
-
-        // save item
         doc.items.push(data);
         doc.save( function (err) {
           if(err) {
@@ -118,8 +124,6 @@ io.sockets.on('connection', function (socket) {
     });
   });
 
-
   // TODO disconnect
-
 
 });

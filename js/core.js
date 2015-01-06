@@ -1,6 +1,6 @@
-/*****************************************************/
-/* UnorderedList                                     */
-/*****************************************************/
+// ==========================================================================
+// UnorderedList
+// ==========================================================================
 
 
 $(document).ready( function() {
@@ -17,51 +17,46 @@ $(document).ready( function() {
       item_list         = $('#item-list');
 
 
-  // Helper - load list
+// Helpers
+// --------------------------------------------------------------------------
+
+  // load list
   function update_list() {
     load_list_form.hide();
     list_title.html(load_list_input.val());
     list_title.css('visibility', 'visible');
     load_list_input.val('');
     add_item_form.show();
+    item_list.empty();
     item_list.show();
   }
 
-  // Helper - add item
-  function add_item(data) {
-    item_list.prepend('<li data-active="' + data.active + '" data-id="' + data.itemId + '">' + data.body + '</li>');
+  // add item
+  function add_item(item, order) {
+    if(order === 'flip') {
+      item_list.append('<li data-active="' + item.active + '" data-id="' + item._id + '">' + item.body + '</li>');
+    } else {
+      item_list.prepend('<li data-active="' + item.active + '" data-id="' + item._id + '">' + item.body + '</li>');
+    }
   }
 
-  // Helper - load history
-  // function load_history(list) {
-  //   if(list.length) {
-  //     var i = list.length;
-  //     item_list.empty();
-  //     while(i--) {
-  //       item_list.append('<li>' + list[i].item + '</li>');
-  //     }
-  //   }
-  // }
+  // load list
+  function load_list(list) {
+    var i = list.length;
+    while (i--) {
+      add_item(list[i], 'flip');
+    }
+  }
 
+
+// Events
+// --------------------------------------------------------------------------
 
   // load list
   load_list_form.submit( function (e) {
     e.preventDefault();
-    socket.emit('load list', load_list_input.val(), function (data) {
-
-      // create list
-      if (data) {
-        update_list();
-
-      // load list
-      } else {
-        // TODO load history...
-        //load_history(...);
-        update_list();
-      }
-    });
+    socket.emit('load list', load_list_input.val());
   });
-
 
   // submit item
   add_item_form.submit( function (e) {
@@ -70,16 +65,19 @@ $(document).ready( function() {
     new_item_input.val('');
   });
 
-
   // add item
   socket.on('add item', function (data) {
     add_item(data);
   });
 
+  // new list
+  socket.on('new list', function () {
+    update_list();
+  });
 
-  // TODO UPDATE load history
-  // socket.on('load history', function (docs) {
-  //   load_history(docs);
-  // });
-
+  // load list
+  socket.on('load list', function (data) {
+    update_list();
+    load_list(data);
+  });
 });
