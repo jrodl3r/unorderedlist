@@ -1,4 +1,4 @@
-#LATER
+### LATER
 - 'setup content-type auto-detection logic'
 - 'setup content-type styles (link, text, image, etc.)'
 - 'setup chrome button auto-clipboard logic'
@@ -7,15 +7,17 @@
 - 'setup grunt build (sass, lint, jasmine, etc.)'
 - 'add content-type icons'
 - 'add list input auto-complete'
+- 'fix deleted-from-another location update bug'
+- 'add analytics'
 
-#NOW
+### NOW
 - 'add icon/favicon'
 - 'add home icon + logic'
 - 'add page-load timestamp save/check logic'
 - 'add ZeroClipboard copy item button + logic (http://goo.gl/Z9N9YW)'
 
 
-#READY
+#### READY
 - 'setup UL namespace, add remove item button + logic'
 - 'setup load list mongo proc'
 - 'setup create list mongo proc'
