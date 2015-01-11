@@ -1,13 +1,14 @@
 {
-	"name": "unorderedlist",
-	"version": "0.0.1",
-	"author": "John Rodler <john@jrod.io>",
-	"repository": {
-		"type": "git",
-		"url": "git://github.com/jrodl3r/unorderedlist.git"
-	},
-	"devDependencies": {
-		"socket.io": "^1.2.1",
-		"express": "^4.10.6"
-	}
+  "name": "unorderedlist",
+  "version": "0.0.1",
+  "author": "John Rodler <john@jrod.io>",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/jrodl3r/unorderedlist.git"
+  },
+  "devDependencies": {
+    "express": "^4.10.6",
+    "serve-favicon": "^2.2.0",
+    "socket.io": "^1.2.1"
+  }
 }

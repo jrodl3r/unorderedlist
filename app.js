@@ -8,6 +8,7 @@
 
 var express        = require('express'),
     app            = express(),
+    favicon        = require('serve-favicon'),
     server         = require('http').createServer(app),
     io             = require('socket.io').listen(server),
     mongoose       = require('mongoose');
@@ -49,6 +50,7 @@ var listSchema = mongoose.Schema({
 app.get('/', function (req, res) {
   res.sendFile(__dirname + '/index.html');
 });
+app.use(favicon(__dirname + '/favicon.ico'));
 app.use('/css', express.static(__dirname + '/css'));
 app.use('/js', express.static(__dirname + '/js'));
 
