@@ -7,6 +7,7 @@
 - 'add content-type icons'
 - 'add list input auto-complete'
 - 'add analytics'
+- 'add input overload detection (50 submits / 60s = 30s timeout)'
 
 ### NOW
 - 'add home icon + logic'

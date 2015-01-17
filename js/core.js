@@ -18,6 +18,9 @@ var UL = {
     this.new_item_input    = $('#new-item-input');
     this.item_list         = $('#item-list');
 
+    // focus input
+    this.load_list_input.focus();
+
     // load list
     this.load_list_form.submit( function (e) {
       e.preventDefault();
@@ -70,6 +73,7 @@ var UL = {
     this.list_title.css('visibility', 'visible');
     this.load_list_input.val('');
     this.add_item_form.show();
+    this.new_item_input.focus();
     this.item_list.empty();
     this.item_list.show();
   },
