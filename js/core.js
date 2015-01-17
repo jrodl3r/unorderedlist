@@ -1,7 +1,7 @@
 // ==========================================================================
 // UnorderedList
 // ==========================================================================
-
+'use strict';
 
 var UL = {
 
@@ -22,7 +22,7 @@ var UL = {
     this.load_list_form.submit( function (e) {
       e.preventDefault();
       var title = UL.load_list_input.val().trim().toLowerCase();
-      if (title != '') {
+      if (title !== '') {
         UL.socket.emit('load list', title);
       }
     });
@@ -31,7 +31,7 @@ var UL = {
     this.add_item_form.submit( function (e) {
       e.preventDefault();
       var item = UL.new_item_input.val().trim();
-      if (item != '') {
+      if (item !== '') {
         UL.socket.emit('add item', item);
       }
     });

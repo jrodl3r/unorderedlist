@@ -9,4 +9,6 @@ Thumbs.db
 
 #ENV
 /node_modules
+/img/_design
+/css/core.css*
 .sass-cache

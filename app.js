@@ -1,7 +1,7 @@
 // ==========================================================================
 // UnorderedList
 // ==========================================================================
-
+'use strict';
 
 // Init
 // --------------------------------------------------------------------------
@@ -53,7 +53,7 @@ app.get('/', function (req, res) {
 app.use('/css', express.static(__dirname + '/css'));
 app.use('/js', express.static(__dirname + '/js'));
 app.use('/img', express.static(__dirname + '/img'));
-app.use(favicon(__dirname + '/img/favicon.ico'));
+app.use(favicon(__dirname + '/favicon.ico'));
 
 // Events
 // --------------------------------------------------------------------------
