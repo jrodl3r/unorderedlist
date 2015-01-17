@@ -47,7 +47,7 @@ module.exports = function(grunt) {
           '__dirname': false
         }
       },
-      files: ['Gruntfile.js', 'app.js', 'js/core.js']
+      files: ['Gruntfile.js', 'app.js', 'js/*.js']
     },
 
 
@@ -68,7 +68,7 @@ module.exports = function(grunt) {
         tasks: ['sass:dist']
       },
       js: {
-        files: ['Gruntfile.js', 'app.js', 'js/core.js'],
+        files: ['Gruntfile.js', 'app.js', 'js/*.js'],
         tasks: ['jshint'/*, 'jasmine'*/]
       },
       options: {
