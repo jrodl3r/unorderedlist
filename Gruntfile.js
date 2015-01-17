@@ -62,13 +62,6 @@ module.exports = function(grunt) {
     },*/
 
 
-    nodemon: {
-      dev: {
-        script: 'app.js'
-      }
-    },
-
-
     watch: {
       sass: {
         files: ['css/**/*.scss'],
@@ -92,7 +85,6 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-sass');
   grunt.loadNpmTasks('grunt-contrib-jshint');
   //grunt.loadNpmTasks('grunt-contrib-jasmine');
-  grunt.loadNpmTasks('grunt-nodemon');
 
 
   // Register Tasks
