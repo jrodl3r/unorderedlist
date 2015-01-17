@@ -4,20 +4,20 @@
 - 'setup chrome button auto-clipboard logic'
 - 'add chrome button download link'
 - 'setup jasmine node + core tests'
-- 'setup grunt build (sass, lint, jasmine, etc.)'
 - 'add content-type icons'
 - 'add list input auto-complete'
-- 'fix deleted-from-another location update bug'
 - 'add analytics'
 
 ### NOW
-- 'add icon/favicon'
 - 'add home icon + logic'
 - 'add page-load timestamp save/check logic'
 - 'add ZeroClipboard copy item button + logic (http://goo.gl/Z9N9YW)'
+- 'fix deleted-from-another-location view update bug'
 
 
 #### READY
+- 'setup grunt build (sass, lint, watch)'
+- 'add icon/favicon'
 - 'setup UL namespace, add remove item button + logic'
 - 'setup load list mongo proc'
 - 'setup create list mongo proc'

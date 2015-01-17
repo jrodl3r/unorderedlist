@@ -24,10 +24,10 @@ h1 {
   font-family: monospace;
   font-size: 28px;
   cursor: default;
-}
 
-h1 span {
-  color: gray;
+  & span {
+    color: gray;
+  }
 }
 
 #list-title {
@@ -44,35 +44,35 @@ h1 span {
 form {
   width: 360px;
   margin: 0 auto;
-}
 
-input {
-  color: #888;
-  text-align: center;
-  border: 1px solid #DDD;
-  border-radius: 2px;
-  outline: none;
-}
+  input {
+    color: #888;
+    text-align: center;
+    border: 1px solid #DDD;
+    border-radius: 2px;
+    outline: none;
 
-input[type=text] {
-  width: 100%;
-  margin-bottom: 16px;
-  padding: 4px;
-}
+    &[type=text] {
+      width: 100%;
+      margin-bottom: 16px;
+      padding: 4px;
+    }
 
-input[type=submit] {
-  padding: 4px 14px;
-  color: #666;
-  font-size: 10px;
-  font-weight: bold;
-  background: linear-gradient(#FCFCFC, #EEE);
-}
+    &[type=submit] {
+      padding: 4px 14px;
+      color: #666;
+      font-size: 10px;
+      font-weight: bold;
+      background: linear-gradient(#FCFCFC, #EEE);
 
-input[type=submit]:hover {
-  color: #555;
-  border-color: #CCC;
-  box-shadow: 0 1px 1px rgba(0,0,0,0.1);
-  cursor: pointer;
+      &:hover {
+        color: #555;
+        border-color: #CCC;
+        box-shadow: 0 1px 1px rgba(0,0,0,0.1);
+        cursor: pointer;
+      }
+    }
+  }
 }
 
 #add-item-form {
@@ -86,46 +86,46 @@ input[type=submit]:hover {
   margin: 20px auto;
   padding: 30px;
   list-style-type: none;
-}
 
-#item-list li {
-  position: relative;
-  margin-bottom: 3px;
-  padding: 10px 30px;
-  text-align: center;
-  color: darkslategray;
-  font-family: Helvetica;
-  font-size: 14px;
-  line-height: 18px;
-}
+  & li {
+    position: relative;
+    margin-bottom: 3px;
+    padding: 10px 30px;
+    text-align: center;
+    color: darkslategray;
+    font-family: Helvetica;
+    font-size: 14px;
+    line-height: 18px;
 
-#item-list li:hover {
-  color: mediumorchid;
-  box-shadow: inset 0 0 15px rgba(0,0,0,0.025);
-  background: #F8F8F8;
-  border-radius: 5px;
-  cursor: default;
-}
+    &:hover {
+      color: mediumorchid;
+      box-shadow: inset 0 0 15px rgba(0,0,0,0.025);
+      background: #F8F8F8;
+      border-radius: 5px;
+      cursor: default;
 
-#item-list li:hover .remove {
-  display: block;
-}
+      & .remove {
+        display: block;
+      }
+    }
 
-.remove {
-  z-index: 2;
-  position: absolute;
-  top: 50%;
-  right: -20px;
-  transform: translate(0,-48%);
-  display: none;
-  width: 30px;
-  color: #CCC;
-  font-size: 13px;
-  font-weight: bold;
-  text-align: right;
-}
+    .remove {
+      z-index: 2;
+      position: absolute;
+      top: 50%;
+      right: -20px;
+      transform: translate(0,-48%);
+      display: none;
+      width: 30px;
+      color: #CCC;
+      font-size: 13px;
+      font-weight: bold;
+      text-align: right;
 
-.remove:hover {
-  color: #000;
-  cursor: pointer;
+      &:hover {
+        color: #000;
+        cursor: pointer;
+      }
+    }
+  }
 }
