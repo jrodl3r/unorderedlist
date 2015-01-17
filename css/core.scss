@@ -16,8 +16,8 @@
   text-align: center;
 }
 
-a#home {
-  display: none;
+a {
+  text-decoration: none;
 }
 
 h1 {
@@ -25,7 +25,6 @@ h1 {
   color: fuchsia;
   font-family: monospace;
   font-size: 28px;
-  cursor: default;
 
   & span {
     color: gray;
