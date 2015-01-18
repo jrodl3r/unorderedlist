@@ -50,9 +50,10 @@ var listSchema = mongoose.Schema({
 app.get('/', function (req, res) {
   res.sendFile(__dirname + '/index.html');
 });
-app.use('/css', express.static(__dirname + '/css'));
 app.use('/js', express.static(__dirname + '/js'));
 app.use('/img', express.static(__dirname + '/img'));
+app.use('/css', express.static(__dirname + '/css'));
+app.use('/fonts', express.static(__dirname + '/fonts'));
 app.use(favicon(__dirname + '/favicon.ico'));
 
 // Events
