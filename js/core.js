@@ -29,11 +29,6 @@ var UL = {
   // setup socket/io
   sockets: function sockets() {
 
-    // add item
-    this.socket.on('add item', function (data) {
-      UL.add_item(data);
-    });
-
     // new list
     this.socket.on('new list', function () {
       UL.clear_list();
@@ -43,6 +38,20 @@ var UL = {
     this.socket.on('load list', function (data) {
       UL.clear_list();
       UL.load_list(data);
+    });
+
+    // add item
+    this.socket.on('add item', function (data, list_title) {
+      if(list_title === UL.list_title.text()) {
+        UL.add_item(data);
+      }
+    });
+
+    // remove item
+    this.socket.on('remove item', function (id) {
+      UL.item_list.find('#' + id).fadeOut(300, function () {
+        $(this).remove();
+      });
     });
   },
 
@@ -115,9 +124,6 @@ var UL = {
   remove_item: function remove_item(id) {
 
     this.socket.emit('remove item', id);
-    this.item_list.find('#' + id).fadeOut(300, function(){
-      $(this).remove();
-    });
   },
 
   // update buttons
@@ -128,7 +134,7 @@ var UL = {
     this.clipboard = new ZeroClipboard($(this.clip_buttons.selector));
 
     // remove
-    $(this.remove_buttons.selector).on('click', $.proxy(function (e) {
+    $(this.remove_buttons.selector).on('click', $.proxy( function (e) {
       this.remove_item($(e.currentTarget).parent().attr('id'));
     }, this));
   }

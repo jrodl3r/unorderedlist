@@ -115,8 +115,9 @@ io.sockets.on('connection', function (socket) {
         doc.save( function (err) {
           if(err) {
             console.error(err);
+
           } else {
-            io.sockets.emit('add item', data);
+            io.sockets.emit('add item', data, socket.list_name);
           }
         });
       }
@@ -128,6 +129,9 @@ io.sockets.on('connection', function (socket) {
     List.update({ 'items._id': id }, { '$set': { 'items.$.active': false } }, function (err) {
       if(err) {
         console.error(err);
+
+      } else {
+        io.sockets.emit('remove item', id);
       }
     });
   });
