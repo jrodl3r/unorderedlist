@@ -8,15 +8,18 @@
 - 'add list input auto-complete'
 - 'add analytics'
 - 'add input overload detection (50 submits / 60s = 30s timeout)'
+- 'add boarding-process visual walkthrough queues ("add title", "add item", "delete", "copy", etc.)'
 
 ### NOW
-- 'add home icon + logic'
+- 'show copied notification on copy'
 - 'add page-load timestamp save/check logic'
-- 'add ZeroClipboard copy item button + logic (http://goo.gl/Z9N9YW)'
 - 'fix deleted-from-another-location view update bug'
 
 
 #### READY
+- 'add ZeroClipboard copy item button + logic'
+- 'add font-awesome icon support'
+- 'make logo link home + clear active list'
 - 'setup grunt build (sass, lint, watch)'
 - 'add icon/favicon'
 - 'setup UL namespace, add remove item button + logic'

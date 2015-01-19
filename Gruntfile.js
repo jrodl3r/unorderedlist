@@ -44,7 +44,8 @@ module.exports = function(grunt) {
           'debug': true,
           'log': true,
           'io': true,
-          '__dirname': false
+          '__dirname': false,
+          'ZeroClipboard': false
         }
       },
       files: ['Gruntfile.js', 'app.js', 'js/*.js']
