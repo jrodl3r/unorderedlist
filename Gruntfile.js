@@ -12,7 +12,7 @@ module.exports = function(grunt) {
           compass: true
         },
         files: {
-          'css/core.css': 'css/core.scss'
+          'public/css/core.css': 'public/css/core.scss'
         }
       }
     },
@@ -44,6 +44,7 @@ module.exports = function(grunt) {
           'debug': true,
           'log': true,
           'io': true,
+          'process': false,
           '__dirname': false,
           'ZeroClipboard': false
         }
@@ -65,7 +66,7 @@ module.exports = function(grunt) {
 
     watch: {
       sass: {
-        files: ['css/**/*.scss'],
+        files: ['public/css/**/*.scss'],
         tasks: ['sass:dist']
       },
       js: {

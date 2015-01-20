@@ -3,7 +3,7 @@
 // ==========================================================================
 'use strict';
 
-// Init
+// Config
 // --------------------------------------------------------------------------
 
 var express        = require('express'),
@@ -11,21 +11,23 @@ var express        = require('express'),
     favicon        = require('serve-favicon'),
     server         = require('http').createServer(app),
     io             = require('socket.io').listen(server),
-    mongoose       = require('mongoose');
+    mongoose       = require('mongoose'),
+    env            = process.env.NODE_ENV || 'development',
+    port           = process.env.PORT || 3000;
 
 
 // Connect
 // --------------------------------------------------------------------------
 
-server.listen(3000);
+server.listen(port);
 
-mongoose.connect('mongodb://localhost/ul', function (err) {
-  if(err) {
-    console.error(err);
-  } else {
-    console.log('...Connected to mongodb');
-  }
-});
+if (env === 'development') {
+  mongoose.connect('mongodb://localhost/ul');
+} else if (env === 'test') {
+  mongoose.connect('mongodb://' + process.env.TEST_MONGOLAB_HOST + '/ul');
+} else if (env === 'production') {
+  mongoose.connect('mongodb://' + process.env.MONGOLAB_URI + '/ul');
+}
 
 
 // Schema
@@ -44,17 +46,14 @@ var listSchema = mongoose.Schema({
           List = mongoose.model('List', listSchema);
 
 
-// Config
+// Routes
 // --------------------------------------------------------------------------
 
 app.get('/', function (req, res) {
   res.sendFile(__dirname + '/index.html');
 });
-app.use('/js', express.static(__dirname + '/js'));
-app.use('/img', express.static(__dirname + '/img'));
-app.use('/css', express.static(__dirname + '/css'));
-app.use('/fonts', express.static(__dirname + '/fonts'));
 app.use(favicon(__dirname + '/favicon.ico'));
+app.use('/public', express.static(__dirname + '/public'));
 
 // Events
 // --------------------------------------------------------------------------
