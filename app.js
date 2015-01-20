@@ -37,6 +37,12 @@ if (env === 'development') {
 app.get('/', function (req, res) {
   res.sendFile(__dirname + '/index.html');
 });
+
+app.get('/:list', function (req, res) {
+  res.sendFile(__dirname + '/index.html');
+  //console.log(req.params.list);
+});
+
 app.use(favicon(__dirname + '/favicon.ico'));
 app.use('/public', express.static(__dirname + '/public'));
 
@@ -64,7 +70,7 @@ io.sockets.on('connection', function (socket) {
 
           } else {
             socket.list_name = data;
-            socket.emit('new list');
+            socket.emit('new list', socket.list_name);
           }
         });
 
@@ -76,7 +82,7 @@ io.sockets.on('connection', function (socket) {
             console.error(err);
 
           } else {
-            socket.emit('load list', docs[0].items);
+            socket.emit('load list', socket.list_name, docs[0].items);
           }
         });
       }

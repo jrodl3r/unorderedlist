@@ -24,25 +24,28 @@ var UL = {
 
     this.sockets();
     this.interact();
+    this.check_url();
   },
 
   // setup socket/io
   sockets: function sockets() {
 
     // new list
-    this.socket.on('new list', function () {
+    this.socket.on('new list', function (title) {
       UL.clear_list();
+      UL.set_title(title);
     });
 
     // load list
-    this.socket.on('load list', function (data) {
+    this.socket.on('load list', function (title, data) {
       UL.clear_list();
+      UL.set_title(title);
       UL.load_list(data);
     });
 
     // add item
-    this.socket.on('add item', function (data, list_title) {
-      if(list_title === UL.list_title.text()) {
+    this.socket.on('add item', function (data, title) {
+      if(title === UL.list_title.text()) {
         UL.add_item(data);
       }
     });
@@ -80,6 +83,16 @@ var UL = {
     });
   },
 
+  // load list from url
+  check_url: function check_url() {
+
+    var title = decodeURI(document.URL.split('/')[3]);
+
+    if (title !== '') {
+      this.socket.emit('load list', title);
+    }
+  },
+
   // load list
   load_list: function load_list(list) {
 
@@ -97,7 +110,6 @@ var UL = {
   clear_list: function clear_list() {
 
     this.load_list_form.hide();
-    this.list_title.html(this.load_list_input.val()).css('visibility', 'visible');
     this.load_list_input.val('');
     this.add_item_form.show();
     this.new_item_input.focus();
@@ -124,6 +136,12 @@ var UL = {
   remove_item: function remove_item(id) {
 
     this.socket.emit('remove item', id);
+  },
+
+  // set title
+  set_title: function set_title(title) {
+
+    this.list_title.html(title).css('visibility', 'visible');
   },
 
   // update buttons
