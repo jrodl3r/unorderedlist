@@ -1,14 +1,26 @@
 ### LATER
 - 'add analytics'
-- 'add notification (copy, remove, etc)'
+- 'setup Heroku server'
+- 'setup custom domain UL.com linkage'
+- 'setup CodeShip/Travis CI build testing and deployment'
+- 'setup hotkeys (delete, copy, move-up, move-down, etc)'
 - 'setup content-type styles + logic (link, text, image, etc.)'
 - 'add input overload detection (50 submits / 60s = 30s timeout)'
-- 'add 1st-timer visual walkthrough (add title, add item, remove, copy, etc.)'
+- 'add text input watermark placeholder text (List Name, New Item)'
+- 'add visual walkthrough intro (add title, add item, remove, copy, etc.)'
+- 'add list history & item recovery layout + logic'
+- 'add notification (copy, remove, etc)'
+
 
 ### NOW
-- 'setup chrome button'
-- 'add chrome button download link'
+- 'setup chrome button extension'
+- 'setup services:'
+    - 'GET (http://UL.com/listname&latest)'
+    - 'POST (http://UL.com/listname&itemname)'
+    - 'LOAD (http://UL.com/listname)'
+- 'add download (chrome button) + share links'
 - 'setup jasmine node + core tests'
+- 'add License file'
 
 
 #### READY

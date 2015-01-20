@@ -22,20 +22,23 @@ We've all used these tools and methods for years, but they all tend to put us ri
 
 There's a few initial steps (see below) but after that it's a very simple process:
 
-1. **Computer A:** Copy your text/link » Click UL Button
-2. **Computer B:** Click UL Button » Paste away...
+1. **Source:** Copy Text » Tap Chrome Button
+2. **Target:** Tap Chrome Button » Paste Text
 
 That's it. You're done in two clicks - Painless and 100% free!
 
 
 ### Setup
 
-1. Go to [UnorderedList](http://unorderedlist.com) and click the download link to install the Chrome Button.
-2. Create an anonymous list by entering a title into the textbox.
+1. Head over to [UnorderedList.com](http://unorderedlist.com) and install the Chrome Button
+2. (Setup Chrome Button)
+3. Create a list by entering a title into the textbox.
 
-You're good to go after that - Just repeat the first step on your other computer(s) and load your list.
+You're good to go after that - Just repeat the process on your other devices.
 
-[UnorderedList](http://unorderedlist.com) works without the Chrome Button (If you're not looking to install anything). The Chrome Button just expedites the process by doing away with those extra clicks.
+[UnorderedList.com](http://unorderedlist.com) works without the Chrome Button (If you're not into to installing extensions). The Chrome Button just expedites the process by doing away with those extra clicks.
+
+Enjoy :cheers:
 
 
 ### License
