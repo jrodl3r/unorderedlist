@@ -1,10 +1,14 @@
 {
   "name": "UnorderedList",
   "version": "0.0.1",
+  "main": "app.js",
   "author": "John Rodler <john@jrod.io>",
   "repository": {
     "type": "git",
     "url": "git://github.com/jrodl3r/unorderedlist.git"
+  },
+  "engines": {
+    "node": "0.10.x"
   },
   "dependencies": {
     "express": "^4.11.0",
@@ -16,5 +20,6 @@
     "grunt-contrib-sass": "^0.8.1",
     "grunt-contrib-watch": "^0.6.1",
     "time-grunt": "^1.0.0"
-  }
+  },
+  "license": "MIT"
 }
