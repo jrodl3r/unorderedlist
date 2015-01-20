@@ -72,6 +72,9 @@ module.exports = function(grunt) {
         files: ['Gruntfile.js', 'app.js', 'js/*.js'],
         tasks: ['jshint'/*, 'jasmine'*/]
       },
+      html: {
+        files: ['index.html']
+      },
       options: {
         livereload: true
       }
