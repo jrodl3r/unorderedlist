@@ -12,6 +12,7 @@ var express        = require('express'),
     server         = require('http').createServer(app),
     io             = require('socket.io').listen(server),
     mongoose       = require('mongoose'),
+    List           = require('./models/list.js'),
     env            = process.env.NODE_ENV || 'development',
     port           = process.env.PORT || 3000;
 
@@ -30,22 +31,6 @@ if (env === 'development') {
 }
 
 
-// Schema
-// --------------------------------------------------------------------------
-
-var listSchema = mongoose.Schema({
-                   name: String,
-                   items: [{
-                     body: String,
-                     active: Boolean,
-                     _id: mongoose.Schema.Types.ObjectId,
-                     added: { type: Date, default: Date.now }
-                   }],
-                   date: { type: Date, default: Date.now }
-                 }),
-          List = mongoose.model('List', listSchema);
-
-
 // Routes
 // --------------------------------------------------------------------------
 
@@ -54,6 +39,7 @@ app.get('/', function (req, res) {
 });
 app.use(favicon(__dirname + '/favicon.ico'));
 app.use('/public', express.static(__dirname + '/public'));
+
 
 // Events
 // --------------------------------------------------------------------------

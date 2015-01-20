@@ -38,6 +38,7 @@ module.exports = function(grunt) {
         globalstrict: true,
         globals: {
           '$': false,
+          'module': true,
           'require': false,
           'console': false,
           'window': true,
@@ -49,7 +50,7 @@ module.exports = function(grunt) {
           'ZeroClipboard': false
         }
       },
-      files: ['Gruntfile.js', 'app.js', 'js/*.js']
+      files: ['Gruntfile.js', 'app.js', 'models/*.js', 'public/js/*.js']
     },
 
 
@@ -70,7 +71,7 @@ module.exports = function(grunt) {
         tasks: ['sass:dist']
       },
       js: {
-        files: ['Gruntfile.js', 'app.js', 'js/*.js'],
+        files: ['Gruntfile.js', 'app.js', 'models/*.js', 'public/js/*.js'],
         tasks: ['jshint'/*, 'jasmine'*/]
       },
       html: {
@@ -101,5 +102,4 @@ module.exports = function(grunt) {
   // Show Timer
   // ----------------------------------------------------------
   require('time-grunt')(grunt);
-
 };
