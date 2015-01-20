@@ -41,7 +41,7 @@ app.use(favicon(__dirname + '/favicon.ico'));
 app.use('/public', express.static(__dirname + '/public'));
 
 
-// Events
+// Sockets
 // --------------------------------------------------------------------------
 
 io.sockets.on('connection', function (socket) {
