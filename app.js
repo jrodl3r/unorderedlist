@@ -43,7 +43,7 @@ app.get('/:list', function (req, res) {
   res.sendFile(__dirname + '/index.html');
 });
 
-// get latest item
+// get list item (added in last 30min)
 app.get('/get/:list', function (req, res) {
   List.aggregate(
     { $match: { name: req.params.list }},
@@ -51,12 +51,19 @@ app.get('/get/:list', function (req, res) {
     { $match: { 'items.active': true }},
     { $sort: { 'items.added': -1 }},
     { $limit: 1 }, function (err, result) {
-      if(err) {
+      if (err) {
         res.status(500);
         res.send(err);
 
       } else {
-        res.send(result[0].items.body);
+        var item_added = result[0].items.added,
+            item_body  = result[0].items.body;
+
+        if (get_item_timer(item_added)) {
+          res.send(item_body);
+        } else {
+          res.send('NO_RECENT_ITEM');
+        }
       }
   });
 });
@@ -81,7 +88,7 @@ io.sockets.on('connection', function (socket) {
   // load list
   socket.on('load list', function (data) {
     List.find({ name : data }, function (err, doc) {
-      if(err) {
+      if (err) {
         console.error(err);
 
       // create new
@@ -101,7 +108,7 @@ io.sockets.on('connection', function (socket) {
       } else {
         socket.list_name = data;
         List.find({ name: socket.list_name }, function (err, docs) {
-          if(err) {
+          if (err) {
             console.error(err);
 
           } else {
@@ -115,7 +122,7 @@ io.sockets.on('connection', function (socket) {
   // add item
   socket.on('add item', function (data) {
     List.findOne({ name: socket.list_name }, function (err, doc) {
-      if(err) {
+      if (err) {
         console.error(err);
 
       } else {
@@ -127,7 +134,7 @@ io.sockets.on('connection', function (socket) {
         };
         doc.items.push(data);
         doc.save( function (err) {
-          if(err) {
+          if (err) {
             console.error(err);
 
           } else {
@@ -141,7 +148,7 @@ io.sockets.on('connection', function (socket) {
   // remove item (set inactive)
   socket.on('remove item', function (id) {
     List.update({ 'items._id': id }, { '$set': { 'items.$.active': false } }, function (err) {
-      if(err) {
+      if (err) {
         console.error(err);
 
       } else {
@@ -156,3 +163,15 @@ io.sockets.on('connection', function (socket) {
   });
 
 });
+
+
+// Helpers
+//
+
+function get_item_timer(added) {
+
+  var now   = new Date,
+      elaps = (now.getTime() - added.getTime()) / 1000 / 60;
+
+  return elaps < 30 ? true : false;
+}
