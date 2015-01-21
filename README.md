@@ -31,8 +31,9 @@ That's it. You're done in two clicks - Painless and 100% free!
 ### Setup
 
 1. Head over to [UnorderedList.com](http://unorderedlist.com) and create a new list
-2. Install the Chrome Button by clicking the download link
-3. Setup the Chrome Button by adding a list title (and optionally mapping a hotkey)
+2. Install the Chrome Button by clicking the download
+3. Setup the Chrome Button by right-clicking and selecting settings
+4. Enter your list title (and optional hotkey)
 
 You're good to go after that - Just repeat the process on your other devices.
 
