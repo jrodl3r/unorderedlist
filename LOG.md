@@ -22,10 +22,10 @@
 - 'setup list name validation (for proper encoding)'
 - 'add download (chrome button) + share links'
 - 'setup jasmine node + core tests'
-- 'add License file'
 
 
 #### READY
+- 'add License file'
 - 'setup Heroku server + domain linkage'
 - 'fix add/remove item emitter logic'
 - 'add ZeroClipboard copy item button + logic'
