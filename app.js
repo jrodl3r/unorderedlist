@@ -35,6 +35,7 @@ if (env === 'development') {
 // Routes
 // --------------------------------------------------------------------------
 
+// default
 app.get('/', function (req, res) {
   res.sendFile(__dirname + '/index.html');
 });
@@ -44,7 +45,7 @@ app.get('/:list', function (req, res) {
   res.sendFile(__dirname + '/index.html');
 });
 
-// get list item (added in last 30min)
+// get latest item (<30min)
 app.get('/get/:list', function (req, res) {
   List.aggregate(
     { $match: { name: req.params.list }},
@@ -72,28 +73,13 @@ app.get('/get/:list', function (req, res) {
 // post list item
 app.post('/:list', parser, function (req, res) {
   List.findOne({ name: req.params.list }, function (err, result) {
-    if (err) {
+    if (err || !result) {
       res.status(500);
-      res.send(err);
+      res.send('ERROR');
 
     } else {
-      var data = {
-        body: req.body.item,
-        active: true,
-        _id: new mongoose.Types.ObjectId,
-        added: new Date
-      };
-      result.items.push(data);
-      result.save( function (err) {
-        if (err) {
-          res.status(500);
-          res.send(err);
-
-        } else {
-          io.sockets.emit('add item', data, req.params.list);
-          res.send('ITEM_ADDED');
-        }
-      });
+      insert_item(req.body.item, result);
+      res.send('ITEM_ADDED');
     }
   });
 });
@@ -119,6 +105,7 @@ io.sockets.on('connection', function (socket) {
       // create new
       } else if (!doc.length) {
         var new_list = new List({ name: data });
+
         new_list.save( function (err) {
           if (err) {
             console.error(err);
@@ -145,27 +132,13 @@ io.sockets.on('connection', function (socket) {
   });
 
   // add item
-  socket.on('add item', function (data) {
+  socket.on('add item', function (item) {
     List.findOne({ name: socket.list_name }, function (err, doc) {
       if (err) {
         console.error(err);
 
       } else {
-        data = {
-          body: data,
-          active: true,
-          _id: new mongoose.Types.ObjectId,
-          added: new Date
-        };
-        doc.items.push(data);
-        doc.save( function (err) {
-          if (err) {
-            console.error(err);
-
-          } else {
-            io.sockets.emit('add item', data, socket.list_name);
-          }
-        });
+        insert_item(item, doc);
       }
     });
   });
@@ -191,12 +164,34 @@ io.sockets.on('connection', function (socket) {
 
 
 // Helpers
-//
+// --------------------------------------------------------------------------
 
+// get item timer (30min)
 function get_item_timer(added) {
 
   var now   = new Date,
       elaps = (now.getTime() - added.getTime()) / 1000 / 60;
 
   return elaps < 30 ? true : false;
+}
+
+// insert list item
+function insert_item(item, list) {
+
+  var data = {
+    body: item,
+    active: true,
+    _id: new mongoose.Types.ObjectId,
+    added: new Date
+  };
+
+  list.items.push(data);
+  list.save( function (err) {
+    if (err) {
+      console.error('err');
+
+    } else {
+      io.sockets.emit('add item', data, list.name);
+    }
+  });
 }

@@ -13,17 +13,16 @@
 
 
 #### NOW
-- 'setup chrome button extension'
-- setup services:
-    - ✓ 'GET (http://UL.com/get/listname)'
-    - ✓ 'POST (http://UL.com/listname&itemname)'
-    - ✓ 'LOAD (http://UL.com/listname)'
+- setup chrome button extension:
+  - [TEST] curl -d '{"item":"toot"}' -H "Content-Type: application/json" http://localhost:3000/foo
+  - [TEST] curl -d '{"item":"toot"}' -H "Content-Type: application/json" http://unorderedlist.com/foo
 - 'setup list name validation (for proper encoding)'
-- 'add download (chrome button) + share [use: encodeURI(URI)] links'
+- 'add download chrome button + share `encodeURI(URI)` links'
 - 'setup jasmine node + core tests'
 
 
 #### READY
+- 'setup services GET (/get/:listname), LOAD (/:listname), POST (/:listname + {item:content})'
 - 'add License file'
 - 'setup Heroku server + domain linkage'
 - 'fix add/remove item emitter logic'
