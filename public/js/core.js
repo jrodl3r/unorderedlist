@@ -58,7 +58,7 @@ var UL = {
     });
   },
 
-  // setup interactions
+  // user interaction
   interact: function interact() {
 
     // focus input
@@ -81,6 +81,19 @@ var UL = {
         UL.socket.emit('add item', item);
       }
     });
+  },
+
+  // update buttons
+  update_buttons: function update_buttons() {
+
+    // clipboard
+    ZeroClipboard.destroy();
+    this.clipboard = new ZeroClipboard($(this.clip_buttons.selector));
+
+    // remove
+    $(this.remove_buttons.selector).on('click', $.proxy( function (e) {
+      this.remove_item($(e.currentTarget).parent().attr('id'));
+    }, this));
   },
 
   // load list from url
@@ -142,19 +155,6 @@ var UL = {
   set_title: function set_title(title) {
 
     this.list_title.html(title).css('visibility', 'visible');
-  },
-
-  // update buttons
-  update_buttons: function update_buttons() {
-
-    // clipboard
-    ZeroClipboard.destroy();
-    this.clipboard = new ZeroClipboard($(this.clip_buttons.selector));
-
-    // remove
-    $(this.remove_buttons.selector).on('click', $.proxy( function (e) {
-      this.remove_item($(e.currentTarget).parent().attr('id'));
-    }, this));
   }
 };
 

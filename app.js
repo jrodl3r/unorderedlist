@@ -38,10 +38,33 @@ app.get('/', function (req, res) {
   res.sendFile(__dirname + '/index.html');
 });
 
+// load shared url list
 app.get('/:list', function (req, res) {
   res.sendFile(__dirname + '/index.html');
-  //console.log(req.params.list);
 });
+
+// get latest item
+app.get('/get/:list', function (req, res) {
+  List.aggregate(
+    { $match: { name: req.params.list }},
+    { $unwind: '$items' },
+    { $match: { 'items.active': true }},
+    { $sort: { 'items.added': -1 }},
+    { $limit: 1 }, function (err, result) {
+      if(err) {
+        res.status(500);
+        res.send(err);
+
+      } else {
+        res.send(result[0].items.body);
+      }
+  });
+});
+
+// post new item
+//app.post('/:list', function (req, res) {
+
+//});
 
 app.use(favicon(__dirname + '/favicon.ico'));
 app.use('/public', express.static(__dirname + '/public'));
@@ -57,7 +80,7 @@ io.sockets.on('connection', function (socket) {
 
   // load list
   socket.on('load list', function (data) {
-    List.find({ 'name' : data }, function (err, doc) {
+    List.find({ name : data }, function (err, doc) {
       if(err) {
         console.error(err);
 
@@ -115,7 +138,7 @@ io.sockets.on('connection', function (socket) {
     });
   });
 
-  // remove item (mark inactive)
+  // remove item (set inactive)
   socket.on('remove item', function (id) {
     List.update({ 'items._id': id }, { '$set': { 'items.$.active': false } }, function (err) {
       if(err) {

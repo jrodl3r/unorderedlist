@@ -1,7 +1,5 @@
 ### LATER
 - 'add analytics'
-- 'setup Heroku server'
-- 'setup custom domain UL.com linkage'
 - 'setup CodeShip/Travis CI build testing and deployment'
 - 'setup hotkeys (delete, copy, move-up, move-down, etc)'
 - 'setup content-type styles + logic (link, text, image, etc.)'
@@ -10,20 +8,24 @@
 - 'add visual walkthrough intro (add title, add item, remove, copy, etc.)'
 - 'add list history & item recovery layout + logic'
 - 'add notification (copy, remove, etc)'
+- 'update URL on new list creation'
 
 
 ### NOW
 - 'setup chrome button extension'
-- 'setup services:'
-    - 'GET (http://UL.com/listname&latest)'
+- setup services:
+    - ✓ 'GET (http://UL.com/get/listname)'
     - 'POST (http://UL.com/listname&itemname)'
-    - 'LOAD (http://UL.com/listname)'
+    - ✓ 'LOAD (http://UL.com/listname)'
+    - 'SHARE » encodeURI(URI)'
+- 'setup list name validation (for proper encoding)'
 - 'add download (chrome button) + share links'
 - 'setup jasmine node + core tests'
 - 'add License file'
 
 
 #### READY
+- 'setup Heroku server + domain linkage'
 - 'fix add/remove item emitter logic'
 - 'add ZeroClipboard copy item button + logic'
 - 'add font-awesome icon support'
