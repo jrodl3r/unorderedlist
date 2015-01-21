@@ -8,9 +8,10 @@
 
 var express        = require('express'),
     app            = express(),
-    favicon        = require('serve-favicon'),
+    parser         = require('body-parser').json(),
     server         = require('http').createServer(app),
     io             = require('socket.io').listen(server),
+    favicon        = require('serve-favicon'),
     mongoose       = require('mongoose'),
     List           = require('./models/list.js'),
     env            = process.env.NODE_ENV || 'development',
@@ -68,10 +69,34 @@ app.get('/get/:list', function (req, res) {
   });
 });
 
-// post new item
-//app.post('/:list', function (req, res) {
+// post list item
+app.post('/:list', parser, function (req, res) {
+  List.findOne({ name: req.params.list }, function (err, result) {
+    if (err) {
+      res.status(500);
+      res.send(err);
 
-//});
+    } else {
+      var data = {
+        body: req.body.item,
+        active: true,
+        _id: new mongoose.Types.ObjectId,
+        added: new Date
+      };
+      result.items.push(data);
+      result.save( function (err) {
+        if (err) {
+          res.status(500);
+          res.send(err);
+
+        } else {
+          io.sockets.emit('add item', data, req.params.list);
+          res.send('ITEM_ADDED');
+        }
+      });
+    }
+  });
+});
 
 app.use(favicon(__dirname + '/favicon.ico'));
 app.use('/public', express.static(__dirname + '/public'));

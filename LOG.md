@@ -16,11 +16,10 @@
 - 'setup chrome button extension'
 - setup services:
     - ✓ 'GET (http://UL.com/get/listname)'
-    - 'POST (http://UL.com/listname&itemname)'
+    - ✓ 'POST (http://UL.com/listname&itemname)'
     - ✓ 'LOAD (http://UL.com/listname)'
-    - 'SHARE » encodeURI(URI)'
 - 'setup list name validation (for proper encoding)'
-- 'add download (chrome button) + share links'
+- 'add download (chrome button) + share [use: encodeURI(URI)] links'
 - 'setup jasmine node + core tests'
 
 
