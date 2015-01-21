@@ -6,7 +6,8 @@
 var UL = {
 
   socket            : io.connect(),
-  list_title        : $('#list-title'),
+  container         : $('#app'),
+  list_title        : $('#list-title span'),
   load_list_form    : $('#load-list-form'),
   load_list_input   : $('#load-list-input'),
   new_list_button   : $('#new-list-button'),
@@ -63,6 +64,11 @@ var UL = {
 
     // focus input
     this.load_list_input.focus();
+
+    // clipboard hover fix
+    this.container.on('mouseover', function () {
+      UL.clip_buttons.removeClass('zeroclipboard-is-hover');
+    });
 
     // load list
     this.load_list_form.submit( function (e) {
@@ -134,7 +140,7 @@ var UL = {
 
     var remove = '<div class="remove fa fa-trash-o"></div>',
           clip = '<div class="clip fa fa-paperclip" data-clipboard-text="' + item.body + '"></div>',
-            li = '<li id="' + item._id + '" tabindex="1">' + item.body + clip + remove + '</li>';
+            li = '<li id="' + item._id + '" tabindex="1"><span>' + item.body + '</span>' + clip + remove + '</li>';
 
     if (order === 'flip') {
       this.item_list.append(li);

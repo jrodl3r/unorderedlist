@@ -2,6 +2,11 @@
   box-sizing: border-box;
 }
 
+body, #app {
+  -webkit-user-select: none;
+  user-select: none;
+}
+
 #app {
   display: block;
   width: 60%;
@@ -44,6 +49,10 @@ h1 span {
   text-transform: capitalize;
   line-height: 30px;
   cursor: default;
+}
+#list-title span {
+  -webkit-user-select: initial;
+  user-select: initial;
 }
 
 form {
@@ -104,6 +113,12 @@ form input[type=submit]:focus {
   background: #FBFBFB;
   border-radius: 5px;
   transition: all .2s;
+  -webkit-user-select: none;
+  user-select: none;
+}
+#item-list li span {
+  -webkit-user-select: initial;
+  user-select: initial;
 }
 #item-list li .remove, #item-list li .clip {
   z-index: 2;
