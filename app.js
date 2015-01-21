@@ -84,8 +84,8 @@ app.post('/:list', parser, function (req, res) {
   });
 });
 
-app.use(favicon(__dirname + '/favicon.ico'));
 app.use('/public', express.static(__dirname + '/public'));
+app.use(favicon(__dirname + '/public/favicon.ico'));
 
 
 // Sockets
