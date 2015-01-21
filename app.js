@@ -97,28 +97,28 @@ io.sockets.on('connection', function (socket) {
   console.log('User Connected - ' + new Date());
 
   // load list
-  socket.on('load list', function (data) {
-    List.find({ name : data }, function (err, doc) {
+  socket.on('load list', function (list_name) {
+    List.find({ name : list_name }, function (err, doc) {
       if (err) {
         console.error(err);
 
       // create new
       } else if (!doc.length) {
-        var new_list = new List({ name: data });
+        var new_list = new List({ name: list_name });
 
         new_list.save( function (err) {
           if (err) {
             console.error(err);
 
           } else {
-            socket.list_name = data;
+            socket.list_name = list_name;
             socket.emit('new list', socket.list_name);
           }
         });
 
       // load history
       } else {
-        socket.list_name = data;
+        socket.list_name = list_name;
         List.find({ name: socket.list_name }, function (err, docs) {
           if (err) {
             console.error(err);
@@ -159,7 +159,6 @@ io.sockets.on('connection', function (socket) {
   socket.on('disconnect', function () {
     console.log('User Disconnected - ' + new Date());
   });
-
 });
 
 

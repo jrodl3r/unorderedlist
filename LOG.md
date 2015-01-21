@@ -16,8 +16,8 @@
 - setup chrome button extension:
   - [TEST] curl -d '{"item":"toot"}' -H "Content-Type: application/json" http://localhost:3000/foo
   - [TEST] curl -d '{"item":"toot"}' -H "Content-Type: application/json" http://unorderedlist.com/foo
-- 'setup list name validation (for proper encoding)'
-- 'add download chrome button + share `encodeURI(URI)` links'
+- 'setup list name validation'
+- 'add download chrome button + share [encodeURI(...)] links'
 - 'setup jasmine node + core tests'
 
 
