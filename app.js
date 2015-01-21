@@ -38,7 +38,7 @@ app.get('/', function (req, res) {
   res.sendFile(__dirname + '/index.html');
 });
 
-// load shared url list
+// load shared list
 app.get('/:list', function (req, res) {
   res.sendFile(__dirname + '/index.html');
 });

@@ -38,7 +38,7 @@ You're good to go after that - Just repeat the process on your other devices.
 
 [UnorderedList.com](http://unorderedlist.com) works without the Chrome Button (If you're not into to installing extensions). The Chrome Button just expedites the process by doing away with those extra clicks.
 
-Enjoy :cheers:
+**Enjoy** :beers:
 
 
 ### License

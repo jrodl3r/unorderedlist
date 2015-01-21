@@ -1,4 +1,4 @@
-### LATER
+#### LATER
 - 'add analytics'
 - 'setup CodeShip/Travis CI build testing and deployment'
 - 'setup hotkeys (delete, copy, move-up, move-down, etc)'
@@ -8,10 +8,11 @@
 - 'add visual walkthrough intro (add title, add item, remove, copy, etc.)'
 - 'add list history & item recovery layout + logic'
 - 'add notification (copy, remove, etc)'
-- 'update URL on new list creation'
+- 'update browser URL on new list creation'
+- 'setup responsive layout + styles'
 
 
-### NOW
+#### NOW
 - 'setup chrome button extension'
 - setup services:
     - ✓ 'GET (http://UL.com/get/listname)'
