@@ -131,6 +131,7 @@ form {
     user-select: none;
 
     span {
+      cursor: pointer;
       -webkit-user-select: initial;
       user-select: initial;
     }

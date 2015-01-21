@@ -16,6 +16,7 @@ var UL = {
   add_item_button   : $('#add-item-button'),
   new_item_input    : $('#new-item-input'),
   item_list         : $('#item-list'),
+  item_content      : $('#item-list li span'),
   remove_buttons    : $('#item-list li .remove'),
   clip_buttons      : $('#item-list li .clip'),
   clipboard         : null,
@@ -65,15 +66,11 @@ var UL = {
     // focus input
     this.load_list_input.focus();
 
-    // clipboard hover fix
-    this.container.on('mouseover', function () {
-      UL.clip_buttons.removeClass('zeroclipboard-is-hover');
-    });
-
     // load list
     this.load_list_form.submit( function (e) {
-      e.preventDefault();
       var title = UL.load_list_input.val().trim().toLowerCase();
+
+      e.preventDefault();
       if (title !== '') {
         UL.socket.emit('load list', title);
       }
@@ -81,8 +78,9 @@ var UL = {
 
     // submit item
     this.add_item_form.submit( function (e) {
-      e.preventDefault();
       var item = UL.new_item_input.val().trim();
+
+      e.preventDefault();
       if (item !== '') {
         UL.socket.emit('add item', item);
       }
@@ -96,10 +94,30 @@ var UL = {
     ZeroClipboard.destroy();
     this.clipboard = new ZeroClipboard($(this.clip_buttons.selector));
 
+    // clipboard hover fix
+    this.container.on('mouseover', function () {
+      $(UL.clip_buttons.selector).removeClass('zeroclipboard-is-hover');
+    });
+
     // remove
     $(this.remove_buttons.selector).on('click', $.proxy( function (e) {
       this.remove_item($(e.currentTarget).parent().attr('id'));
     }, this));
+
+    // spans
+    $(this.item_content.selector).click( function () {
+      var range, selection;
+
+      if (window.getSelection && document.createRange) {
+        selection = window.getSelection();
+        range = document.createRange();
+        range.selectNodeContents($(this)[0]);
+        selection.removeAllRanges();
+        selection.addRange(range);
+      } else if (document.selection && document.body.createTextRange) {
+        range = document.body.createTextRange();
+      }
+    });
   },
 
   // load list from url
