@@ -3,6 +3,8 @@
 // ==========================================================================
 
 * {
+  margin: 0;
+  padding: 0;
   box-sizing: border-box;
 }
 
@@ -46,6 +48,10 @@ h1 {
   & span {
     color: gray;
   }
+}
+
+ul {
+  list-style: none;
 }
 
 #list-title {
@@ -112,7 +118,6 @@ form {
   min-width: 420px;
   margin: 20px auto;
   padding: 30px;
-  list-style-type: none;
 
   & li {
     position: relative;
@@ -131,7 +136,6 @@ form {
     user-select: none;
 
     span {
-      cursor: pointer;
       -webkit-user-select: initial;
       user-select: initial;
     }
@@ -178,6 +182,36 @@ form {
       box-shadow: inset 0 0 15px rgba(0,0,0,0.025);
       background: #F8F8F8;
       outline: none;
+    }
+  }
+}
+
+#nav {
+  z-index: 99;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  height: 40px;
+  text-align: center;
+  background: #FFF;
+  border-top: 1px solid #EEE;
+
+  li {
+    display: inline;
+    padding-right: 15px;
+    height: 40px;
+    line-height: 40px;
+
+    a {
+      color: gray;
+      font-family: Helvetica;
+      color: #999;
+      font-size: 12px;
+
+      &:hover {
+        color: slategray;
+        border-bottom: 2px solid fuchsia;
+      }
     }
   }
 }
