@@ -26,11 +26,11 @@ var UL = {
   init: function init() {
 
     this.sockets();
-    this.interact();
-    this.check_url();
+    this.init_events();
+    this.process_url();
   },
 
-  // setup socket/io
+  // setup socket handlers
   sockets: function sockets() {
 
     // new list
@@ -63,8 +63,8 @@ var UL = {
     });
   },
 
-  // user interaction
-  interact: function interact() {
+  // setup events
+  init_events: function init_events() {
 
     // focus input
     this.load_list_input.focus();
@@ -90,8 +90,8 @@ var UL = {
     });
   },
 
-  // update buttons
-  update_buttons: function update_buttons() {
+  // update events (after item add/remove)
+  update_events: function update_events() {
 
     // clipboard
     ZeroClipboard.destroy();
@@ -103,9 +103,9 @@ var UL = {
     });
 
     // remove
-    $(this.remove_buttons.selector).on('click', $.proxy( function (e) {
-      this.remove_item($(e.currentTarget).parent().attr('id'));
-    }, this));
+    $(this.remove_buttons.selector).on('click', function () {
+      UL.remove_item($(this).parent().attr('id'));
+    });
 
     // spans
     $(this.item_content.selector).click( function () {
@@ -123,10 +123,10 @@ var UL = {
     });
   },
 
-  // load list from url
-  check_url: function check_url() {
+  // load/create list from url
+  process_url: function check_url() {
 
-    var title = decodeURI(document.URL.split('/')[3]).toLowerCase();
+    var title = decodeURI(location.pathname.substr(1)).toLowerCase();
 
     if (title !== '') {
       this.socket.emit('load list', title);
@@ -143,7 +143,7 @@ var UL = {
         this.add_item(list[i], 'flip');
       }
     }
-    this.update_buttons();
+    this.update_events();
   },
 
   // clear list
@@ -169,7 +169,7 @@ var UL = {
     } else {
       this.item_list.prepend(li);
       this.new_item_input.val('');
-      this.update_buttons();
+      this.update_events();
     }
   },
 
@@ -188,7 +188,7 @@ var UL = {
   // add share link to nav
   add_share_link: function build_url() {
 
-    var link = 'http://' + document.URL.split('/')[2] + '/' + encodeURI(this.list_title.text());
+    var link = 'http://' + location.host + '/' + encodeURI(this.list_title.text());
 
     $('<li></li>').append($('<a>Share</a>').attr({ 'id': 'share', 'href': link })).prependTo(this.menu_bar);
   }
