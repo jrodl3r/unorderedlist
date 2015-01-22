@@ -10,4 +10,5 @@ Thumbs.db
 #ENV
 /node_modules
 /img
+/public/css/*.css*
 .sass-cache
