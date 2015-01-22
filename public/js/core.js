@@ -7,6 +7,7 @@ var UL = {
 
   socket            : io.connect(),
   container         : $('#app'),
+  menu_bar          : $('#nav'),
   list_title        : $('#list-title span'),
   load_list_form    : $('#load-list-form'),
   load_list_input   : $('#load-list-input'),
@@ -36,6 +37,7 @@ var UL = {
     this.socket.on('new list', function (title) {
       UL.clear_list();
       UL.set_title(title);
+      UL.add_share_link();
     });
 
     // load list
@@ -43,6 +45,7 @@ var UL = {
       UL.clear_list();
       UL.set_title(title);
       UL.load_list(data);
+      UL.add_share_link();
     });
 
     // add item
@@ -123,7 +126,7 @@ var UL = {
   // load list from url
   check_url: function check_url() {
 
-    var title = decodeURI(document.URL.split('/')[3]);
+    var title = decodeURI(document.URL.split('/')[3]).toLowerCase();
 
     if (title !== '') {
       this.socket.emit('load list', title);
@@ -156,9 +159,10 @@ var UL = {
   // add item
   add_item: function add_item(item, order) {
 
-    var remove = '<div class="remove fa fa-trash-o"></div>',
-          clip = '<div class="clip fa fa-paperclip" data-clipboard-text="' + item.body + '"></div>',
-            li = '<li id="' + item._id + '" tabindex="1"><span>' + item.body + '</span>' + clip + remove + '</li>';
+    var li = $('<li></li>', { 'id': item._id, 'tabindex': 1 }).append(
+             $('<span>' + item.body + '</span>'),
+             $('<div></div>', { 'class': 'remove fa fa-trash-o' }),
+             $('<div></div>', { 'class': 'clip fa fa-paperclip', 'data-clipboard-text': item.body }));
 
     if (order === 'flip') {
       this.item_list.append(li);
@@ -179,6 +183,14 @@ var UL = {
   set_title: function set_title(title) {
 
     this.list_title.html(title).css('visibility', 'visible');
+  },
+
+  // add share link to nav
+  add_share_link: function build_url() {
+
+    var link = 'http://' + document.URL.split('/')[2] + '/' + encodeURI(this.list_title.text());
+
+    $('<li></li>').append($('<a>Share</a>').attr({ 'id': 'share', 'href': link })).prependTo(this.menu_bar);
   }
 };
 
