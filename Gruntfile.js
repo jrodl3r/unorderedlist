@@ -99,6 +99,7 @@ module.exports = function(grunt) {
   // ----------------------------------------------------------
   grunt.registerTask('default', ['sass:dist', 'jshint']);
   grunt.registerTask('dev', ['sass:dist', 'jshint', 'watch']);
+  grunt.registerTask('heroku', ['sass:dist']);
 
 
   // Show Timer
