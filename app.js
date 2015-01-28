@@ -37,7 +37,7 @@ if (env === 'development') {
 
 // default
 app.get('/', function (req, res) {
-  res.sendFile(__dirname + '/index.html');
+  res.sendFile(__dirname + '/public/index.html');
 });
 
 // jasmine testing
@@ -54,7 +54,7 @@ if (env === 'development') {
 
 // load shared list
 app.get('/:list', function (req, res) {
-  res.sendFile(__dirname + '/index.html');
+  res.sendFile(__dirname + '/public/index.html');
 });
 
 // get latest item (<30min)

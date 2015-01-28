@@ -13,5 +13,4 @@ Thumbs.db
 /public/css/*.css*
 .sass-cache
 .grunt
-index.html
 _SpecRunner.html

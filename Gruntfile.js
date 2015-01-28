@@ -8,10 +8,22 @@ module.exports = function(grunt) {
   grunt.initConfig({
 
     sass: {
-      dist: {
+      dev: {
         options: {
           style: 'expanded',
-          compass: true
+          compass: true,
+          //require: ['breakpoint']
+        },
+        files: {
+          'public/css/core.css': 'public/css/core.scss'
+        }
+      },
+      dist: {
+        options: {
+          style: 'compressed',
+          compass: true,
+          //require: ['breakpoint'],
+          sourcemap: 'none'
         },
         files: {
           'public/css/core.css': 'public/css/core.scss'
@@ -72,7 +84,7 @@ module.exports = function(grunt) {
     preprocess: {
       html : {
         src : 'template/index.html',
-        dest : 'index.html'
+        dest : 'public/index.html'
       }
     },
 
@@ -113,8 +125,9 @@ module.exports = function(grunt) {
 
   // Register Tasks
   // ----------------------------------------------------------
-  grunt.registerTask('default', ['sass:dist', 'jshint', 'preprocess', 'jasmine']);
-  grunt.registerTask('dev', ['sass:dist', 'jshint', 'preprocess', 'watch']);
+  grunt.registerTask('default', ['sass:dev', 'jshint', 'preprocess', 'jasmine']);
+  grunt.registerTask('dev', ['sass:dev', 'jshint', 'preprocess', 'watch']);
+  grunt.registerTask('dist', ['sass:dist', 'jshint', 'preprocess']);
   grunt.registerTask('test', ['jshint', 'jasmine']);
   grunt.registerTask('heroku', ['sass:dist', 'preprocess']);
 
