@@ -69,6 +69,14 @@ module.exports = function(grunt) {
     },
 
 
+    preprocess: {
+      html : {
+        src : 'template/index.html',
+        dest : 'index.html'
+      }
+    },
+
+
     watch: {
       sass: {
         files: ['public/css/**/*.scss'],
@@ -83,7 +91,8 @@ module.exports = function(grunt) {
         tasks: ['test']
       },
       html: {
-        files: ['index.html']
+        files: ['template/index.html', 'inc/*.html'],
+        tasks: ['preprocess']
       },
       options: {
         livereload: true
@@ -99,12 +108,13 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-sass');
   grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-contrib-jasmine');
+  grunt.loadNpmTasks('grunt-preprocess');
 
 
   // Register Tasks
   // ----------------------------------------------------------
-  grunt.registerTask('default', ['sass:dist', 'jshint', 'jasmine']);
-  grunt.registerTask('dev', ['sass:dist', 'jshint', 'watch']);
+  grunt.registerTask('default', ['sass:dist', 'jshint', 'preprocess', 'jasmine']);
+  grunt.registerTask('dev', ['sass:dist', 'jshint', 'preprocess', 'watch']);
   grunt.registerTask('test', ['jshint', 'jasmine']);
   grunt.registerTask('heroku', ['sass:dist']);
 
@@ -112,4 +122,5 @@ module.exports = function(grunt) {
   // Show Timer
   // ----------------------------------------------------------
   require('time-grunt')(grunt);
+
 };
