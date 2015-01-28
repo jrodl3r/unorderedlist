@@ -1,6 +1,13 @@
 #UnorderedList
 _[under construction]_
 
+/*[![Travis branch](https://img.shields.io/travis/joyent/node/v0.6.svg?style=flat)]()
+[![node](https://img.shields.io/node/v/gh-badges.svg?style=flat)]()
+[![dependencies](https://david-dm.org/jrodl3r/unorderedlist.svg)]()
+[![GitHub release](https://img.shields.io/github/release/qubyte/rubidium.svg?style=flat)]()
+[![npm](https://img.shields.io/npm/l/express.svg?style=flat)]()*/
+
+
 If you work with multiple computers, eventually you'll find yourself needing to copy something from one to the other. If it's just a file or folder then Dropbox (or SpiderOak, etc.) will work perfectly. But what if it's just a little piece of text or a link?
 
 **There certainly are tools available to help us:**

@@ -3,14 +3,14 @@
 // ==========================================================================
 'use strict';
 
-jasmine.getFixtures().fixturesPath = 'inc';
+jasmine.getFixtures().fixturesPath = 'tmpl/inc';
 
 var spyEvent;
 
 describe('Page Elements', function () {
 
   beforeEach( function () {
-    loadFixtures('index.html');
+    loadFixtures('home.html');
   });
 
   it('are ready and loaded into the DOM', function () {
@@ -34,7 +34,7 @@ describe('Page Elements', function () {
 describe('Entering a List Name', function () {
 
   beforeEach( function () {
-    loadFixtures('index.html');
+    loadFixtures('home.html');
     UL.load_list_button = $(UL.load_list_button.selector);
     spyEvent = spyOnEvent(UL.load_list_button.selector, 'click');
     spyOn(UL, 'submit_list').and.callFake( function() {
@@ -57,7 +57,7 @@ describe('Entering a List Name', function () {
 describe('Update View', function () {
 
   beforeEach( function () {
-    loadFixtures('index.html');
+    loadFixtures('home.html');
     UL.load_list_form  = $(UL.load_list_form.selector);
     UL.load_list_input = $(UL.load_list_input.selector);
     UL.add_item_form   = $(UL.add_item_form.selector);
@@ -94,7 +94,7 @@ describe('Update View', function () {
 describe('Set Title', function () {
 
   beforeEach( function () {
-    loadFixtures('index.html');
+    loadFixtures('home.html');
     UL.list_title = $(UL.list_title.selector);
     UL.set_title('Title Name');
   });
@@ -109,7 +109,7 @@ describe('Set Title', function () {
 describe('Add Share Link', function () {
 
   beforeEach( function () {
-    loadFixtures('index.html');
+    loadFixtures('home.html');
     // add_share_link()
     // var link = 'http://' + location.host + '/' + encodeURI(this.list_title.text());
     // $('<li></li>').append($('<a>Share</a>').attr({ 'id': 'share', 'href': link })).prependTo(this.menu_bar);
