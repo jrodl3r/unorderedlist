@@ -40,6 +40,18 @@ app.get('/', function (req, res) {
   res.sendFile(__dirname + '/index.html');
 });
 
+// jasmine testing
+if (env === 'development') {
+  // spec runner
+  app.get('/test', function (req, res) {
+    res.sendFile(__dirname + '/_SpecRunner.html');
+  });
+  // spec fixture
+  app.get('/inc/:filename', function (req, res) {
+    res.sendFile(__dirname + '/inc/' + req.params.filename);
+  });
+}
+
 // load shared list
 app.get('/:list', function (req, res) {
   res.sendFile(__dirname + '/index.html');
@@ -85,6 +97,8 @@ app.post('/:list', parser, function (req, res) {
 });
 
 app.use('/public', express.static(__dirname + '/public'));
+app.use('/.grunt', express.static(__dirname + '/.grunt'));
+app.use('/spec', express.static(__dirname + '/spec'));
 app.use(favicon(__dirname + '/public/favicon.ico'));
 
 

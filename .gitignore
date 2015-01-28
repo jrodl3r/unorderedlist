@@ -12,3 +12,5 @@ Thumbs.db
 /img
 /public/css/*.css*
 .sass-cache
+.grunt
+_SpecRunner.html

@@ -11,11 +11,10 @@ var UL = {
   list_title        : $('#list-title span'),
   load_list_form    : $('#load-list-form'),
   load_list_input   : $('#load-list-input'),
-  new_list_button   : $('#new-list-button'),
-  open_list_button  : $('#open-list-button'),
+  load_list_button  : $('#load-list-button'),
   add_item_form     : $('#add-item-form'),
   add_item_button   : $('#add-item-button'),
-  new_item_input    : $('#new-item-input'),
+  add_item_input    : $('#add-item-input'),
   item_list         : $('#item-list'),
   item_content      : $('#item-list li span'),
   remove_buttons    : $('#item-list li .remove'),
@@ -35,14 +34,14 @@ var UL = {
 
     // new list
     this.socket.on('new list', function (title) {
-      UL.clear_list();
+      UL.update_view();
       UL.set_title(title);
       UL.add_share_link();
     });
 
     // load list
     this.socket.on('load list', function (title, data) {
-      UL.clear_list();
+      UL.update_view();
       UL.set_title(title);
       UL.load_list(data);
       UL.add_share_link();
@@ -70,23 +69,15 @@ var UL = {
     this.load_list_input.focus();
 
     // load list
-    this.load_list_form.submit( function (e) {
-      var title = UL.load_list_input.val().trim().toLowerCase();
-
+    this.load_list_button.on('click', function (e) {
       e.preventDefault();
-      if (title !== '') {
-        UL.socket.emit('load list', title);
-      }
+      UL.submit_list();
     });
 
-    // submit item
-    this.add_item_form.submit( function (e) {
-      var item = UL.new_item_input.val().trim();
-
+    // add item
+    this.add_item_button.on('click', function (e) {
       e.preventDefault();
-      if (item !== '') {
-        UL.socket.emit('add item', item);
-      }
+      UL.submit_item();
     });
   },
 
@@ -108,7 +99,7 @@ var UL = {
     });
 
     // spans
-    $(this.item_content.selector).click( function () {
+    $(this.item_content.selector).on('click', function () {
       var range, selection;
 
       if (window.getSelection && document.createRange) {
@@ -133,6 +124,15 @@ var UL = {
     }
   },
 
+  // submit/emit list
+  submit_list: function submit_list() {
+    var title = UL.load_list_input.val().trim().toLowerCase();
+
+    if (title !== '') {
+      UL.socket.emit('load list', title);
+    }
+  },
+
   // load list
   load_list: function load_list(list) {
 
@@ -146,14 +146,24 @@ var UL = {
     this.update_events();
   },
 
-  // clear list
-  clear_list: function clear_list() {
+  // hide add/load list + show add item form
+  update_view: function update_view() {
 
     this.load_list_form.hide();
     this.load_list_input.val('');
     this.add_item_form.show();
-    this.new_item_input.focus();
+    this.add_item_input.focus();
     this.item_list.empty().show();
+  },
+
+  // submit/emit item
+  submit_item: function submit_item() {
+
+    var item = UL.add_item_input.val().trim();
+
+    if (item !== '') {
+      UL.socket.emit('add item', item);
+    }
   },
 
   // add item
@@ -168,7 +178,7 @@ var UL = {
       this.item_list.append(li);
     } else {
       this.item_list.prepend(li);
-      this.new_item_input.val('');
+      this.add_item_input.val('');
       this.update_events();
     }
   },
@@ -186,7 +196,7 @@ var UL = {
   },
 
   // add share link to nav
-  add_share_link: function build_url() {
+  add_share_link: function add_share_link() {
 
     var link = 'http://' + location.host + '/' + encodeURI(this.list_title.text());
 
