@@ -99,7 +99,7 @@ module.exports = function(grunt) {
         tasks: ['jshint']
       },
       test: {
-        files: ['spec/**/*.js', 'tmpl/inc/*.html'],
+        files: ['spec/**/*.js', 'tmpl/inc/*.html', 'public/js/*.js'],
         tasks: ['test']
       },
       html: {

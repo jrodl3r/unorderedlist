@@ -40,24 +40,29 @@ app.get('/', function (req, res) {
   res.sendFile(__dirname + '/public/index.html');
 });
 
-// jasmine testing
+// test
 if (env === 'development') {
+
   // spec runner
   app.get('/test', function (req, res) {
     res.sendFile(__dirname + '/_SpecRunner.html');
   });
-  // spec fixture
-  app.get('/inc/:filename', function (req, res) {
-    res.sendFile(__dirname + '/inc/' + req.params.filename);
+
+  // spec fixtures
+  app.get('/tmpl/inc/:filename', function (req, res) {
+    res.sendFile(__dirname + '/tmpl/inc/' + req.params.filename);
   });
+
+  app.use('/.grunt', express.static(__dirname + '/.grunt'));
+  app.use('/spec', express.static(__dirname + '/spec'));
 }
 
-// load shared list
+// load list
 app.get('/:list', function (req, res) {
   res.sendFile(__dirname + '/public/index.html');
 });
 
-// get latest item (<30min)
+// get latest list item (<30min TODO make user setting)
 app.get('/get/:list', function (req, res) {
   List.aggregate(
     { $match: { name: req.params.list }},
@@ -75,6 +80,7 @@ app.get('/get/:list', function (req, res) {
 
         if (get_item_timer(item_added)) {
           res.send(item_body);
+
         } else {
           res.send('NO_RECENT_ITEM');
         }
@@ -82,7 +88,7 @@ app.get('/get/:list', function (req, res) {
   });
 });
 
-// post list item
+// post item
 app.post('/:list', parser, function (req, res) {
   List.findOne({ name: req.params.list }, function (err, result) {
     if (err || !result) {
@@ -97,8 +103,6 @@ app.post('/:list', parser, function (req, res) {
 });
 
 app.use('/public', express.static(__dirname + '/public'));
-app.use('/.grunt', express.static(__dirname + '/.grunt'));
-app.use('/spec', express.static(__dirname + '/spec'));
 app.use(favicon(__dirname + '/public/favicon.ico'));
 
 
@@ -138,7 +142,16 @@ io.sockets.on('connection', function (socket) {
             console.error(err);
 
           } else {
-            socket.emit('load list', socket.list_name, docs[0].items);
+            var list_items = [],
+                i, max = docs[0].items.length;
+
+            // only send active list items
+            for(i = 0; i < max; i++) {
+              if(docs[0].items[i].active === true) {
+                list_items.push(docs[0].items[i]);
+              }
+            }
+            socket.emit('load list', socket.list_name, list_items);
           }
         });
       }
@@ -164,7 +177,7 @@ io.sockets.on('connection', function (socket) {
         console.error(err);
 
       } else {
-        io.sockets.emit('remove item', id);
+        io.sockets.emit('item deleted', id);
       }
     });
   });
@@ -179,7 +192,7 @@ io.sockets.on('connection', function (socket) {
 // Helpers
 // --------------------------------------------------------------------------
 
-// get item timer (30min)
+// get item timer (30min TODO make user setting)
 function get_item_timer(added) {
 
   var now   = new Date,
@@ -204,7 +217,7 @@ function insert_item(item, list) {
       console.error('err');
 
     } else {
-      io.sockets.emit('add item', data, list.name);
+      io.sockets.emit('item added', data, list.name);
     }
   });
 }
