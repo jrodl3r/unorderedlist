@@ -1,11 +1,12 @@
 #UnorderedList
-_[under construction]_
+<b><i>:shipit: under construction :shipit:</i></b>
 
-/*[![Travis branch](https://img.shields.io/travis/joyent/node/v0.6.svg?style=flat)]()
+[![codeship](https://img.shields.io/codeship/3e26dc00-8943-0132-acff-66d12ecb4f82.svg?style=flat)]()
 [![node](https://img.shields.io/node/v/gh-badges.svg?style=flat)]()
-[![dependencies](https://david-dm.org/jrodl3r/unorderedlist.svg)]()
-[![GitHub release](https://img.shields.io/github/release/qubyte/rubidium.svg?style=flat)]()
-[![npm](https://img.shields.io/npm/l/express.svg?style=flat)]()*/
+[![dependencies](https://david-dm.org/jrodl3r/unorderedlist.svg)](https://david-dm.org/jrodl3r/unorderedlist#info=dependencies)
+[![devDependencies](https://david-dm.org/jrodl3r/unorderedlist/dev-status.svg)](https://david-dm.org/jrodl3r/unorderedlist#info=devDependencies)
+[![release](https://img.shields.io/github/release/jrodl3r/unorderedlist.svg?style=flat)](https://github.com/jrodl3r/unorderedlist/releases)
+[![license](https://img.shields.io/npm/l/express.svg?style=flat)](https://github.com/jrodl3r/unorderedlist/blob/master/LICENSE)
 
 
 If you work with multiple computers, eventually you'll find yourself needing to copy something from one to the other. If it's just a file or folder then Dropbox (or SpiderOak, etc.) will work perfectly. But what if it's just a little piece of text or a link?

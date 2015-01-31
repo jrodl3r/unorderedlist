@@ -1,33 +1,34 @@
 #### LATER
-- 'setup automated-chrome-profiling (node)'
 - 'add analytics'
+- 'setup automated-chrome-profiling (node)'
 - 'setup hotkeys (delete, copy, move-up, move-down, etc)'
-- 'setup content-type styles + logic (link, text, image, etc.)'
 - 'add input overload detection (50 submits / 60s = 30s timeout)'
-- 'add text input watermark placeholder text (List Name, New Item)'
+- 'setup content-type detection logic + styles (link, text, image, etc.)'
 - 'add visual walkthrough intro (add title, add item, remove, copy, etc.)'
 - 'add list history & item recovery layout + logic'
-- 'update browser URL on new list creation'
+- 'add notifications (copy, remove, etc)'
 - 'setup responsive layout + styles'
-- 'setup initial jasmine node tests'
-- 'whatever you're doing » add the jasmine test!'
+- 'create `0.0.1` github release'
 
 
 #### NOW
-- setup chrome button extension:
+- 'finish initial jasmine core tests'
+- 'add set_url() logic'
+- 'add list name validation'
+- 'update styles not using compass'
+- 'setup initial jasmine node tests'
+- 'setup chrome button extension'
   - [TEST] curl -d '{"item":"toot"}' -H "Content-Type: application/json" http://localhost:3000/foo
   - [TEST] curl -d '{"item":"toot"}' -H "Content-Type: application/json" http://unorderedlist.com/foo
-- 'setup list name validation'
 - 'add download chrome button + share [encodeURI(...)] links'
-- 'add notification (copy, remove, etc)'
-- 'setup Travis-CI Jasmine testing and build deployment (http://unorderedlist.com/UL)'
+- 'setup codeship jasmine testing and heroku build deployment (http://unorderedlist.com/UL)'
 
 
 #### READY
 - 'setup initial jasmine core tests'
 - 'setup services GET (/get/:listname), LOAD (/:listname), POST (/:listname + {item:content})'
-- 'add License file'
-- 'setup Heroku server + domain linkage'
+- 'add license file'
+- 'setup heroku server + domain linkage'
 - 'fix add/remove item emitter logic'
 - 'add ZeroClipboard copy item button + logic'
 - 'add font-awesome icon support'

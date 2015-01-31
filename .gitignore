@@ -11,6 +11,7 @@ Thumbs.db
 /node_modules
 /img
 /public/css/*.css*
+.codeship.yml
 .sass-cache
 .grunt
 _SpecRunner.html
