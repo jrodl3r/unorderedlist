@@ -128,7 +128,7 @@ module.exports = function(grunt) {
   grunt.registerTask('default', ['sass:dev', 'jshint', 'preprocess', 'jasmine']);
   grunt.registerTask('dev', ['sass:dev', 'jshint', 'preprocess', 'jasmine', 'watch']);
   grunt.registerTask('dist', ['sass:dist', 'jshint', 'jasmine', 'preprocess']);
-  grunt.registerTask('test', ['jshint', 'jasmine']);
+  grunt.registerTask('test', ['jasmine']);
   grunt.registerTask('heroku', ['sass:dist']);
 
 

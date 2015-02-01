@@ -16,6 +16,7 @@ var UL = {
   add_item_button      :  $('#add-item-button'),
   add_item_input       :  $('#add-item-input'),
   item_list            :  $('#item-list'),
+  item_container       :  $('#item-list li'),
   item_content         :  $('#item-list li span'),
   remove_buttons       :  $('#item-list li .remove'),
   clip_buttons         :  $('#item-list li .clip'),
@@ -87,7 +88,7 @@ var UL = {
     });
 
     // single-click item highlight
-    $(this.item_content.selector).on('click', UL.highlight_item);
+    $(this.item_container.selector + ', ' + this.item_content.selector).on('click', UL.highlight_item);
   },
 
   // submit list (click » load_list_button / socket » load list)
@@ -111,23 +112,29 @@ var UL = {
   },
 
   // remove item (click » remove_button / socket » remove item)
-  remove_item: function remove_item() {
+  remove_item: function remove_item(e) {
 
+    e.stopPropagation();
     UL.socket.emit('remove item', $(this).parent().attr('id'));
   },
 
-  // single-click item highlight (click » span)
-  highlight_item: function highlight_item() {
+  // single-click item highlight (click » li/span)
+  highlight_item: function highlight_item(e) {
 
-    var range, selection;
-    if (window.getSelection && document.createRange) {
-      selection = window.getSelection();
-      range = document.createRange();
-      range.selectNodeContents($(this)[0]);
-      selection.removeAllRanges();
-      selection.addRange(range);
-    } else if (document.selection && document.body.createTextRange) {
-      range = document.body.createTextRange();
+    e.stopPropagation();
+    if ($(this).context.localName === 'li') {
+      $(this).find('span').click();
+    } else {
+      var range, selection;
+      if (window.getSelection && document.createRange) {
+        selection = window.getSelection();
+        range = document.createRange();
+        range.selectNodeContents($(this)[0]);
+        selection.removeAllRanges();
+        selection.addRange(range);
+      } else if (document.selection && document.body.createTextRange) {
+        range = document.body.createTextRange();
+      }
     }
   },
 
