@@ -46,7 +46,3 @@ That's it. You're done in two clicks - Painless and 100% free!
 You're good to go after that - Just repeat the process on your other devices.
 
 [UnorderedList.com](http://unorderedlist.com) works without the Chrome Button (If you're not into that sort of thing). The Chrome Button just expedites the process by doing away with a few extra clicks.
-
-
-### License
-MIT

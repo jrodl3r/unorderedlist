@@ -1,4 +1,4 @@
-#OSX
+#OS
 .DS_Store
 .DS_Store?
 ._*
@@ -11,7 +11,8 @@ Thumbs.db
 /node_modules
 /img
 /public/css/*.css*
-.codeship.yml
-.sass-cache
 .grunt
+.sass-cache
+.codeship.yml
+nodemon.json
 _SpecRunner.html
