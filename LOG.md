@@ -3,28 +3,27 @@
 - 'setup automated-chrome-profiling (node)'
 - 'setup hotkeys (delete, copy, move-up, move-down, etc)'
 - 'add input overload detection (50 submits / 60s = 30s timeout)'
-- 'setup content-type detection logic + styles (link, text, image, etc.)'
+- 'setup content-type detection logic + layout (link, text, etc.)'
 - 'add visual walkthrough intro (add title, add item, remove, copy, etc.)'
 - 'add list history & item recovery layout + logic'
-- 'add notifications (copy, remove, etc)'
 - 'setup responsive layout + styles'
 - 'create `0.0.1` github release'
 
 
 #### NOW
-- 'finish initial jasmine core tests'
-- 'add set_url() logic'
-- 'add list name validation'
+- 'setup codeship jasmine testing and heroku build deployment'
+- 'add notifications (copy, remove, etc)'
+- 'add list name validation + reserved words ('test', symbols, etc.)'
 - 'update styles not using compass'
 - 'setup initial jasmine node tests'
 - 'setup chrome button extension'
   - [TEST] curl -d '{"item":"toot"}' -H "Content-Type: application/json" http://localhost:3000/foo
   - [TEST] curl -d '{"item":"toot"}' -H "Content-Type: application/json" http://unorderedlist.com/foo
 - 'add download chrome button + share [encodeURI(...)] links'
-- 'setup codeship jasmine testing and heroku build deployment (http://unorderedlist.com/UL)'
 
 
 #### READY
+- 'finish initial jasmine core tests'
 - 'setup initial jasmine core tests'
 - 'setup services GET (/get/:listname), LOAD (/:listname), POST (/:listname + {item:content})'
 - 'add license file'

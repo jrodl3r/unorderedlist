@@ -94,7 +94,6 @@ var UL = {
   submit_list: function submit_list(e) {
 
     var title = UL.load_list_input.val().trim().toLowerCase();
-
     e.preventDefault();
     if (title !== '') {
       UL.socket.emit('load list', title);
@@ -105,7 +104,6 @@ var UL = {
   submit_item: function submit_item(e) {
 
     var item = UL.add_item_input.val().trim();
-
     e.preventDefault();
     if (item !== '') {
       UL.socket.emit('add item', item);
@@ -122,7 +120,6 @@ var UL = {
   highlight_item: function highlight_item() {
 
     var range, selection;
-
     if (window.getSelection && document.createRange) {
       selection = window.getSelection();
       range = document.createRange();
@@ -137,11 +134,9 @@ var UL = {
   // load list (load list « socket)
   load_list: function load_list(items) {
 
-    var i, max = items.length;
-
-    for (i = 0; i < max; i++) {
-      this.insert_item(items[i]);
-    }
+    items.forEach( function (item) {
+      UL.insert_item(item);
+    });
     this.add_item_input.focus();
     this.update_events();
   },
@@ -171,7 +166,6 @@ var UL = {
              $('<span>' + item.body + '</span>'),
              $('<div></div>', { 'class': 'remove fa fa-trash-o' }),
              $('<div></div>', { 'class': 'clip fa fa-paperclip', 'data-clipboard-text': item.body }));
-
     this.item_list.prepend(li);
   },
 
@@ -194,22 +188,16 @@ var UL = {
   analyze_url: function analyze_url() {
 
     var title = decodeURI(location.pathname.substr(1)).toLowerCase();
-
     if (title !== '') {
       this.socket.emit('load list', title);
     }
   },
 
-  // add encoded list name to browser url (http://goo.gl/y1A1B) TODO
-  set_url: function update_url() {
-
-  },
-
   // add share link to nav
   add_share_link: function add_share_link() {
 
-    var link = 'http://' + location.host + '/' + encodeURI(this.list_title.text());
-
+    var domain = location.host || 'unorderedlist.com',
+          link = 'http://' + domain + '/' + encodeURI(this.list_title.text());
     $('<li></li>').append($('<a>Share</a>').attr({ 'id': 'share', 'href': link })).prependTo(this.menu_bar);
   }
 };

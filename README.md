@@ -30,8 +30,8 @@ We've all used these tools and methods for years, but they all tend to put us ri
 
 There's a few initial steps (see below) but after that it's a very simple process:
 
-1. **Source:** Copy Text » Tap Chrome Button
-2. **Target:** Tap Chrome Button » Paste Text
+1. **Source:** Copy Text » Tap Chrome Button (or Use Keyboard Shortcut)
+2. **Target:** Tap Chrome Button (or Use Keyboard Shortcut) » Paste Text
 
 That's it. You're done in two clicks - Painless and 100% free!
 

@@ -3,11 +3,13 @@
 // ==========================================================================
 'use strict';
 
-var list_title  = 'List Title',
-    list        = [{ _id: 1, body: 'Item 01' }, { _id: 2, body: 'Item 02' }],
-    list_output = '<li id="2" tabindex="1"><span>Item 02</span><div class="remove fa fa-trash-o"></div><div class="clip fa fa-paperclip" data-clipboard-text="Item 02"></div></li><li id="1" tabindex="1"><span>Item 01</span><div class="remove fa fa-trash-o"></div><div class="clip fa fa-paperclip" data-clipboard-text="Item 01"></div></li>',
-    item        = { _id: 3, body: 'Item 03' },
-    item_output = '<li id="3" tabindex="1"><span>Item 03</span><div class="remove fa fa-trash-o"></div><div class="clip fa fa-paperclip" data-clipboard-text="Item 03"></div></li>';
+var list_title         = 'List Title',
+    list               = [{ _id: 1, body: 'Item 01' }, { _id: 2, body: 'Item 02' }],
+    list_output        = '<li id="2" tabindex="1"><span>Item 02</span><div class="remove fa fa-trash-o"></div><div class="clip fa fa-paperclip" data-clipboard-text="Item 02"></div></li><li id="1" tabindex="1"><span>Item 01</span><div class="remove fa fa-trash-o"></div><div class="clip fa fa-paperclip" data-clipboard-text="Item 01"></div></li>',
+    item               = { _id: 3, body: 'Item 03' },
+    item_output        = '<li id="3" tabindex="1"><span>Item 03</span><div class="remove fa fa-trash-o"></div><div class="clip fa fa-paperclip" data-clipboard-text="Item 03"></div></li>',
+    domain             = location.host || 'unorderedlist.com',
+    share_link_output  = '<li><a id="share" href="http://' + domain + '/List%20Title">Share</a></li>';
 
 jasmine.getFixtures().fixturesPath = 'tmpl/inc';
 
@@ -90,16 +92,23 @@ describe('Add Item', function () {
   });
 });
 
-// describe('Delete Item', function () {
-//
-//   beforeEach( function () {
-//     loadFixtures('home.html');
-//   });
-//
-//   it('needs to be tested', function () {
-//     expect(0).toBeTruthy();
-//   });
-// });
+describe('Delete Item', function () {
+
+  beforeEach( function () {
+    loadFixtures('home.html');
+    $.fx.off = true;
+    UL.item_list  = $(UL.item_list.selector);
+    UL.list_title = $(UL.list_title.selector);
+    UL.set_title(list_title);
+    UL.add_item(item, list_title);
+    UL.delete_item(item._id);
+  });
+
+  it('needs to be tested', function () {
+
+    expect(UL.item_list).toBeEmpty();
+  });
+});
 
 describe('Update View', function () {
 
@@ -146,32 +155,18 @@ describe('Set Title', function () {
   });
 });
 
-// describe('Add Share Link', function () {
-//
-//   beforeEach( function () {
-//     loadFixtures('home.html');
-//     // add_share_link()
-//     // var link = 'http://' + location.host + '/' + encodeURI(this.list_title.text());
-//     // $('<li></li>').append($('<a>Share</a>').attr({ 'id': 'share', 'href': link })).prependTo(this.menu_bar);
-//   });
-//
-//   it('adds the share link to the menu bar', function () {
-//
-//     expect(true).toBeTruthy();
-//   });
-// });
+describe('Add Share Link', function () {
 
+  beforeEach( function () {
+    loadFixtures('home.html');
+    UL.list_title = $(UL.list_title.selector);
+    UL.menu_bar   = $(UL.menu_bar.selector);
+    UL.set_title(list_title);
+    UL.add_share_link();
+  });
 
-//describe('Set URL', function () {});
+  it('adds the share link to the menu bar', function () {
 
-
-// describe('New Test', function () {
-//
-//   beforeEach( function () {
-//     loadFixtures('home.html');
-//   });
-//
-//   it('works like a charm', function () {
-//     expect(true).toBeTruthy();
-//   });
-// });
+    expect(UL.menu_bar).toContainHtml(share_link_output);
+  });
+});
