@@ -12,18 +12,16 @@
 
 
 #### NOW
-- 'setup codeship jasmine testing and heroku build deployment'
-- 'setup initial jasmine node tests'
-- 'add notifications (copy, remove, etc)'
-- 'setup share link click-to-copy'
-- 'add list name validation + reserved words ('test', symbols, etc.)'
 - 'update styles not using compass'
 - 'setup chrome button extension'
-  - [TEST] curl -d '{"item":"toot"}' -H "Content-Type: application/json" http://localhost:3000/foo
-  - [TEST] curl -d '{"item":"toot"}' -H "Content-Type: application/json" http://unorderedlist.com/foo
-- 'add version tag to menubar'
+- 'add notifications (copy, remove, etc)'
+- 'setup share link click-to-copy'
+- 'setup initial jasmine node tests + add to codeship'
+- 'add list name validation + reserved words (symbols, etc.)'
+- 'add version tag to menubar (package.json » grunt preprocess)'
 
 #### READY
+- 'setup codeship jasmine testing and heroku build deployment'
 - 'update item highlight click handler'
 - 'setup jasmine core tests'
 - 'add download chrome button + share [encodeURI(...)] links'
@@ -44,3 +42,12 @@
 - 'cleanup styles, center content'
 - 'get everything on a live server'
 - 'setup node/express/socket/mongodb stack'
+
+
+#### TESTS
+- **POST**
+  - curl -d '{"item":"testing 1, 2, 3..."}' -H "Content-Type: application/json" http://localhost:3000/foo
+  - curl -d '{"item":"testing 1, 2, 3..."}' -H "Content-Type: application/json" http://unorderedlist.com/foo
+- **GET**
+  - curl http://localhost:3000/get/foo
+  - curl http://unorderedlist.com/get/foo
