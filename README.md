@@ -1,8 +1,8 @@
 #UnorderedList
 <b><i>:shipit: under construction :shipit:</i></b>
 
-[![codeship](https://img.shields.io/codeship/3e26dc00-8943-0132-acff-66d12ecb4f82.svg?style=flat)]()
-[![node](https://img.shields.io/node/v/gh-badges.svg?style=flat)]()
+[![codeship](https://img.shields.io/codeship/3e26dc00-8943-0132-acff-66d12ecb4f82.svg?style=flat)](https://codeship.com/projects/59658)
+[![node](https://img.shields.io/node/v/gh-badges.svg?style=flat)](https://github.com/jrodl3r/unorderedlist)
 [![dependencies](https://david-dm.org/jrodl3r/unorderedlist.svg)](https://david-dm.org/jrodl3r/unorderedlist#info=dependencies)
 [![devDependencies](https://david-dm.org/jrodl3r/unorderedlist/dev-status.svg)](https://david-dm.org/jrodl3r/unorderedlist#info=devDependencies)
 [![release](https://img.shields.io/github/release/jrodl3r/unorderedlist.svg?style=flat)](https://github.com/jrodl3r/unorderedlist/releases)
