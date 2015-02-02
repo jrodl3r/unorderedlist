@@ -104,7 +104,7 @@ describe('Delete Item', function () {
     UL.delete_item(item._id);
   });
 
-  it('needs to be tested', function () {
+  it('removes the item', function () {
 
     expect(UL.item_list).toBeEmpty();
   });
