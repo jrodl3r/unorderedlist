@@ -2,10 +2,12 @@
 // UnorderedList
 // ==========================================================================
 
+@import 'compass';
+
 * {
   margin: 0;
   padding: 0;
-  box-sizing: border-box;
+  @include box-sizing(border-box);
 }
 
 #app {
@@ -23,10 +25,10 @@ a {
     outline: none;
 
     & h1 {
-      color: blueviolet;
+      color: #8A2BE2;
 
       & span {
-        color: darkslategray;
+        color: #2F4F4F;
       }
     }
   }
@@ -36,12 +38,12 @@ h1 {
   display: inline-block;
   width: 360px;
   margin: 0 auto 10px;
-  color: fuchsia;
+  color: #F0F;
   font-family: monospace;
   font-size: 28px;
 
   & span {
-    color: gray;
+    color: #808080;
   }
 }
 
@@ -58,11 +60,6 @@ ul {
   text-transform: capitalize;
   line-height: 30px;
   cursor: default;
-
-  span {
-    -webkit-user-select: initial;
-    user-select: initial;
-  }
 }
 
 form {
@@ -87,17 +84,17 @@ form {
       color: #666;
       font-size: 10px;
       font-weight: bold;
-      background: linear-gradient(#FCFCFC, #EEE);
+      @include background(linear-gradient(#FCFCFC, #EEE));
 
       &:hover, &:focus {
         color: #555;
         border-color: #CCC;
-        box-shadow: 0 1px 1px rgba(0,0,0,0.1);
+        @include box-shadow(rgba(#000, .1) 0 1px 1px);
         cursor: pointer;
       }
 
       &:focus {
-        color: blueviolet;
+        color: #8A2BE2;
       }
     }
   }
@@ -119,14 +116,15 @@ form {
     margin-bottom: 4px;
     padding: 10px 30px;
     text-align: center;
-    color: darkslategray;
+    color: #2F4F4F;
     font-family: Helvetica;
     font-size: 14px;
     line-height: 18px;
     word-wrap: break-word;
     background: #FBFBFB;
     border-radius: 5px;
-    transition: all .2s;
+    @include transition-property(all);
+    @include transition-duration(.2s);
     -webkit-user-select: none;
     user-select: none;
 
@@ -138,8 +136,7 @@ form {
     .remove, .clip {
       z-index: 2;
       position: absolute;
-      transform: translateY(-50%);
-      -webkit-transform: translateY(-50%);
+      @include transform(translateY(-50%));
       top: 50%;
       right: 0;
       height: 30px;
@@ -148,11 +145,12 @@ form {
       font-size: 15px;
       text-align: center;
       line-height: 30px;
-      transition: all .2s;
+      @include transition-property(all);
+      @include transition-duration(.2s);
 
       &:hover, &.zeroclipboard-is-hover {
-        color: mediumorchid; //royalblue;
-        text-shadow: 0 0 3px rgba(#FFF, 1);
+        color: #BA55D3; //#4169E1;
+        @include text-shadow(rgba(#FFF, 1) 0 0 3px);
         cursor: pointer;
       }
     }
@@ -162,19 +160,18 @@ form {
     }
 
     &:hover {
-      color: slategray; //mediumorchid;
-      box-shadow: inset 0 0 15px rgba(0,0,0,0.025);
+      color: #708080; //#BA55D3;
+      @include box-shadow(rgba(#000, 0.025) 0 0 15px inset);
       background: #FAFAFA;
       outline: none;
       cursor: default;
 
       & div {
-        color: slategray;
+        color: #708090;
       }
     }
 
     &:focus {
-      box-shadow: inset 0 0 15px rgba(0,0,0,0.025);
       background: #F8F8F8;
       outline: none;
     }
@@ -202,14 +199,14 @@ form {
     }
 
     a {
-      color: gray;
+      color: #808080;
       font-family: Helvetica;
       color: #999;
       font-size: 12px;
 
       &:hover {
-        color: slategray;
-        border-bottom: 2px solid fuchsia;
+        color: #708090;
+        border-bottom: 2px solid #F0F;
       }
     }
   }

@@ -12,7 +12,6 @@
 
 
 #### NOW
-- 'update styles not using compass'
 - 'setup chrome button extension'
 - 'add notifications (copy, remove, etc)'
 - 'setup share link click-to-copy'
@@ -21,6 +20,7 @@
 - 'add version tag to menubar (package.json » grunt preprocess)'
 
 #### READY
+- 'update styles not using compass + convert colors to hex'
 - 'setup codeship jasmine testing and heroku build deployment'
 - 'update item highlight click handler'
 - 'setup jasmine core tests'
