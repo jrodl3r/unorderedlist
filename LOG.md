@@ -1,6 +1,7 @@
 #### LATER
 - 'add analytics'
 - 'setup automated-chrome-profiling (node)'
+- 'add better icon (http://goo.gl/TJ8VPX)'
 - 'setup hotkeys (delete, copy, move-up, move-down, etc)'
 - 'add input overload detection (50 submits / 60s = 30s timeout)'
 - 'setup content-type detection logic + layout (link, text, etc.)'
