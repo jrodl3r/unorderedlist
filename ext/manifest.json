@@ -1,0 +1,34 @@
+{
+  "name": "UnorderedList",
+  "description": "UnorderedList Google Chrome Extension",
+  "version": "1.0",
+  "manifest_version": 2,
+  "browser_action": {
+    "default_icon": "icon.png"
+  },
+  "permissions": [
+    "clipboardRead",
+    "clipboardWrite",
+    "http://unorderedlist.com/"
+  ],
+  "background": {
+    "scripts": ["background.js"],
+    "persistent": false
+  },
+  "commands": {
+    "paste": {
+      "description": "UL » Paste Clipboard Item",
+      "suggested_key": {
+        "default": "Alt+Shift+V",
+        "mac": "Alt+Shift+V"
+      }
+    },
+    "copy": {
+      "description": "UL » Copy Clipboard Item",
+      "suggested_key": {
+        "default": "Alt+Shift+C",
+        "mac": "Alt+Shift+C"
+      }
+    }
+  }
+}
