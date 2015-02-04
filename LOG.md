@@ -12,8 +12,12 @@
 - 'setup responsive layout'
 
 
-#### NOW
-- 'setup chrome button extension'
+#### NEXT
+- 'update GET service to use JSON response data'
+- 'remove time limit from GET service'
+- 'setup chrome extension get/send xhr methods'
+- 'add user settings for custom command key bindings'
+
 - 'add notifications (copy, remove, etc)'
 - 'setup share link click-to-copy'
 - 'setup initial jasmine node tests + add to codeship'
@@ -21,6 +25,7 @@
 - 'add version tag to menubar (package.json » grunt preprocess)'
 
 #### READY
+- 'setup chrome button extension'
 - 'update styles not using compass + convert colors to hex'
 - 'setup codeship jasmine testing and heroku build deployment'
 - 'update item highlight click handler'

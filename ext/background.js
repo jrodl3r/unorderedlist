@@ -2,59 +2,106 @@
 // UnorderedList Chrome Button
 // ==========================================================================
 
-chrome.commands.onCommand.addListener(function(command) {
+var UL = {
 
-  console.log('Command Event: ' + command);
-
-  // Setup Placeholder
-  var div = document.createElement('div');
-  div.id = 'clip';
-  div.contentEditable = true;
-  document.body.appendChild(div);
-  div = document.getElementById('clip');
-  div.focus();
-
-  // Setup XHR
-  var http      = new XMLHttpRequest(),
-      url       = 'http://unorderedlist.com/',
-      list      = 'foo'; // TODO Make User Setting
-      item_data = '';
+  clip_id      :  'clip',
+  domain       :  'http://unorderedlist.com/',
+  url          :  '',
+  list         :  'foo', // TODO Make User Setting
+  item_data    :  '',
+  placeholder  :  null,
 
 
-  // Paste / POST List Item
-  if (command === 'paste') {
+  // Process Key Command
+  processCommand: function processCommand(command) {
 
-    document.execCommand('paste');
-
-    url += list;
-    item_data = '{"item":"' + div.innerHTML + '"}';
-
-    http.open('POST', url, true);
-    http.setRequestHeader('Content-type', 'application/json');
-    http.send(item_data);
-
-    console.log(div.innerHTML);
-    div.remove();
+    console.log('Command Event: ' + command);
 
 
-  // Copy / GET List Item
-  } else if (command === 'copy') {
+    // Paste » POST List Item
+    if (command === 'paste') {
 
-    url += 'get/' + list;
+      UL.setupPlaceholder();
+      document.execCommand('paste');
 
-    http.onreadystatechange = function () {
-      if (http.readyState == 4) {
+      UL.url = UL.domain + UL.list;
+      UL.item_data = '{"item":"' + UL.placeholder.innerText + '"}';
 
-        div.innerHTML = http.responseText;
-        document.execCommand('copy');
+      var xhr = new XMLHttpRequest();
+      xhr.open('POST', UL.url, true);
+      xhr.setRequestHeader('Content-type', 'application/json');
+      xhr.send(UL.item_data);
 
-        console.log(div.innerHTML);
-        div.remove();
-      }
-    };
+      console.log(UL.placeholder.innerText);
+      UL.removePlaceholder();
+    }
 
-    http.open('GET', url, true);
-    http.setRequestHeader('Content-type', 'text/plain');
-    http.send();
+
+    // Copy » GET List Item
+    if (command === 'copy') {
+
+      UL.setupPlaceholder();
+      UL.url = UL.domain + 'get/' + UL.list;
+
+      var xhr = new XMLHttpRequest();
+      xhr.onreadystatechange = function () {
+        if (xhr.readyState == 4) {
+          if (xhr.status == 200) {
+            UL.placeholder.innerText = xhr.responseText;
+            document.execCommand('SelectAll');
+            document.execCommand('copy');
+            console.log(UL.placeholder.innerText);
+            //UL.removePlaceholder();
+
+          } else {
+            console.log('error getting list data!');
+          }
+        }
+      };
+
+      xhr.open('GET', UL.url, true);
+      xhr.setRequestHeader('Content-type', 'text/plain');
+      xhr.send();
+    }
+
+    console.log('END: ' + UL.placeholder.innerText);
+  },
+
+
+  // Get JSON Data
+  getData: function getData() {
+
+    var xhr = new XMLHttpRequest();
+
+  },
+
+
+  // Send JSON Data
+  sendData: function sendData() {
+
+    var xhr = new XMLHttpRequest();
+
+  },
+
+
+  // Add Placeholder Element
+  setupPlaceholder: function setupPlaceholder() {
+
+    UL.placeholder = document.createElement('div');
+    UL.placeholder.id = UL.clip_id;
+    UL.placeholder.contentEditable = true;
+    document.body.appendChild(UL.placeholder);
+    UL.placeholder = document.getElementById(UL.clip_id);
+    UL.placeholder.focus();
+  },
+
+
+  // Remove Placeholder Element
+  removePlaceholder: function removePlaceholder() {
+
+    UL.placeholder.remove();
   }
-});
+};
+
+// Add Command Listener
+chrome.commands.onCommand.addListener(UL.processCommand);
