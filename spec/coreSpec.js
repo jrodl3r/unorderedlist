@@ -105,7 +105,6 @@ describe('Delete Item', function () {
   });
 
   it('removes the item', function () {
-
     expect(UL.item_list).toBeEmpty();
   });
 });
@@ -123,18 +122,15 @@ describe('Update View', function () {
   });
 
   it('clears the list-name input', function () {
-
     expect(UL.load_list_input.val()).toEqual('');
   });
 
   it('swaps the load-list and add-item forms', function () {
-
     expect(UL.load_list_form).toBeHidden();
     expect(UL.add_item_form).not.toBeHidden();
   });
 
   it('clears and shows the item list', function () {
-
     expect(UL.item_list).toBeEmpty();
     expect(UL.item_list).toBeVisible();
   });
@@ -149,7 +145,6 @@ describe('Set Title', function () {
   });
 
   it('updates the list title', function () {
-
     expect(UL.list_title).toHaveText(list_title);
     expect(UL.list_title).toBeVisible();
   });
@@ -166,7 +161,6 @@ describe('Add Share Link', function () {
   });
 
   it('adds the share link to the menu bar', function () {
-
     expect(UL.menu_bar).toContainHtml(share_link_output);
   });
 });
