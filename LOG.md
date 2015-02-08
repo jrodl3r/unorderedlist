@@ -2,6 +2,7 @@
 - 'add analytics'
 - 'setup automated-chrome-profiling (node)'
 - 'add better icon (http://goo.gl/TJ8VPX)'
+- 'check flash support detection (ZeroClipboard)'
 - 'setup hotkeys (delete, copy, move-up, move-down, etc)'
 - 'add input overload detection (50 submits / 60s = 30s timeout)'
 - 'setup content-type detection logic + layout (link, text, etc.)'
@@ -17,6 +18,7 @@
 - 'remove time limit from GET service'
 - 'setup chrome extension get/send xhr methods'
 - 'add user settings for custom command key bindings'
+- 'add chrome extension to grunt build (sass, jshint)'
 
 - 'add notifications (copy, remove, etc)'
 - 'setup share link click-to-copy'
