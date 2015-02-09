@@ -1,32 +1,34 @@
 // ==========================================================================
-// UnorderedList
+// UnorderedList Backend
 // ==========================================================================
 'use strict';
 
 // Init
 // --------------------------------------------------------------------------
 
-var express        = require('express'),
-    app            = express(),
-    parser         = require('body-parser').json(),
-    server         = require('http').createServer(app),
-    io             = require('socket.io').listen(server),
-    favicon        = require('serve-favicon'),
-    mongoose       = require('mongoose'),
-    List           = require('./models/list.js'),
-    env            = process.env.NODE_ENV || 'development',
-    port           = process.env.PORT || 3000;
+// server
+var express     = require('express'),
+    app         = express(),
+    parser      = require('body-parser').json(),
+    server      = require('http').createServer(app),
+    io          = require('socket.io').listen(server),
+    favicon     = require('serve-favicon'),
+    env         = process.env.NODE_ENV || 'development',
+    port        = process.env.PORT || 3000;
 
+server.listen(port);
 
-    server.listen(port);
+// database
+var mongoose    = require('mongoose'),
+    List        = require('./models/list.js');
 
-    if (env === 'development') {
-      mongoose.connect('mongodb://localhost/ul');
-    } else if (env === 'test') {
-      mongoose.connect('mongodb://' + process.env.TEST_MONGOLAB_HOST + '/ul');
-    } else if (env === 'production') {
-      mongoose.connect('mongodb://' + process.env.MONGOLAB_URI + '/ul');
-    }
+if (env === 'development') {
+  mongoose.connect('mongodb://localhost/ul');
+} else if (env === 'test') {
+  mongoose.connect('mongodb://' + process.env.TEST_MONGOLAB_HOST + '/ul');
+} else if (env === 'production') {
+  mongoose.connect('mongodb://' + process.env.MONGOLAB_URI + '/ul');
+}
 
 
 // Routes
