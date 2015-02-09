@@ -3,7 +3,7 @@
 // ==========================================================================
 'use strict';
 
-// Config
+// Init
 // --------------------------------------------------------------------------
 
 var express        = require('express'),
@@ -18,18 +18,15 @@ var express        = require('express'),
     port           = process.env.PORT || 3000;
 
 
-// Connect
-// --------------------------------------------------------------------------
+    server.listen(port);
 
-server.listen(port);
-
-if (env === 'development') {
-  mongoose.connect('mongodb://localhost/ul');
-} else if (env === 'test') {
-  mongoose.connect('mongodb://' + process.env.TEST_MONGOLAB_HOST + '/ul');
-} else if (env === 'production') {
-  mongoose.connect('mongodb://' + process.env.MONGOLAB_URI + '/ul');
-}
+    if (env === 'development') {
+      mongoose.connect('mongodb://localhost/ul');
+    } else if (env === 'test') {
+      mongoose.connect('mongodb://' + process.env.TEST_MONGOLAB_HOST + '/ul');
+    } else if (env === 'production') {
+      mongoose.connect('mongodb://' + process.env.MONGOLAB_URI + '/ul');
+    }
 
 
 // Routes
@@ -40,19 +37,17 @@ app.get('/', function (req, res) {
   res.sendFile(__dirname + '/public/index.html');
 });
 
-// test
-if (env === 'development') {
-
+// testing
+if (env === 'test' || env === 'development') {
   // spec runner
   app.get('/test', function (req, res) {
     res.sendFile(__dirname + '/_SpecRunner.html');
   });
-
   // spec fixtures
   app.get('/tmpl/inc/:filename', function (req, res) {
     res.sendFile(__dirname + '/tmpl/inc/' + req.params.filename);
   });
-
+  // test assets
   app.use('/.grunt', express.static(__dirname + '/.grunt'));
   app.use('/spec', express.static(__dirname + '/spec'));
 }
@@ -62,46 +57,37 @@ app.get('/:list', function (req, res) {
   res.sendFile(__dirname + '/public/index.html');
 });
 
-// get latest list item (<30min TODO make user setting)
+// get item
 app.get('/get/:list', function (req, res) {
   List.aggregate(
-    { $match: { name: req.params.list }},
+    { $match: { name: req.params.list } },
     { $unwind: '$items' },
-    { $match: { 'items.active': true }},
-    { $sort: { 'items.added': -1 }},
-    { $limit: 1 }, function (err, result) {
+    { $match: { 'items.active': true } },
+    { $sort:  { 'items.added': -1 } },
+    { $limit: 1 }, function (err, list) {
       if (err) {
         res.status(500);
         res.send(err);
-
       } else {
-        var item_added = result[0].items.added,
-            item_body  = result[0].items.body;
-
-        if (get_item_timer(item_added)) {
-          res.send(item_body);
-
-        } else {
-          res.send('NO_RECENT_ITEM');
-        }
+        res.send(list[0].items);
       }
   });
 });
 
 // post item
 app.post('/:list', parser, function (req, res) {
-  List.findOne({ name: req.params.list }, function (err, result) {
-    if (err || !result) {
+  List.findOne({ name: req.params.list }, function (err, list) {
+    if (err || !list) {
       res.status(500);
       res.send('ERROR');
-
     } else {
-      insert_item(req.body.item, result);
+      insert_item(req.body.item, list);
       res.send('ITEM_ADDED');
     }
   });
 });
 
+// public assets
 app.use('/public', express.static(__dirname + '/public'));
 app.use(favicon(__dirname + '/public/favicon.ico'));
 
@@ -119,11 +105,9 @@ io.sockets.on('connection', function (socket) {
     List.find({ name : list_name }, function (err, doc) {
       if (err) {
         console.error(err);
-
       // create new
       } else if (!doc.length) {
         var new_list = new List({ name: list_name });
-
         new_list.save( function (err) {
           if (err) {
             console.error(err);
@@ -133,19 +117,16 @@ io.sockets.on('connection', function (socket) {
             socket.emit('new list', socket.list_name);
           }
         });
-
       // load history
       } else {
         socket.list_name = list_name;
         List.find({ name: socket.list_name }, function (err, docs) {
           if (err) {
             console.error(err);
-
+          // send active items
           } else {
             var list_items = [],
                 i, max = docs[0].items.length;
-
-            // only send active list items
             for(i = 0; i < max; i++) {
               if(docs[0].items[i].active === true) {
                 list_items.push(docs[0].items[i]);
@@ -163,7 +144,6 @@ io.sockets.on('connection', function (socket) {
     List.findOne({ name: socket.list_name }, function (err, doc) {
       if (err) {
         console.error(err);
-
       } else {
         insert_item(item, doc);
       }
@@ -175,7 +155,6 @@ io.sockets.on('connection', function (socket) {
     List.update({ 'items._id': id }, { '$set': { 'items.$.active': false } }, function (err) {
       if (err) {
         console.error(err);
-
       } else {
         io.sockets.emit('item deleted', id);
       }
@@ -192,14 +171,14 @@ io.sockets.on('connection', function (socket) {
 // Helpers
 // --------------------------------------------------------------------------
 
-// get item timer (30min TODO make user setting)
-function get_item_timer(added) {
-
-  var now   = new Date,
-      elaps = (now.getTime() - added.getTime()) / 1000 / 60;
-
-  return elaps < 30 ? true : false;
-}
+// get item timer (TODO make user setting)
+// function get_item_timer(added) {
+//
+//   var now   = new Date,
+//       elaps = (now.getTime() - added.getTime()) / 1000 / 60;
+//
+//   return elaps < 30 ? true : false;
+// }
 
 // insert list item
 function insert_item(item, list) {
@@ -215,7 +194,6 @@ function insert_item(item, list) {
   list.save( function (err) {
     if (err) {
       console.error('err');
-
     } else {
       io.sockets.emit('item added', data, list.name);
     }
