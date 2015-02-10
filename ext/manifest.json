@@ -1,7 +1,7 @@
 {
   "name": "UnorderedList",
-  "description": "UnorderedList Google Chrome Extension",
-  "version": "1.0",
+  "description": "UnorderedList Chrome Extension",
+  "version": "0.1.0",
   "manifest_version": 2,
   "browser_action": {
     "default_icon": "icon.png"
@@ -18,14 +18,14 @@
   },
   "commands": {
     "paste": {
-      "description": "UL » Paste Clipboard Item",
+      "description": "Paste List Item",
       "suggested_key": {
         "default": "Alt+Shift+V",
         "mac": "Alt+Shift+V"
       }
     },
     "copy": {
-      "description": "UL » Copy Clipboard Item",
+      "description": "Copy List Item",
       "suggested_key": {
         "default": "Alt+Shift+C",
         "mac": "Alt+Shift+C"

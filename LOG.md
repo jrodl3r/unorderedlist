@@ -13,7 +13,6 @@
 
 
 #### NEXT
-- 'add chrome ext get/post xhr methods'
 - 'add chrome ext to grunt build (sass, jshint)'
 - 'add chrome ext user setting to edit list name'
 - 'add chrome ext user setting to customize keyboard shortcuts (link: chrome://extensions/configureCommands)'
@@ -34,6 +33,7 @@
 
 
 #### READY
+- 'add chrome ext get/post xhr methods'
 - 'add list-name param to add/remove item socket event + kill socket.list_name'
 - 'update chrome ext to parse json get response'
 - 'remove timer & update GET service to send JSON response data'
