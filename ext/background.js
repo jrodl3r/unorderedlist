@@ -1,6 +1,7 @@
 // ==========================================================================
 // UnorderedList Chrome Button
 // ==========================================================================
+'use strict';
 
 var UL = {
 
@@ -35,8 +36,8 @@ var UL = {
     xhr.open('POST', url, true);
     xhr.setRequestHeader('Content-type', 'application/json');
     xhr.onreadystatechange = function () {
-      if (xhr.readyState == 4) {
-        if (xhr.status == 200) {
+      if (xhr.readyState === 4) {
+        if (xhr.status === 200) {
           // TODO Add Success Notification
           console.log('pasted: ' + UL.proxy.innerText);
         } else {
@@ -55,8 +56,8 @@ var UL = {
     xhr.open('GET', url, true);
     xhr.setRequestHeader('Content-type', 'application/json');
     xhr.onreadystatechange = function () {
-      if (xhr.readyState == 4) {
-        if (xhr.status == 200) {
+      if (xhr.readyState === 4) {
+        if (xhr.status === 200) {
           UL.updateClipboard(JSON.parse(xhr.responseText));
           // TODO Add Success Notification
           console.log('copied: ' + UL.proxy.innerText);
