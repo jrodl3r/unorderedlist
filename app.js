@@ -83,7 +83,7 @@ app.post('/:list', parser, function (req, res) {
       res.status(500);
       res.send('ERROR');
     } else {
-      insert_item(req.body.item, list);
+      insert_item(list, req.body.item);
       res.send('ITEM_ADDED');
     }
   });
@@ -113,16 +113,14 @@ io.sockets.on('connection', function (socket) {
         new_list.save( function (err) {
           if (err) {
             console.error(err);
-
           } else {
-            socket.list_name = list_name;
-            socket.emit('new list', socket.list_name);
+            socket.emit('new list', list_name);
+            console.log('List Created: ' + list_name + ' (' + new Date() + ')');
           }
         });
       // load history
       } else {
-        socket.list_name = list_name;
-        List.find({ name: socket.list_name }, function (err, docs) {
+        List.find({ name: list_name }, function (err, docs) {
           if (err) {
             console.error(err);
           // send active items
@@ -134,7 +132,8 @@ io.sockets.on('connection', function (socket) {
                 list_items.push(docs[0].items[i]);
               }
             }
-            socket.emit('load list', socket.list_name, list_items);
+            socket.emit('load list', list_name, list_items);
+            console.log('List Loaded: ' + list_name + ' (' + new Date() + ')');
           }
         });
       }
@@ -142,23 +141,26 @@ io.sockets.on('connection', function (socket) {
   });
 
   // add item
-  socket.on('add item', function (item) {
-    List.findOne({ name: socket.list_name }, function (err, doc) {
+  socket.on('add item', function (list_name, item) {
+    List.findOne({ name: list_name }, function (err, list) {
       if (err) {
         console.error(err);
       } else {
-        insert_item(item, doc);
+        insert_item(list, item);
       }
     });
   });
 
   // remove item (set inactive)
-  socket.on('remove item', function (id) {
-    List.update({ 'items._id': id }, { '$set': { 'items.$.active': false } }, function (err) {
+  socket.on('remove item', function (list_name, item) {
+    var conditions = { name: list_name, 'items._id': item },
+        update     = { '$set': { 'items.$.active': false } };
+    List.update(conditions, update, function (err) {
       if (err) {
         console.error(err);
       } else {
-        io.sockets.emit('item deleted', id);
+        io.sockets.emit('item deleted', item);
+        console.log('Item Deleted: [' + list_name + '] ' + item + ' (' + new Date() + ')');
       }
     });
   });
@@ -173,17 +175,8 @@ io.sockets.on('connection', function (socket) {
 // Helpers
 // --------------------------------------------------------------------------
 
-// get item timer (TODO make user setting)
-// function get_item_timer(added) {
-//
-//   var now   = new Date,
-//       elaps = (now.getTime() - added.getTime()) / 1000 / 60;
-//
-//   return elaps < 30 ? true : false;
-// }
-
 // insert list item
-function insert_item(item, list) {
+function insert_item(list, item) {
 
   var data = {
     body: item,
@@ -198,6 +191,7 @@ function insert_item(item, list) {
       console.error('err');
     } else {
       io.sockets.emit('item added', data, list.name);
+      console.log('Item Added: [' + list.name + '] ' + item + ' (' + new Date() + ')');
     }
   });
 }

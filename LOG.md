@@ -1,19 +1,15 @@
 #### LATER
 - 'add analytics'
-- 'setup automated-chrome-profiling (node)'
 - 'add better icon (http://goo.gl/TJ8VPX)'
-- 'check flash support detection (ZeroClipboard)'
+- 'add flash feature detection for ZeroClipboard'
 - 'setup hotkeys (delete, copy, move-up, move-down, etc)'
 - 'add input overload detection (50 submits / 60s = 30s timeout)'
 - 'setup content-type detection logic + layout (link, text, etc.)'
 - 'add visual walkthrough intro (add list, add item, remove, copy, etc.)'
 - 'add preprocess + minify to heroku dist build (remove dist)'
 - 'add list history & item recovery logic + layout'
-- 'create `0.0.1` github release'
 - 'setup responsive layout'
 - 'add grunt-unCSS'
-- 'prefix all jQuery selector properties w/ "$"'
-- 'fix reconnect issue (after long break or machine goes to sleep)'
 
 
 #### NEXT
@@ -21,15 +17,24 @@
 - 'add chrome ext to grunt build (sass, jshint)'
 - 'add chrome ext user setting to edit list name'
 - 'add chrome ext user setting to customize keyboard shortcuts (link: chrome://extensions/configureCommands)'
-- 'update readme to reflect emphasis on hotkey interaction, retract button terminology'
+- 'add chrome ext notifications (copied, pasted, failed)'
+- 'setup newRelic monitoring'
 
+- 'update readme to reflect emphasis on hotkey interaction, retract button terminology'
 - 'add notifications (copy, remove, etc)'
 - 'setup share link click-to-copy'
 - 'setup initial jasmine node tests + add to codeship'
 - 'add list name validation + reserved words (symbols, etc.)'
 - 'add version tag to menubar (package.json » grunt preprocess)'
 
+- 'fix reconnect issue (after long break or machine goes to sleep)'
+  - 'app.js:195 ... TypeError: Cannot read property 'items' of null'
+
+- 'launch `0.1.0` github release'
+
+
 #### READY
+- 'add list-name param to add/remove item socket event + kill socket.list_name'
 - 'update chrome ext to parse json get response'
 - 'remove timer & update GET service to send JSON response data'
 - 'setup chrome button extension'

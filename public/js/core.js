@@ -76,6 +76,7 @@ var UL = {
   update_events: function update_events() {
 
     // remove item
+    $(this.remove_buttons.selector).off('click');
     $(this.remove_buttons.selector).on('click', UL.remove_item);
 
     // clipboard
@@ -83,11 +84,13 @@ var UL = {
     this.clipboard = new ZeroClipboard($(this.clip_buttons.selector));
 
     // clipboard mouse-exit (fix)
+    // TODO Remove Hack + Add Item Context Menu
     this.container.on('mouseover', function () {
       $(UL.clip_buttons.selector).removeClass('zeroclipboard-is-hover');
     });
 
     // single-click item highlight
+    $(this.item_container.selector + ', ' + this.item_content.selector).off('click');
     $(this.item_container.selector + ', ' + this.item_content.selector).on('click', UL.highlight_item);
   },
 
@@ -104,18 +107,21 @@ var UL = {
   // submit item (click » add_item_button / socket » add item)
   submit_item: function submit_item(e) {
 
-    var item = UL.add_item_input.val().trim();
+    var list = UL.list_title.text(),
+        item = UL.add_item_input.val().trim();
     e.preventDefault();
     if (item !== '') {
-      UL.socket.emit('add item', item);
+      UL.socket.emit('add item', list, item);
     }
   },
 
   // remove item (click » remove_button / socket » remove item)
   remove_item: function remove_item(e) {
 
+    var list = UL.list_title.text(),
+        item = $(this).parent().attr('id');
     e.stopPropagation();
-    UL.socket.emit('remove item', $(this).parent().attr('id'));
+    UL.socket.emit('remove item', list, item);
   },
 
   // single-click item highlight (click » li/span)
@@ -192,6 +198,7 @@ var UL = {
   },
 
   // load list from url
+  // TODO Add Reservered Words Check ['test', etc].indexOf != -1
   analyze_url: function analyze_url() {
 
     var title = decodeURI(location.pathname.substr(1)).toLowerCase();
