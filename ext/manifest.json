@@ -9,7 +9,8 @@
   "permissions": [
     "clipboardRead",
     "clipboardWrite",
-    "http://unorderedlist.com/"
+    "http://*/*",
+    "https://*/*"
   ],
   "background": {
     "scripts": ["background.js"],

@@ -5,7 +5,7 @@
 var UL = {
 
   clip_id      :  'clip',
-  domain       :  'http://unorderedlist.com/',
+  domain       :  'http://localhost:3000/', //'http://unorderedlist.com/', TODO Remove Testing Host
   url          :  '',
   list         :  'foo', // TODO Make User Setting
   item_data    :  '',
@@ -17,7 +17,6 @@ var UL = {
 
     console.log('Command Event: ' + command);
 
-
     // Paste » POST List Item
     if (command === 'paste') {
 
@@ -28,43 +27,65 @@ var UL = {
       UL.item_data = '{"item":"' + UL.placeholder.innerText + '"}';
 
       var xhr = new XMLHttpRequest();
+
       xhr.open('POST', UL.url, true);
       xhr.setRequestHeader('Content-type', 'application/json');
-      xhr.send(UL.item_data);
 
-      console.log(UL.placeholder.innerText);
-      UL.removePlaceholder();
+      xhr.onreadystatechange = function () {
+        if (xhr.readyState == 4) {
+          if (xhr.status == 200) {
+
+            // TODO Add Success Notification
+            console.log('success: ' + UL.placeholder.innerText);
+            UL.removePlaceholder();
+
+          } else {
+
+            // TODO Add Error Notification
+            console.log('error getting list item!');
+            UL.removePlaceholder();
+          }
+        }
+      };
+
+      xhr.send(UL.item_data);
     }
 
 
-    // Copy » GET List Item
+    // Copy « GET List Item
     if (command === 'copy') {
 
       UL.setupPlaceholder();
       UL.url = UL.domain + 'get/' + UL.list;
 
       var xhr = new XMLHttpRequest();
+
+      xhr.open('GET', UL.url, true);
+      xhr.setRequestHeader('Content-type', 'application/json');
+
       xhr.onreadystatechange = function () {
         if (xhr.readyState == 4) {
           if (xhr.status == 200) {
-            UL.placeholder.innerText = xhr.responseText;
+            var response = JSON.parse(xhr.responseText);
+            UL.placeholder.innerText = response.body;
             document.execCommand('SelectAll');
             document.execCommand('copy');
-            console.log(UL.placeholder.innerText);
-            //UL.removePlaceholder();
+
+            // TODO Add Success Notification
+            console.dir(UL.placeholder.innerText);
+            UL.removePlaceholder();
 
           } else {
-            console.log('error getting list data!');
+
+            // TODO Add Error Notification
+            console.log('error getting list item!');
+            UL.removePlaceholder();
           }
         }
       };
 
-      xhr.open('GET', UL.url, true);
-      xhr.setRequestHeader('Content-type', 'text/plain');
       xhr.send();
     }
-
-    console.log('END: ' + UL.placeholder.innerText);
   },
 
 

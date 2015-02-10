@@ -11,14 +11,17 @@
 - 'add list history & item recovery logic + layout'
 - 'create `0.0.1` github release'
 - 'setup responsive layout'
+- 'add grunt-unCSS'
+- 'prefix all jQuery selector properties w/ "$"'
+- 'fix reconnect issue (after long break or machine goes to sleep)'
 
 
 #### NEXT
-- 'update GET service to use JSON response data'
-- 'remove time limit from GET service'
-- 'setup chrome extension get/send xhr methods'
-- 'add user settings for custom command key bindings'
-- 'add chrome extension to grunt build (sass, jshint)'
+- 'add chrome ext get/post xhr methods'
+- 'add chrome ext to grunt build (sass, jshint)'
+- 'add chrome ext user setting to edit list name'
+- 'add chrome ext user setting to customize keyboard shortcuts (link: chrome://extensions/configureCommands)'
+- 'update readme to reflect emphasis on hotkey interaction, retract button terminology'
 
 - 'add notifications (copy, remove, etc)'
 - 'setup share link click-to-copy'
@@ -27,6 +30,8 @@
 - 'add version tag to menubar (package.json » grunt preprocess)'
 
 #### READY
+- 'update chrome ext to parse json get response'
+- 'remove timer & update GET service to send JSON response data'
 - 'setup chrome button extension'
 - 'update styles not using compass + convert colors to hex'
 - 'setup codeship jasmine testing and heroku build deployment'
