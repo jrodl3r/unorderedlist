@@ -23,7 +23,7 @@
 - 'add notifications (copy, remove, etc)'
 - 'setup share link click-to-copy'
 - 'setup initial jasmine node tests + add to codeship'
-- 'add list name validation + reserved words (symbols, etc.)'
+- 'add list name validation + reserved words ('test', symbols, """""", etc.)'
 - 'add version tag to menubar (package.json » grunt preprocess)'
 
 - 'fix reconnect issue (after long break or machine goes to sleep)'

@@ -4,33 +4,31 @@
 
 var UL = {
 
-  domain       :  'http://localhost:3000/', //'http://unorderedlist.com/', TODO Remove Testing Host
-  list         :  'foo',  // TODO Make User Setting
-  placeholder  :  null,   // TODO Swap w/ 'proxy'
+  domain        :  'http://localhost:3000/', //'http://unorderedlist.com/', TODO Remove Testing Host
+  list          :  'foo',  // TODO Make User Setting
+  proxy         :  null,
 
-
-  // Process Key Command
+  // Process Input
   processCommand: function processCommand(command) {
 
     var url, item_data;
-    UL.setupPlaceholder();
-
-    // Paste (POST Item)
+    UL.setupProxy();
+    // Paste Item (POST)
     if (command === 'paste') {
       document.execCommand('paste');
       url = UL.domain + UL.list;
-      item_data = '{"item":"' + UL.placeholder.innerText + '"}';
+      item_data = '{"item":"' + UL.proxy.innerText + '"}';
       UL.sendData(url, item_data);
+      UL.removeProxy();
     }
-    // Copy (GET Item)
+    // Copy Item (GET)
     else if (command === 'copy') {
       url = UL.domain + 'get/' + UL.list;
       UL.getData(url);
     }
   },
 
-
-  // Send JSON Data (Paste Item)
+  // Send Data (Paste)
   sendData: function sendData(url, item_data) {
 
     var xhr = new XMLHttpRequest();
@@ -39,24 +37,18 @@ var UL = {
     xhr.onreadystatechange = function () {
       if (xhr.readyState == 4) {
         if (xhr.status == 200) {
-
           // TODO Add Success Notification
-          console.log('success: ' + UL.placeholder.innerText);
-          UL.removePlaceholder();
-
+          console.log('pasted: ' + UL.proxy.innerText);
         } else {
-
           // TODO Add Error Notification
           console.error('error sending list item!');
-          UL.removePlaceholder();
         }
       }
     };
     xhr.send(item_data);
   },
 
-
-  // Get JSON Data
+  // Get Data (Copy)
   getData: function getData(url) {
 
     var xhr = new XMLHttpRequest();
@@ -65,43 +57,43 @@ var UL = {
     xhr.onreadystatechange = function () {
       if (xhr.readyState == 4) {
         if (xhr.status == 200) {
-          var response = JSON.parse(xhr.responseText);
-          UL.placeholder.innerText = response.body;
-          document.execCommand('SelectAll');
-          document.execCommand('copy');
-
+          UL.updateClipboard(JSON.parse(xhr.responseText));
           // TODO Add Success Notification
-          console.log('success: ' + UL.placeholder.innerText);
-          UL.removePlaceholder();
-
+          console.log('copied: ' + UL.proxy.innerText);
+          UL.removeProxy();
         } else {
-
+          UL.removeProxy();
           // TODO Add Error Notification
           console.error('error getting list item!');
-          UL.removePlaceholder();
         }
       }
     };
     xhr.send();
   },
 
+  // Update Clipboard
+  updateClipboard: function updateClipboard(item) {
 
-  // Add Placeholder Element
-  setupPlaceholder: function setupPlaceholder() {
-
-    UL.placeholder = document.createElement('div');
-    UL.placeholder.id = 'clip';
-    UL.placeholder.contentEditable = true;
-    document.body.appendChild(UL.placeholder);
-    UL.placeholder = document.getElementById('clip');
-    UL.placeholder.focus();
+    UL.proxy.innerText = item.body;
+    document.execCommand('SelectAll');
+    document.execCommand('copy');
   },
 
+  // Add Placeholder
+  setupProxy: function setupProxy() {
 
-  // Remove Placeholder Element
-  removePlaceholder: function removePlaceholder() {
+    UL.proxy = document.createElement('div');
+    UL.proxy.id = 'clip';
+    UL.proxy.contentEditable = true;
+    document.body.appendChild(UL.proxy);
+    UL.proxy = document.getElementById('clip');
+    UL.proxy.focus();
+  },
 
-    UL.placeholder.remove();
+  // Remove Placeholder
+  removeProxy: function removeProxy() {
+
+    UL.proxy.remove();
   }
 };
 
