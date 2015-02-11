@@ -1,6 +1,5 @@
 #### LATER
 - 'add analytics'
-- 'add better icon (http://goo.gl/TJ8VPX)'
 - 'add flash feature detection for ZeroClipboard'
 - 'setup hotkeys (delete, copy, move-up, move-down, etc)'
 - 'add input overload detection (50 submits / 60s = 30s timeout)'
@@ -13,25 +12,28 @@
 
 
 #### NEXT
-- 'add chrome ext user setting to edit list name'
-- 'add chrome ext user setting to customize keyboard shortcuts (link: chrome://extensions/configureCommands)'
-- 'add chrome ext notifications (copied, pasted, failed)'
+- 'style chrome ext actions + options layouts'
+- 'add chrome ext show button setting option'
+- 'update readme to reflect emphasis on hotkey interaction, retract button terminology'
 - 'setup newRelic monitoring'
 
-- 'update readme to reflect emphasis on hotkey interaction, retract button terminology'
+- 'tag `0.0.2` github release (pre-release)'
+
 - 'add notifications (copy, remove, etc)'
+- 'add chrome ext notifications (copied, pasted, failed)'
+- 'add chrome ext new options_ui for Chrome 40+'
+- 'add better favicon + chrome ext icons (http://goo.gl/TJ8VPX)'
 - 'setup share link click-to-copy'
 - 'setup initial jasmine node tests + add to codeship'
-- 'add list name validation + reserved words ('test', symbols, """""", etc.)'
+- 'add list name validation + reserved words ('test', symbols, "", ``, '', etc.)'
+- 'add better item content en/decoding (symbols, "", ``, '', etc.)'
 - 'add version tag to menubar (package.json » grunt preprocess)'
 
-- 'fix reconnect issue (after long break or machine goes to sleep)'
-  - 'app.js:195 ... TypeError: Cannot read property 'items' of null'
-
-- 'launch `0.1.0` github release'
+- 'tag `0.0.3` github release (stable)'
 
 
 #### READY
+- 'add chrome ext setting to edit list name + customize keyboard shortcuts'
 - 'add chrome ext to grunt build (jshint)'
 - 'add chrome ext get/post xhr methods'
 - 'add list-name param to add/remove item socket event + kill socket.list_name'

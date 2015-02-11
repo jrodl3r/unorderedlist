@@ -1,17 +1,23 @@
 {
   "name": "UnorderedList",
   "description": "UnorderedList Chrome Extension",
-  "version": "0.1.0",
+  "homepage_url": "http://unorderedlist.com",
+  "version": "0.0.1",
   "manifest_version": 2,
-  "browser_action": {
-    "default_icon": "icon.png"
-  },
   "permissions": [
+    "tabs",
+    "storage",
     "clipboardRead",
     "clipboardWrite",
     "http://*/*",
     "https://*/*"
   ],
+  "options_page": "options.html",
+  "browser_action": {
+    "default_icon": "icon.png",
+    "default_title": "UnorderedList",
+    "default_popup": "action.html"
+  },
   "background": {
     "scripts": ["background.js"],
     "persistent": false

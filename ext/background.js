@@ -1,13 +1,30 @@
 // ==========================================================================
-// UnorderedList Chrome Button
+// UnorderedList: Chrome Extension Core
 // ==========================================================================
 'use strict';
 
 var UL = {
 
-  domain        :  'http://localhost:3000/', //'http://unorderedlist.com/', TODO Remove Testing Host
-  list          :  'foo',  // TODO Make User Setting
-  proxy         :  null,
+  init: function init() {
+
+    this.domain = 'http://localhost:3000/'; //'http://unorderedlist.com/'; TODO
+    this.proxy = null;
+    this.updateList();
+  },
+
+  // Set List Name
+  updateList: function setList(list_name) {
+
+    if (list_name) {
+      this.list = list_name;
+    } else {
+      chrome.storage.sync.get('list', function (result) {
+        // TODO Add Error Protection
+        // TODO Add Pass/Fail Notification
+        UL.updateList(result.list);
+      });
+    }
+  },
 
   // Process Input
   processCommand: function processCommand(command) {
@@ -18,7 +35,7 @@ var UL = {
     if (command === 'paste') {
       document.execCommand('paste');
       url = UL.domain + UL.list;
-      item_data = '{"item":"' + UL.proxy.innerText + '"}';
+      item_data = JSON.stringify({ item: UL.proxy.innerText });
       UL.sendData(url, item_data);
       UL.removeProxy();
     }
@@ -98,5 +115,12 @@ var UL = {
   }
 };
 
-// Add Command Listener
+document.addEventListener('DOMContentLoaded', UL.init());
 chrome.commands.onCommand.addListener(UL.processCommand);
+chrome.storage.onChanged.addListener( function (changes, namespace) {
+  if(changes.list) {
+    // TODO Add Error Protection
+    // TODO Add Pass/Fail Notification
+    UL.updateList(changes.list.newValue);
+  }
+});
