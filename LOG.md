@@ -15,6 +15,7 @@
 #### NEXT
 - 'add chrome ext notifications (copied, pasted, failed)'
 - 'update readme to reflect emphasis on hotkey interaction, retract button terminology'
+- 'update chrome ext production url'
 - 'setup newRelic monitoring'
 
 - 'tag `0.0.2` github release (pre-release)'

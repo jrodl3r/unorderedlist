@@ -15,7 +15,7 @@ function save_options() {
   chrome.storage.sync.set({
     list: list_name
   }, function () {
-    // Update status to let user know options were saved.
+    // Update status message
     status.className = 'pass';
     setTimeout( function () {
       status.className = '';
@@ -35,6 +35,11 @@ function restore_options() {
 
 document.addEventListener('DOMContentLoaded', restore_options);
 document.getElementById('save').addEventListener('click', save_options);
+document.getElementById('list').addEventListener('keypress', function() {
+  if (event.keyCode === 13) {
+    save_options();
+  }
+});
 document.getElementById('options').addEventListener('click', function (e) {
   e.preventDefault();
   chrome.tabs.create({url: 'chrome://extensions/configureCommands'});

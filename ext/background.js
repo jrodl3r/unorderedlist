@@ -15,9 +15,10 @@ var UL = {
   // Set List Name
   updateList: function setList(list_name) {
 
-    if (list_name) {
+    if (list_name !== undefined) {
       this.list = list_name;
-    } else {
+      console.log('list updated: ' + list_name);
+    } else if (list_name !== this.list_name) {
       chrome.storage.sync.get('list', function (result) {
         // TODO Add Error Protection
         // TODO Add Pass/Fail Notification
