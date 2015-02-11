@@ -17,9 +17,7 @@ function save_options() {
   }, function () {
     // Update status to let user know options were saved.
     status.className = 'pass';
-    status.textContent = 'List Loaded!';
     setTimeout( function () {
-      status.textContent = '';
       status.className = '';
     }, 2000);
   });

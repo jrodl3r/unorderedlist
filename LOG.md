@@ -13,8 +13,6 @@
 
 
 #### NEXT
-- 'add chrome ext goto list url/link'
-- 'style chrome ext actions + options layouts'
 - 'add chrome ext notifications (copied, pasted, failed)'
 - 'update readme to reflect emphasis on hotkey interaction, retract button terminology'
 - 'setup newRelic monitoring'
@@ -33,6 +31,8 @@
 
 
 #### READY
+- 'style chrome ext actions popup + options layouts'
+- 'add chrome ext goto list url/link'
 - 'update all icons (favicon, chrome ext)'
 - 'add chrome ext setting to edit list name + customize keyboard shortcuts'
 - 'add chrome ext to grunt build (jshint)'
