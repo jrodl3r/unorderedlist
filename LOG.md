@@ -2,37 +2,38 @@
 - 'add analytics'
 - 'add flash feature detection for ZeroClipboard'
 - 'setup hotkeys (delete, copy, move-up, move-down, etc)'
+- 'add list history & item recovery logic + layout'
 - 'add input overload detection (50 submits / 60s = 30s timeout)'
 - 'setup content-type detection logic + layout (link, text, etc.)'
 - 'add visual walkthrough intro (add list, add item, remove, copy, etc.)'
 - 'add preprocess + minify to heroku dist build (remove dist)'
-- 'add list history & item recovery logic + layout'
+- 'add release version to menubar (package.json » grunt preprocess)'
 - 'setup responsive layout'
 - 'add grunt-unCSS'
 
 
 #### NEXT
+- 'add chrome ext goto list url/link'
 - 'style chrome ext actions + options layouts'
-- 'add chrome ext show button setting option'
+- 'add chrome ext notifications (copied, pasted, failed)'
 - 'update readme to reflect emphasis on hotkey interaction, retract button terminology'
 - 'setup newRelic monitoring'
 
 - 'tag `0.0.2` github release (pre-release)'
 
 - 'add notifications (copy, remove, etc)'
-- 'add chrome ext notifications (copied, pasted, failed)'
+- 'setup share-link ZeroClipboard'
 - 'add chrome ext new options_ui for Chrome 40+'
-- 'add better favicon + chrome ext icons (http://goo.gl/TJ8VPX)'
-- 'setup share link click-to-copy'
-- 'setup initial jasmine node tests + add to codeship'
+- 'setup jasmine-node / mocha + supertest (express + socket tests) and integrate w/ codeship'
 - 'add list name validation + reserved words ('test', symbols, "", ``, '', etc.)'
-- 'add better item content en/decoding (symbols, "", ``, '', etc.)'
-- 'add version tag to menubar (package.json » grunt preprocess)'
+- 'setup item content encoding/decoding (symbols, "", ``, '', etc.)'
+
 
 - 'tag `0.0.3` github release (stable)'
 
 
 #### READY
+- 'update all icons (favicon, chrome ext)'
 - 'add chrome ext setting to edit list name + customize keyboard shortcuts'
 - 'add chrome ext to grunt build (jshint)'
 - 'add chrome ext get/post xhr methods'
