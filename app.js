@@ -67,7 +67,7 @@ app.get('/get/:list', function (req, res) {
     { $match: { 'items.active': true } },
     { $sort:  { 'items.added': -1 } },
     { $limit: 1 }, function (err, list) {
-      if (err) {
+      if (err || !list.length) {
         res.status(500);
         res.send(err);
       } else {
@@ -81,7 +81,7 @@ app.post('/:list', parser, function (req, res) {
   List.findOne({ name: req.params.list }, function (err, list) {
     if (err || !list) {
       res.status(500);
-      res.send('ERROR');
+      res.send({ error: 'NOT_FOUND' });
     } else {
       insert_item(list, req.body.item);
       res.send('ITEM_ADDED');
