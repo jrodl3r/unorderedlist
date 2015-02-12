@@ -80,12 +80,14 @@ button:focus {
 
 #status {
   visibility: hidden;
+  overflow: hidden;
   display: inline-block;
   width: 90%;
   margin: 5px 0;
   height: 20px;
   line-height: 20px;
   font-weight: bold;
+  text-align: center;
 }
 
 body#options-window #status {
@@ -94,9 +96,18 @@ body#options-window #status {
   line-height: 30px;
 }
 
+#status span {
+  display: none;
+}
+
 #status.pass {
   visibility: visible;
   color: limegreen;
+}
+
+#status.pass span.pass,
+#status.fail span.fail {
+  display: block;
 }
 
 #status.fail {

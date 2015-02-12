@@ -13,7 +13,6 @@
 
 
 #### NEXT
-- 'add chrome ext list input basic validation'
 - 'add LIST_NOT_FOUND error request return'
 - 'add list name validation + reserved words ('test', symbols, "", ``, '', etc.)'
 - 'setup item content encoding/decoding (symbols, "", ``, '', etc.)'
@@ -34,6 +33,7 @@
 
 
 #### READY
+- 'add chrome ext list input basic validation'
 - 'add chrome ext notifications (copied, pasted, failed)'
 - 'style chrome ext actions popup + options layouts'
 - 'add chrome ext goto list url/link'

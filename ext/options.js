@@ -8,24 +8,26 @@ var UL = UL || {};
 // Saves options to chrome.storage
 UL.save_options = function save_options() {
 
-  // TODO Setup Input Validation
-
   var list_name = document.getElementById('list').value,
       status    = document.getElementById('status');
 
-  chrome.storage.sync.set({
-    list: list_name
-  }, function () {
-
-    // TODO Setup Failure
-
-    // Sucess
-    status.className = 'pass';
-
+  if (list_name !== '') {
+    chrome.storage.sync.set({
+      list: list_name
+    }, function () {
+      // Sucess
+      status.className = 'pass';
+      setTimeout( function () {
+        status.className = '';
+      }, 2000);
+    });
+  // Failed
+  } else {
+    status.className = 'fail';
     setTimeout( function () {
       status.className = '';
     }, 2000);
-  });
+  }
 };
 
 // Restores preferences from chrome.storage
