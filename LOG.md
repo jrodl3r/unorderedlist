@@ -13,25 +13,28 @@
 
 
 #### NEXT
-- 'add chrome ext notifications (copied, pasted, failed)'
+- 'add chrome ext list input basic validation'
+- 'add LIST_NOT_FOUND error request return'
+- 'add list name validation + reserved words ('test', symbols, "", ``, '', etc.)'
+- 'setup item content encoding/decoding (symbols, "", ``, '', etc.)'
 - 'update readme to reflect emphasis on hotkey interaction, retract button terminology'
-- 'update chrome ext production url'
+- '...update chrome ext production url'
 - 'setup newRelic monitoring'
 
 - 'tag `0.0.2` github release (pre-release)'
 
+- 'add chrome ext get/set delay'
 - 'add notifications (copy, remove, etc)'
 - 'setup share-link ZeroClipboard'
 - 'add chrome ext new options_ui for Chrome 40+'
 - 'setup jasmine-node / mocha + supertest (express + socket tests) and integrate w/ codeship'
-- 'add list name validation + reserved words ('test', symbols, "", ``, '', etc.)'
-- 'setup item content encoding/decoding (symbols, "", ``, '', etc.)'
 
 
 - 'tag `0.0.3` github release (stable)'
 
 
 #### READY
+- 'add chrome ext notifications (copied, pasted, failed)'
 - 'style chrome ext actions popup + options layouts'
 - 'add chrome ext goto list url/link'
 - 'update all icons (favicon, chrome ext)'

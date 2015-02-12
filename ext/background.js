@@ -12,12 +12,13 @@ var UL = {
     this.updateList();
   },
 
-  // Set List Name
+  // TODO Set List Name
   updateList: function setList(list_name) {
 
     if (list_name !== undefined) {
       this.list = list_name;
       console.log('list updated: ' + list_name);
+
     } else if (list_name !== this.list_name) {
       chrome.storage.sync.get('list', function (result) {
         // TODO Add Error Protection
@@ -56,10 +57,10 @@ var UL = {
     xhr.onreadystatechange = function () {
       if (xhr.readyState === 4) {
         if (xhr.status === 200) {
-          // TODO Add Success Notification
+          UL.notify('Item Added!', 'pass');
           console.log('pasted: ' + UL.proxy.innerText);
         } else {
-          // TODO Add Error Notification
+          UL.notify('Error Adding Item!', 'fail');
           console.error('error sending list item!');
         }
       }
@@ -77,12 +78,12 @@ var UL = {
       if (xhr.readyState === 4) {
         if (xhr.status === 200) {
           UL.updateClipboard(JSON.parse(xhr.responseText));
-          // TODO Add Success Notification
+          UL.notify('Item Copied!', 'pass');
           console.log('copied: ' + UL.proxy.innerText);
           UL.removeProxy();
         } else {
           UL.removeProxy();
-          // TODO Add Error Notification
+          UL.notify('Error Copying Item!', 'fail');
           console.error('error getting list item!');
         }
       }
@@ -113,15 +114,30 @@ var UL = {
   removeProxy: function removeProxy() {
 
     UL.proxy.remove();
+  },
+
+  // Show Notification
+  notify: function notify(msg, status) {
+
+    chrome.tabs.query({ active: true, lastFocusedWindow: true }, function(tabs) {
+      if (tabs[0].url.indexOf('chrome://') === -1) {
+        chrome.tabs.executeScript(tabs[0].id, {
+          code: 'var message = "' + msg + '", status = "' + status + '";'
+        }, function () {
+          chrome.tabs.executeScript(tabs[0].id, { file: 'notify.js' });
+        });
+      }
+    });
   }
+
 };
 
 document.addEventListener('DOMContentLoaded', UL.init());
 chrome.commands.onCommand.addListener(UL.processCommand);
+
+// TODO
 chrome.storage.onChanged.addListener( function (changes, namespace) {
   if(changes.list) {
-    // TODO Add Error Protection
-    // TODO Add Pass/Fail Notification
     UL.updateList(changes.list.newValue);
   }
 });
