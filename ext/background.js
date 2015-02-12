@@ -9,22 +9,33 @@ var UL = {
 
     this.domain = 'http://localhost:3000/'; //'http://unorderedlist.com/'; TODO
     this.proxy = null;
-    this.updateList();
+    this.getListName();
   },
 
-  // TODO Set List Name
-  updateList: function setList(list_name) {
+  // Load Stored List Name
+  getListName: function getListName() {
 
-    if (list_name !== undefined) {
-      this.list = list_name;
-      console.log('list updated: ' + list_name);
+    chrome.storage.sync.get('list', function (result) {
+      if (result.list) {
+        UL.setListName(result.list);
+      }
+    });
+  },
 
-    } else if (list_name !== this.list_name) {
-      chrome.storage.sync.get('list', function (result) {
-        // TODO Add Error Protection
-        // TODO Add Pass/Fail Notification
-        UL.updateList(result.list);
-      });
+  // Update List Name
+  setListName: function setListName(list_name) {
+
+    if (this.list_name !== list_name) {
+      this.list_name = list_name;
+      //console.log('list updated: ' + list_name);
+    }
+  },
+
+  //
+  processStorage: function processStorage(changes, namespace) {
+
+    if(changes.list) {
+      UL.setListName(changes.list.newValue);
     }
   },
 
@@ -36,14 +47,13 @@ var UL = {
     // Paste Item (POST)
     if (command === 'paste') {
       document.execCommand('paste');
-      url = UL.domain + UL.list;
+      url = UL.domain + encodeURI(UL.list_name);
       item_data = JSON.stringify({ item: UL.proxy.innerText });
       UL.sendData(url, item_data);
-      UL.removeProxy();
     }
     // Copy Item (GET)
     else if (command === 'copy') {
-      url = UL.domain + 'get/' + UL.list;
+      url = UL.domain + 'get/' + encodeURI(UL.list_name);
       UL.getData(url);
     }
   },
@@ -58,10 +68,12 @@ var UL = {
       if (xhr.readyState === 4) {
         if (xhr.status === 200) {
           UL.notify('Item Added!', 'pass');
-          console.log('pasted: ' + UL.proxy.innerText);
+          UL.removeProxy();
+          //console.log('pasted: ' + UL.proxy.innerText);
         } else {
           UL.notify('Error Adding Item!', 'fail');
-          console.error('error sending list item!');
+          UL.removeProxy();
+          //console.error('error sending list item!');
         }
       }
     };
@@ -79,12 +91,12 @@ var UL = {
         if (xhr.status === 200) {
           UL.updateClipboard(JSON.parse(xhr.responseText));
           UL.notify('Item Copied!', 'pass');
-          console.log('copied: ' + UL.proxy.innerText);
           UL.removeProxy();
+          //console.log('copied: ' + UL.proxy.innerText);
         } else {
-          UL.removeProxy();
           UL.notify('Error Copying Item!', 'fail');
-          console.error('error getting list item!');
+          UL.removeProxy();
+          //console.error('error getting list item!');
         }
       }
     };
@@ -129,15 +141,8 @@ var UL = {
       }
     });
   }
-
 };
 
 document.addEventListener('DOMContentLoaded', UL.init());
 chrome.commands.onCommand.addListener(UL.processCommand);
-
-// TODO
-chrome.storage.onChanged.addListener( function (changes, namespace) {
-  if(changes.list) {
-    UL.updateList(changes.list.newValue);
-  }
-});
+chrome.storage.onChanged.addListener(UL.processStorage);

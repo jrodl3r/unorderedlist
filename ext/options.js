@@ -10,12 +10,9 @@ UL.save_options = function save_options() {
 
   var list_name = document.getElementById('list').value,
       status    = document.getElementById('status');
-
+  // Sucess
   if (list_name !== '') {
-    chrome.storage.sync.set({
-      list: list_name
-    }, function () {
-      // Sucess
+    chrome.storage.sync.set({ list: list_name }, function () {
       status.className = 'pass';
       setTimeout( function () {
         status.className = '';
@@ -33,11 +30,17 @@ UL.save_options = function save_options() {
 // Restores preferences from chrome.storage
 UL.restore_options = function restore_options() {
 
-  chrome.storage.sync.get({
-    list: ''
-  }, function (items) {
+  chrome.storage.sync.get({ list: '' }, function (items) {
     document.getElementById('list').value = items.list;
   });
+};
+
+// Process Enter-Key
+UL.submit_input = function submit_input(e) {
+
+  if (e.keyCode === 13) {
+    UL.save_options();
+  }
 };
 
 // Open List Link
@@ -45,15 +48,7 @@ UL.list_link = function list_link(e) {
 
   var list_name = document.getElementById('list').value;
   e.preventDefault();
-  chrome.tabs.create({url: 'http://unorderedlist.com/' + list_name });
-};
-
-// Process Enter-Key
-UL.submit_input = function submit_input() {
-
-  if (event.keyCode === 13) {
-    UL.save_options();
-  }
+  chrome.tabs.create({url: 'http://unorderedlist.com/' + encodeURI(list_name) });
 };
 
 // Open Keyboard Settings
