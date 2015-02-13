@@ -7,7 +7,7 @@ var UL = {
 
   init: function init() {
 
-    this.domain = 'http://localhost:3000/'; //'http://unorderedlist.com/'; TODO
+    this.domain = 'http://unorderedlist.com/';
     this.proxy = null;
     this.getListName();
   },

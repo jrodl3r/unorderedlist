@@ -9,8 +9,10 @@ Thumbs.db
 
 #ENV
 /node_modules
+/chrome/ext.*
 /img
 /public/css/*.css*
+/public/*.html
 .grunt
 .sass-cache
 .codeship.yml
