@@ -81,7 +81,7 @@ app.post('/:list', parser, function (req, res) {
   List.findOne({ name: req.params.list }, function (err, list) {
     if (err || !list) {
       res.status(500);
-      res.send({ error: 'NOT_FOUND' });
+      res.send(err);
     } else {
       insert_item(list, req.body.item);
       res.send('ITEM_ADDED');

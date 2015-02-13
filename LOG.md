@@ -5,23 +5,25 @@
 - 'add list history & item recovery logic + layout'
 - 'add input overload detection (50 submits / 60s = 30s timeout)'
 - 'setup content-type detection logic + layout (link, text, etc.)'
-- 'add visual walkthrough intro (add list, add item, remove, copy, etc.)'
 - 'add preprocess + minify to heroku dist build (remove dist)'
+- 'add chrome ext create new list link/option'
 - 'add release version to menubar (package.json » grunt preprocess)'
-- 'setup responsive layout'
+- 'add optional social login'
+- 'add private lists'
 - 'add grunt-unCSS'
 
 
 #### NEXT
-- 'distribute chrome ext to play store + add download link'
-
-- 'update readme to reflect emphasis on hotkey interaction, retract button terminology'
-- 'setup newRelic monitoring'
+- 'update npm deps'
 
 - 'tag `0.0.2` github release (pre-release)'
 
-- 'add notifications (copy, remove, etc)'
+- 'revamp ui + setup responsive layout'
+- 'add off-screen site menu'
 - 'setup share-link ZeroClipboard'
+- 'add notifications (copy, remove, etc)'
+- 'add item content max-size / ellipses logic'
+- 'add visual walkthrough intro (add list, add item, remove, copy, etc.)'
 - 'add chrome ext new options_ui for Chrome 40+'
 - 'add item content encoding/decoding (symbols, ".", `.`, '.', etc.)'
 - 'add list name validation + reserved words ('test', symbols, ".", `.`, '.', etc.)'
@@ -31,6 +33,9 @@
 
 
 #### READY
+- 'distribute chrome ext to play store + add extension link logic'
+- 'update readme to reflect emphasis on hotkey interaction, retract button terminology'
+- 'setup newRelic monitoring'
 - 'add list-not-found request return error'
 - 'cleanup chrome ext notification + update list name logic'
 - 'add chrome ext list input basic validation'

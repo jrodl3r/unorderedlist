@@ -28,6 +28,7 @@ var UL = {
     this.init_sockets();
     this.init_events();
     this.analyze_url();
+    this.add_ext_link();
   },
 
   // setup socket handlers
@@ -213,6 +214,18 @@ var UL = {
     var domain = location.host || 'unorderedlist.com',
           link = 'http://' + domain + '/' + encodeURI(this.list_title.text());
     $('<li></li>').append($('<a>Share</a>').attr({ 'id': 'share', 'href': link })).prependTo(this.menu_bar);
+  },
+
+  // add chrome ext download link
+  add_ext_link: function add_ext_link() {
+
+    if (window.chrome !== undefined && !window.chrome.app.isInstalled) {
+      $('<li></li>').append($('<a>Download</a>').attr({ 'id': 'download', 'href': '#' })).appendTo(this.menu_bar);
+      $('#download').on('click', function (e) {
+        e.preventDefault();
+        chrome.webstore.install();
+      });
+    }
   }
 };
 
