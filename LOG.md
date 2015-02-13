@@ -21,14 +21,16 @@
 - 'add item content max-size / ellipses logic'
 - 'add visual walkthrough intro (add list, add item, remove, copy, etc.)'
 - 'add chrome ext new options_ui for Chrome 40+'
+- 'add chrome ext action popup hotkey (quick list change)'
 - 'add item content encoding/decoding (symbols, ".", `.`, '.', etc.)'
 - 'add list name validation + reserved words ('test', symbols, ".", `.`, '.', etc.)'
 - 'setup jasmine-node / mocha + supertest (express + socket tests) and integrate w/ codeship'
-
 - 'tag `0.0.3` github release (stable)'
 
 
 #### READY
+- 'tag `0.0.2` release (stable)'
+- 'update menu nav logic + layout'
 - 'distribute chrome ext to play store + add extension link logic'
 - 'update readme to reflect emphasis on hotkey interaction, retract button terminology'
 - 'setup newRelic monitoring'

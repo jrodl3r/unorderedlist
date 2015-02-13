@@ -15,23 +15,21 @@ Have you ever found yourself needing to copy a link or text snippet to another c
 * [Pastebot](http://tapbots.com/software/pastebot) works great for pasting to mobile devices (but it has a price tag)
 * [CloudApp](https://www.getcloudapp.com) works for any kind of content (but it comes with a monthly fee)
 
-**Then we have the tried-and-true / _get er' done_ methods:**
+**Then we have the tried-and-true methods:**
 
-* Makeshift Evernote or Dropbox Clipboards
+* Makeshift _Evernote_ or _Dropbox_ Clipboards
 * Sending an e-mail or IM to yourself
-* Adding another item to Reminders or Wunderlist
+* Adding another item to _Reminders_ or _Wunderlist_
 
-We've all used these tools and methods for years, but they all tend to be a little cumbersome _or they cost money_. Something this simple should be free... _Right?_ All we want to do is get some text from one computer to another!
+We've all used these tools and methods for years, but they all tend to be a little cumbersome _or they cost money_. Something this simple should be free... _Right?_ All we want to do is get some text from one computer to another.
 
 
 ### How's it work?
 
 After the initial setup (see below) it's as simple as:
 
-**Source:** Copy (**⌘**+**C**) » Hotkey (**Alt**+**Shift**+**C**)<br>
-**Target:** Hotkey (**Alt**+**Shift**+**V**) » Paste (**⌘**+**V**)
-
-That's it.
+**`Source:`** Copy ( **⌘**+**C** ) » Hotkey ( **Alt**+**Shift**+**C** )<br>
+**`Target:`** Hotkey ( **Alt**+**Shift**+**V** ) » Paste ( **⌘**+**V** )
 
 
 ### Setup
@@ -40,6 +38,6 @@ That's it.
 2. Click Download to install the [Chrome Extension](https://chrome.google.com/webstore/detail/unorderedlist/jehhmlpdedncbbemoncbfabfaongchma)
 3. Click the Chrome Button to add/edit your list name
 
-All set, you're good to go... :beers:
+All set. You're good to go! :beers:
 
 _(Chrome will sync to your other desktops by default.)_

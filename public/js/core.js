@@ -20,6 +20,7 @@ var UL = {
   item_content         :  $('#item-list li span'),
   remove_buttons       :  $('#item-list li .remove'),
   clip_buttons         :  $('#item-list li .clip'),
+  chrome_ext_id        :  'jehhmlpdedncbbemoncbfabfaongchma',
   clipboard            :  null,
 
 
@@ -214,6 +215,7 @@ var UL = {
     var domain = location.host || 'unorderedlist.com',
           link = 'http://' + domain + '/' + encodeURI(this.list_title.text());
     $('<li></li>').append($('<a>Share</a>').attr({ 'id': 'share', 'href': link })).prependTo(this.menu_bar);
+    this.show_menu();
   },
 
   // add chrome ext download link
@@ -221,7 +223,7 @@ var UL = {
 
     if (window.chrome) {
       if (window.chrome.runtime) {
-        chrome.runtime.sendMessage('jehhmlpdedncbbemoncbfabfaongchma', { message: 'isInstalled' }, function (reply) {
+        chrome.runtime.sendMessage(this.chrome_ext_id, { message: 'isInstalled' }, function (reply) {
           if (reply !== undefined && reply.status) {
             $('#download').remove();
           }
@@ -232,7 +234,14 @@ var UL = {
         e.preventDefault();
         chrome.webstore.install();
       });
+      this.show_menu();
     }
+  },
+
+  // show menu bar
+  show_menu: function show_menu() {
+
+    this.menu_bar.addClass('visible');
   }
 };
 

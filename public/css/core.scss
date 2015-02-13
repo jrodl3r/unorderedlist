@@ -179,6 +179,7 @@ form {
 }
 
 #nav {
+  display: none;
   z-index: 99;
   position: fixed;
   bottom: 0;
@@ -188,14 +189,18 @@ form {
   background: #FFF;
   border-top: 1px solid #EEE;
 
+  &.visible {
+    display: block;
+  }
+
   li {
     display: inline;
-    padding-right: 15px;
+    padding-left: 15px;
     height: 40px;
     line-height: 40px;
 
-    &:last-of-type {
-      padding-right: 0;
+    &:first-of-type {
+      padding-left: 0;
     }
 
     a {
