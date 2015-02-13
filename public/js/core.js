@@ -219,12 +219,14 @@ var UL = {
   // add chrome ext download link
   add_ext_link: function add_ext_link() {
 
-    if (window.chrome !== undefined) {
-      chrome.runtime.sendMessage('jehhmlpdedncbbemoncbfabfaongchma', { message: 'isInstalled' }, function (reply) {
-        if (reply.status) {
-          $('#download').remove();
-        }
-      });
+    if (window.chrome) {
+      if (window.chrome.runtime) {
+        chrome.runtime.sendMessage('jehhmlpdedncbbemoncbfabfaongchma', { message: 'isInstalled' }, function (reply) {
+          if (reply !== undefined && reply.status) {
+            $('#download').remove();
+          }
+        });
+      }
       $('<li></li>').append($('<a>Download</a>').attr({ 'id': 'download', 'href': '#' })).appendTo(this.menu_bar);
       $('#download').on('click', function (e) {
         e.preventDefault();
