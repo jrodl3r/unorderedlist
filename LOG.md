@@ -14,10 +14,6 @@
 
 
 #### NEXT
-- 'update npm deps'
-
-- 'tag `0.0.2` github release (pre-release)'
-
 - 'revamp ui + setup responsive layout'
 - 'add off-screen site menu'
 - 'setup share-link ZeroClipboard'
