@@ -65,7 +65,7 @@ module.exports = function(grunt) {
           'chrome': true
         }
       },
-      files: ['Gruntfile.js', 'app.js', 'models/*.js', 'public/js/*.js', 'ext/*.js']
+      files: ['Gruntfile.js', 'app.js', 'models/*.js', 'public/js/*.js', 'chrome/ext/*.js']
     },
 
 
@@ -96,7 +96,7 @@ module.exports = function(grunt) {
         tasks: ['sass:dist']
       },
       js: {
-        files: ['Gruntfile.js', 'app.js', 'models/*.js', 'public/js/*.js', 'ext/*.js'],
+        files: ['Gruntfile.js', 'app.js', 'models/*.js', 'public/js/*.js', 'chrome/ext/*.js'],
         tasks: ['jshint']
       },
       test: {

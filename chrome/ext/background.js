@@ -140,9 +140,19 @@ var UL = {
         });
       }
     });
+  },
+
+  // Broadcast Installed State
+  isInstalled: function isInstalled(request, sender, sendResponse) {
+
+    if (request && request.message === 'isInstalled') {
+      sendResponse({ status: true });
+    }
+    return true;
   }
 };
 
 document.addEventListener('DOMContentLoaded', UL.init());
 chrome.commands.onCommand.addListener(UL.processCommand);
 chrome.storage.onChanged.addListener(UL.processStorage);
+chrome.runtime.onMessageExternal.addListener(UL.isInstalled);

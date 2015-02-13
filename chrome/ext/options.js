@@ -6,7 +6,7 @@
 var UL = UL || {};
 
 // Saves options to chrome.storage
-UL.save_options = function save_options() {
+UL.saveOptions = function saveOptions() {
 
   var list_name = document.getElementById('list').value,
       status    = document.getElementById('status');
@@ -28,7 +28,7 @@ UL.save_options = function save_options() {
 };
 
 // Restores preferences from chrome.storage
-UL.restore_options = function restore_options() {
+UL.restoreOptions = function restoreOptions() {
 
   chrome.storage.sync.get({ list: '' }, function (items) {
     document.getElementById('list').value = items.list;
@@ -36,15 +36,15 @@ UL.restore_options = function restore_options() {
 };
 
 // Process Enter-Key
-UL.submit_input = function submit_input(e) {
+UL.submitInput = function submitInput(e) {
 
   if (e.keyCode === 13) {
-    UL.save_options();
+    UL.saveOptions();
   }
 };
 
 // Open List Link
-UL.list_link = function list_link(e) {
+UL.openListLink = function openListLink(e) {
 
   var list_name = document.getElementById('list').value;
   e.preventDefault();
@@ -52,14 +52,14 @@ UL.list_link = function list_link(e) {
 };
 
 // Open Keyboard Settings
-UL.keyboard_settings = function keyboard_settings(e) {
+UL.openHotkeySettings = function openHotkeySettings(e) {
 
   e.preventDefault();
   chrome.tabs.create({url: 'chrome://extensions/configureCommands'});
 };
 
-document.addEventListener('DOMContentLoaded', UL.restore_options);
-document.getElementById('save').addEventListener('click', UL.save_options);
-document.getElementById('list').addEventListener('keypress', UL.submit_input);
-document.getElementById('options').addEventListener('click', UL.keyboard_settings);
-document.getElementById('open_list').addEventListener('click', UL.list_link);
+document.addEventListener('DOMContentLoaded', UL.restoreOptions);
+document.getElementById('save').addEventListener('click', UL.saveOptions);
+document.getElementById('list').addEventListener('keypress', UL.submitInput);
+document.getElementById('options').addEventListener('click', UL.openHotkeySettings);
+document.getElementById('open_list').addEventListener('click', UL.openListLink);

@@ -219,7 +219,12 @@ var UL = {
   // add chrome ext download link
   add_ext_link: function add_ext_link() {
 
-    if (window.chrome !== undefined && !window.chrome.app.isInstalled) {
+    if (window.chrome !== undefined) {
+      chrome.runtime.sendMessage('jehhmlpdedncbbemoncbfabfaongchma', { message: 'isInstalled' }, function (reply) {
+        if (reply.status) {
+          $('#download').remove();
+        }
+      });
       $('<li></li>').append($('<a>Download</a>').attr({ 'id': 'download', 'href': '#' })).appendTo(this.menu_bar);
       $('#download').on('click', function (e) {
         e.preventDefault();
