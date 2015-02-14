@@ -7,6 +7,7 @@
 - 'setup content-type detection logic + layout (link, text, etc.)'
 - 'add preprocess + minify to heroku dist build (remove dist)'
 - 'add chrome ext create new list link/option'
+- 'add chrome ext functionality / notification for global + chrome pages'
 - 'add release version to menubar (package.json » grunt preprocess)'
 - 'add optional social login'
 - 'add private lists'

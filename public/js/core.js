@@ -246,5 +246,5 @@ var UL = {
 };
 
 $(document).ready( function () {
-  UL.init();
+  //UL.init();
 });

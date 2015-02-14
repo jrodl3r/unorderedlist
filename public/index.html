@@ -1,8 +1,11 @@
-<!doctype>
-<html>
+<!doctype html>
+<html class="no-js" lang="en-us">
 <head>
-  <meta charset="utf-8">
   <title>UnorderedList</title>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Fast, Ubiquitous Cloud Clipboard.">
   <meta name="google-site-verification" content="iVXO7Vfe3ONCBhNvOoAnymMVa-TAMR2ob4yxvxfpyLs">
   <link rel="chrome-webstore-item" href="https://chrome.google.com/webstore/detail/jehhmlpdedncbbemoncbfabfaongchma">
   <link rel="stylesheet" href="public/css/font-awesome.css">
@@ -10,7 +13,20 @@
   <link rel="icon" type="image/x-icon" href="public/favicon.ico">
 </head>
 <body>
+  
+  <nav>
+    <h1>UnorderedList</h1>
+    <ul id="menu">
+      <li><a href="#">Menu</a></li>
+      <li><a href="#">Download</a></li>
+      <li><a href="#">Share</a></li>
+    </ul>
+  </nav>
   <div id="app">
+    <input id="input" type="text">
+  </div>
+  
+  <!-- <div id="app">
     <a href="/" tabindex="1">
       <h1>Unordered<span>List</span></h1>
     </a>
@@ -25,7 +41,7 @@
     </form>
     <ul id="item-list"></ul>
   </div>
-  <ul id="nav"></ul>
+  <ul id="nav"></ul> -->
   <script src="socket.io/socket.io.js"></script>
   <script src="public/js/vendor/jquery.min.js"></script>
   <script src="public/js/vendor/clipboard.min.js"></script>
