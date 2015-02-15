@@ -249,14 +249,50 @@ $(document).ready( function () {
   //UL.init();
 
 
-  
-  $('input').on('focus blur', function () {
-    if ($(this).attr('placeholder') !== '') {
-      $(this).attr('placeholder', '');
-    } else {
-      $(this).attr('placeholder', 'List Name');
-    }
-  });
 
+  $('#textbox').on('focus blur', setWatermark);
+  $('#textbox').on('keypress', loadList);
+
+
+
+  function addItem(item) {
+
+    var li   = $('<li></li>', { 'class': 'list-item' }).text(item),
+        menu = $('<a></a>', { 'class': 'menu', 'href': '#' }).append($('<i></i>', { 'class': 'fa fa-bars'}));
+
+    li.append(menu);
+    $('#items').prepend(li);
+    setTimeout( function () {
+      $('#items').find('li:eq(0)').addClass('active');
+    }, 1);
+  }
+
+  function loadList (e) {
+
+    if (e.keyCode === 13) {
+      if (!$(e.target).hasClass('active')) {
+        $('#title').text($(e.target).val()).addClass('active');
+        $(e.target).val('').attr('placeholder', 'Add Item').addClass('active').focus();
+      } else {
+        addItem($(e.target).val());
+        $(e.target).val('');
+      }
+    }
+  }
+
+  function setWatermark(e) {
+
+    var placeholder = $(e.target).attr('placeholder');
+
+    if (placeholder.length) {
+      $(e.target).attr('placeholder', '');
+    } else {
+      if ($(e.target).hasClass('active')) {
+        $(e.target).attr('placeholder', 'Add Item');
+      } else {
+        $(e.target).attr('placeholder', 'List Name');
+      }
+    }
+  }
 
 });

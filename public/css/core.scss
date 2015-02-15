@@ -15,6 +15,9 @@ $default-border-color      :  #000;
 $nav-height                :  48px;
 $nav-bg-color              :  #000;
 
+$item-height               :  46px;
+$item-border-radius        :  8px;
+$item-bg-color             :  #000;
 
 // Breakpoints
 // ==========================================================================
@@ -75,12 +78,12 @@ header {
   top: 0;
   right: 0;
   height: inherit;
-  list-style: none;
 
   li {
     float: left;
     display: none;
     height: inherit;
+    list-style: none;
     line-height: 48px;
 
     @include breakpoint($bp-large) {
@@ -131,17 +134,102 @@ header {
   text-align: center;
 }
 
-input {
-  height: 48px;
+#title {
+  position: absolute;
+  top: 70px;
+  right: 0;
+  left: 0;
+  height: 30px;
+  margin: 0 auto;
+  font-size: 17px;
+  font-weight: bold;
+  opacity: 0;
+  transition: all .5s;
+
+  &.active {
+    opacity: 1;
+  }
+
+  @include breakpoint($bp-medium) {
+    top: 80px;
+  }
+
+  @include breakpoint($bp-large) {
+    top: 95px;
+  }
+}
+
+#textbox {
+  height: 52px;
   width: 85%;
   max-width: $bp-medium;
   margin-top: 160px;
   color: #000;
-  font-size: 18px;
+  font-size: 20px;
   text-align: center;
   border: 1px solid $default-border-color;
   border-radius: 10px;
+  transition: all .5s;
+
+  &.active {
+    margin-top: 110px;
+
+    @include breakpoint($bp-medium) {
+      margin-top: 130px;
+    }
+
+    @include breakpoint($bp-large) {
+      margin-top: 150px;
+    }
+  }
 }
+
+#items {
+  width: 85%;
+  margin: 40px auto 60px;
+  transition: all .5s;
+
+  @include breakpoint($bp-medium) {
+    width: 80%;
+    margin-top: 50px;
+  }
+
+  @include breakpoint($bp-large) {
+    margin-top: 60px;
+  }
+
+  .list-item {
+    position: relative;
+    height: 0;
+    width: 100%;
+    margin: 0 auto 10px;
+    list-style: none;
+    line-height: $item-height;
+    color: #FFF;
+    background: $item-bg-color;
+    border-radius: $item-border-radius;
+    opacity: 0;
+    transition: height .25s ease-out, opacity 0.3s ease 0.3s;
+
+    &.active {
+      height: $item-height;
+      opacity: 1;
+    }
+
+    a.menu {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: inherit;
+      padding: 0 15px;
+      line-height: inherit;
+      color: #FFF;
+    }
+  }
+}
+
+
+
 
 
 /* #app {
