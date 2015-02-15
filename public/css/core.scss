@@ -5,6 +5,30 @@
 @import 'compass';
 @import 'breakpoint';
 
+
+// Defaults
+// ==========================================================================
+
+$default-font              :  Helvetica, Arial, sans-serif;
+$default-border-color      :  #000;
+
+$nav-height                :  48px;
+$nav-bg-color              :  #000;
+
+
+// Breakpoints
+// ==========================================================================
+
+$bp-small                  :  320px;
+$bp-medium                 :  500px;
+$bp-large                  :  800px;
+
+
+
+::-webkit-input-placeholder {
+    color: #DDD;
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -17,65 +41,106 @@ html, body {
 
 body {
   min-height: 100%;
-  font-family: Helvetica, Arial, sans-serif;
+  min-width: $bp-small;
+  font-family: $default-font;
+
+  & *:focus {
+    outline: 0;
+  }
 }
 
-nav {
+header {
+  position: relative;
+  z-index: 2;
   width: 100%;
-  height: 48px;
-  background: #000;
+  height: $nav-height;
+  background: $nav-bg-color;
 
   h1 {
-    float: left;
-    padding-left: 10px;
-    line-height: 48px;
-    font-size: 18px;
-    color: #fff;
+    height: $nav-height;
+    line-height: $nav-height;
+    text-align: center;
+    font-size: 20px;
+    color: #FFF;
+
+    @include breakpoint($bp-large) {
+      padding-left: 12px;
+      text-align: left;
+    }
   }
+}
 
-  #menu {
-    float: right;
-    padding-right: 10px;
-    list-style: none;
+#menu {
+  position: absolute;
+  top: 0;
+  right: 0;
+  height: inherit;
+  list-style: none;
 
-    li {
+  li {
+    float: left;
+    display: none;
+    height: inherit;
+    line-height: 48px;
+
+    @include breakpoint($bp-large) {
+      display: block;
+    }
+
+    &:first-of-type {
+      display: block;
+      font-size: 22px;
+
+      @include breakpoint($bp-large) {
+        display: none;
+      }
+    }
+
+    &:last-of-type {
+
+      @include breakpoint($bp-large) {
+        padding-right: 15px;
+      }
+    }
+
+    a {
       float: left;
-      display: none;
-      padding-left: 10px;
-      line-height: 48px;
+      height: inherit;
+      line-height: inherit;
+      padding: 0 15px;
+      color: #FFF;
+      text-decoration: none;
 
-      @include breakpoint(600px) {
-        display: block;
-      }
-
-      &:first-of-type {
-        display: block;
-
-        @include breakpoint(600px) {
-          display: none;
-        }
-      }
-
-      a {
-        color: #fff;
-        text-decoration: none;
+      &:hover {
+        color: #DDD;
       }
     }
   }
 }
 
 #app {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
   height: 100%;
   width: 100%;
+  max-width: $bp-large;
+  min-width: $bp-small;
+  margin: 0 auto;
   text-align: center;
 }
 
-#input {
-  height: 36px;
+input {
+  height: 48px;
   width: 85%;
-  margin-top: 100px;
-  border: 1px solid #000;
-  border-radius: 6px;
+  max-width: $bp-medium;
+  margin-top: 160px;
+  color: #000;
+  font-size: 18px;
+  text-align: center;
+  border: 1px solid $default-border-color;
+  border-radius: 10px;
 }
 
 

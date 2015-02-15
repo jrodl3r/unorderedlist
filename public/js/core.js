@@ -247,4 +247,16 @@ var UL = {
 
 $(document).ready( function () {
   //UL.init();
+
+
+  
+  $('input').on('focus blur', function () {
+    if ($(this).attr('placeholder') !== '') {
+      $(this).attr('placeholder', '');
+    } else {
+      $(this).attr('placeholder', 'List Name');
+    }
+  });
+
+
 });

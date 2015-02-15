@@ -5,6 +5,7 @@
 - 'add list history & item recovery logic + layout'
 - 'add input overload detection (50 submits / 60s = 30s timeout)'
 - 'setup content-type detection logic + layout (link, text, etc.)'
+- 'setup browser navigation control w/ dynamic url updating'
 - 'add preprocess + minify to heroku dist build (remove dist)'
 - 'add chrome ext create new list link/option'
 - 'add chrome ext functionality / notification for global + chrome pages'
