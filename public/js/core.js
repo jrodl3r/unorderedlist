@@ -249,48 +249,58 @@ $(document).ready( function () {
   //UL.init();
 
 
-
-  $('#textbox').on('focus blur', setWatermark);
-  $('#textbox').on('keypress', loadList);
-
+  $('input').on('focus blur', setWatermark);
+  $('input').on('keypress', userInput);
 
 
   function addItem(item) {
+    var li   = $('<li></li>', { 'class': 'item' }).text(item),
+        menu = $('<ul></ul>', { 'class': 'menu' }),
+        bg   = $('<div></div>', { 'class': 'vignette' }),
+        icon = $('<div></div>', { 'class': 'icon fa fa-bars' });
 
-    var li   = $('<li></li>', { 'class': 'list-item' }).text(item),
-        menu = $('<a></a>', { 'class': 'menu', 'href': '#' }).append($('<i></i>', { 'class': 'fa fa-bars'}));
-
-    li.append(menu);
+    menu.append($('<li></li>').append('<a class="fa fa-trash-o"><span>Delete</span></a>'));
+    menu.append($('<li></li>').append('<a class="fa fa-share-square-o"><span>Share</span></a>'));
+    menu.append($('<li></li>').append('<a class="fa fa-star-o"><span>Star</span></a>'));
+    menu.append($('<li></li>').append('<a class="fa fa-clipboard"><span>Copy</span></a>'));
+    menu.append($('<li></li>').append('<a class="fa fa-pencil"><span>Edit</span></a>'));
+    li.append(menu).append(bg).append(icon);
     $('#items').prepend(li);
     setTimeout( function () {
-      $('#items').find('li:eq(0)').addClass('active');
+      $('#items').find('li:eq(0)')
+        .addClass('active')
+        .on('click', function (e) {
+          e.preventDefault();
+          e.stopPropagation();
+          $(this).focus();
+      });
     }, 1);
   }
 
-  function loadList (e) {
-
+  function userInput(e) {
     if (e.keyCode === 13) {
-      if (!$(e.target).hasClass('active')) {
-        $('#title').text($(e.target).val()).addClass('active');
-        $(e.target).val('').attr('placeholder', 'Add Item').addClass('active').focus();
-      } else {
-        addItem($(e.target).val());
-        $(e.target).val('');
+      // load list
+      if (!$(e.currentTarget).hasClass('active') && $(e.currentTarget).val().length > 0) {
+        $('#title').text($(e.currentTarget).val()).addClass('active');
+        $(e.currentTarget).val('').attr('placeholder', 'Add Item').addClass('active').focus();
+      // add item
+      } else if ($(e.currentTarget).val().length > 0) {
+        addItem($(e.currentTarget).val());
+        $(e.currentTarget).val('');
       }
     }
   }
 
   function setWatermark(e) {
-
-    var placeholder = $(e.target).attr('placeholder');
+    var placeholder = $(e.currentTarget).attr('placeholder');
 
     if (placeholder.length) {
-      $(e.target).attr('placeholder', '');
+      $(e.currentTarget).attr('placeholder', '');
     } else {
-      if ($(e.target).hasClass('active')) {
-        $(e.target).attr('placeholder', 'Add Item');
+      if ($(e.currentTarget).hasClass('active')) {
+        $(e.currentTarget).attr('placeholder', 'Add Item');
       } else {
-        $(e.target).attr('placeholder', 'List Name');
+        $(e.currentTarget).attr('placeholder', 'List Name');
       }
     }
   }

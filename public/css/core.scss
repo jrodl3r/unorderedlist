@@ -46,14 +46,14 @@ body {
   min-height: 100%;
   min-width: $bp-small;
   font-family: $default-font;
+}
 
-  & *:focus {
-    outline: 0;
-  }
+a {
+  outline: 0;
 }
 
 header {
-  position: relative;
+  position: fixed;
   z-index: 2;
   width: 100%;
   height: $nav-height;
@@ -144,11 +144,7 @@ header {
   font-size: 17px;
   font-weight: bold;
   opacity: 0;
-  transition: all .5s;
-
-  &.active {
-    opacity: 1;
-  }
+  @include transition(all .5s);
 
   @include breakpoint($bp-medium) {
     top: 80px;
@@ -157,9 +153,13 @@ header {
   @include breakpoint($bp-large) {
     top: 95px;
   }
+
+  &.active {
+    opacity: 1;
+  }
 }
 
-#textbox {
+input {
   height: 52px;
   width: 85%;
   max-width: $bp-medium;
@@ -169,7 +169,16 @@ header {
   text-align: center;
   border: 1px solid $default-border-color;
   border-radius: 10px;
-  transition: all .5s;
+  outline: 0;
+  @include transition(all .5s);
+
+  @include breakpoint($bp-medium) {
+    width: 75%;
+  }
+
+  @include breakpoint($bp-large) {
+    margin-top: 180px;
+  }
 
   &.active {
     margin-top: 110px;
@@ -187,47 +196,139 @@ header {
 #items {
   width: 85%;
   margin: 40px auto 60px;
-  transition: all .5s;
+  @include transition(all .5s);
 
   @include breakpoint($bp-medium) {
-    width: 80%;
-    margin-top: 50px;
+    width: 75%;
+    margin-top: 40px;
   }
 
   @include breakpoint($bp-large) {
-    margin-top: 60px;
-  }
-
-  .list-item {
-    position: relative;
-    height: 0;
-    width: 100%;
-    margin: 0 auto 10px;
-    list-style: none;
-    line-height: $item-height;
-    color: #FFF;
-    background: $item-bg-color;
-    border-radius: $item-border-radius;
-    opacity: 0;
-    transition: height .25s ease-out, opacity 0.3s ease 0.3s;
-
-    &.active {
-      height: $item-height;
-      opacity: 1;
-    }
-
-    a.menu {
-      position: absolute;
-      top: 0;
-      right: 0;
-      height: inherit;
-      padding: 0 15px;
-      line-height: inherit;
-      color: #FFF;
-    }
+    margin-top: 50px;
   }
 }
 
+.item {
+  position: relative;
+  z-index: 1;
+  height: 0;
+  width: 100%;
+  margin: 0 auto 10px;
+  list-style: none;
+  color: #FFF;
+  line-height: $item-height;
+  background: $item-bg-color;
+  border-radius: $item-border-radius;
+  opacity: 0;
+  cursor: default;
+  overflow: hidden;
+  @include transition(height .15s ease-out, opacity 0.25s ease 0.15s);
+
+  &.active {
+    height: $item-height;
+    opacity: 1;
+  }
+
+  &:hover, &:focus {
+
+    & .menu {
+      height: 100%;
+      opacity: 1;
+    }
+
+    & .vignette {
+      opacity: 1;
+      @include transform(translateX(-60%) scale(4));
+    }
+
+    & .icon {
+      display: none;
+    }
+  }
+
+  .menu {
+    position: absolute;
+    z-index: 3;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 0;
+    width: 100%;
+    margin: 0 auto;
+    padding: 0 5%;
+    border-radius: $item-border-radius;
+    //box-shadow: 0 0 18px rgba(0,0,0,0.4) inset;
+    //background: #888;
+    opacity: 0;
+    overflow: hidden;
+    @include transition(opacity .3s .35s, height .1s);
+
+    @include breakpoint($bp-medium) {
+      padding: 0 15%;
+    }
+
+    li {
+      float: left;
+      width: 20%;
+      text-align: center;
+      list-style: none;
+
+      a {
+        float: left;
+        height: $item-height;
+        width: 100%;
+        color: #000;
+        font-size: 18px;
+        line-height: $item-height;
+        text-decoration: none;
+        cursor: pointer;
+        @include transition(all .3s);
+
+        &:last-of-type {
+          padding-right: 0;
+        }
+
+        &:hover {
+          color: #CCC;
+          text-shadow: 0 0 5px rgba(#000, 0.4);
+        }
+
+        span {
+          display: none;
+        }
+      }
+    }
+  }
+
+  .vignette {
+    position: absolute;
+    top: -50%;
+    left: 100%;
+    right: 0;
+    height: 200%;
+    width: 50%;
+    background: #888;
+    border-radius: 50%;
+    opacity: .4;
+    @include transition(all .5s);
+  }
+
+  .icon {
+    position: absolute;
+    z-index: 1;
+    top: 0;
+    right: 0;
+    height: inherit;
+    padding: 0 15px;
+    color: #FFF;
+    line-height: inherit;
+    text-decoration: none;
+
+    @include breakpoint($bp-large) {
+      display: none;
+    }
+  }
+}
 
 
 

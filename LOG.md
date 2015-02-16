@@ -1,5 +1,6 @@
 #### LATER
 - 'add analytics'
+- 'fix repetitive clipboard resource download bug'
 - 'add flash feature detection for ZeroClipboard'
 - 'setup hotkeys (delete, copy, move-up, move-down, etc)'
 - 'add list history & item recovery logic + layout'
