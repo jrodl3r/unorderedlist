@@ -11,9 +11,12 @@
 
 $default-font              :  Helvetica, Arial, sans-serif;
 $default-border-color      :  #000;
+$default-bg-color          :  #FFF;
 
 $nav-height                :  48px;
 $nav-bg-color              :  #000;
+
+$menu-width                :  280px;
 
 $item-height               :  46px;
 $item-border-radius        :  8px;
@@ -27,6 +30,8 @@ $bp-medium                 :  500px;
 $bp-large                  :  800px;
 
 
+// Globals
+// ==========================================================================
 
 ::-webkit-input-placeholder {
     color: #DDD;
@@ -46,92 +51,220 @@ body {
   min-height: 100%;
   min-width: $bp-small;
   font-family: $default-font;
+  overflow-x: hidden;
+
+  @include breakpoint($bp-large) {
+    background: $default-bg-color;
+  }
 }
 
 a {
+  color: #FFF;
+  cursor: pointer;
   outline: 0;
+  -webkit-tap-highlight-color: rgba(#000, 0);
+  @include transition(.2s);
+  @include user-select(none);
+
+  &:hover {
+    color: #888;
+  }
 }
 
-header {
+ul {
+  list-style: none;
+}
+
+#wrapper {
+  min-width: 100%;
+  min-height: 100%;
+}
+
+
+// Header / Menu
+// ==========================================================================
+
+h1 {
   position: fixed;
-  z-index: 2;
+  z-index: 10;
   width: 100%;
   height: $nav-height;
+  line-height: $nav-height;
+  text-align: center;
+  font-size: 20px;
+  color: #FFF;
   background: $nav-bg-color;
+  cursor: default;
+  @include user-select(none);
+  @include transition(.5s);
 
-  h1 {
-    height: $nav-height;
-    line-height: $nav-height;
-    text-align: center;
-    font-size: 20px;
-    color: #FFF;
-
-    @include breakpoint($bp-large) {
-      padding-left: 12px;
-      text-align: left;
-    }
+  @include breakpoint($bp-large) {
+    padding-left: 12px;
+    text-align: left;
   }
 }
 
 #menu {
-  position: absolute;
+  position: fixed;
+  z-index: 1;
   top: 0;
-  right: 0;
-  height: inherit;
+  right: -$menu-width;
+  height: 100%;
+  width: $menu-width;
+  overflow-y: scroll;
+  @include background(linear-gradient(to top left, #111, #444));
+  @include transition(right .5s);
+
+  @include breakpoint($bp-large) {
+    z-index: 10;
+    right: 0;
+    height: $nav-height;
+    min-height: $nav-height;
+    width: auto;
+    background: none;
+  }
+
+  &.active {
+    z-index: 1;
+    right: 0;
+    height: 100%;
+  }
 
   li {
     float: left;
-    display: none;
-    height: inherit;
-    list-style: none;
-    line-height: 48px;
+    width: 100%;
+    height: 70px;
+    line-height: 70px;
 
     @include breakpoint($bp-large) {
-      display: block;
+      display: none;
+      float: right;
+      height: 48px;
+      width: auto;
+      margin-top: 0;
+      line-height: 48px;
+
+      &:nth-of-type(-n+3) {
+        display: block;
+      }
     }
 
     &:first-of-type {
+      margin-top: 80px;
+
+      @include breakpoint($bp-large) {
+        margin-top: 0;
+      }
+    }
+
+    &:last-of-type {
+      margin-bottom: 60px;
+
+      @include breakpoint($bp-large) {
+        margin-bottom: 0;
+      }
+    }
+
+    a {
       display: block;
-      font-size: 22px;
+      height: inherit;
+      line-height: inherit;
+      padding: 0 0 0 35px;
+      text-decoration: none;
+      color: #999;
+
+      &:hover {
+        color: #EEE;
+      }
+
+      @include breakpoint($bp-large) {
+        padding: 0 25px 0 0;
+        color: #FFF;
+
+        &:hover {
+          color: #888;
+        }
+      }
+    }
+
+    i {
+      height: inherit;
+      width: 20px;
+      margin-right: 20px;
+      line-height: inherit;
+      text-align: center;
+      font-size: 18px;
+
+      &.fa-cog, &.fa-lock, &.fa-share-square-o {
+        font-size: 19px;
+      }
 
       @include breakpoint($bp-large) {
         display: none;
       }
     }
+  }
+}
 
-    &:last-of-type {
+#menu-button {
+  position: fixed;
+  z-index: 10;
+  top: 0;
+  right: 0;
+  display: block;
+  height: $nav-height;
+  padding: 0 15px;
+  line-height: $nav-height;
+  font-size: 22px;
 
-      @include breakpoint($bp-large) {
-        padding-right: 15px;
-      }
-    }
+  @include breakpoint($bp-large) {
+    right: -$menu-width;
+  }
 
-    a {
-      float: left;
-      height: inherit;
-      line-height: inherit;
-      padding: 0 15px;
-      color: #FFF;
-      text-decoration: none;
+  &.active {
+    color: #888;
 
-      &:hover {
-        color: #DDD;
-      }
+    &:hover {
+      color: #555;
     }
   }
 }
 
+
+// Content
+// ==========================================================================
+
 #app {
   position: absolute;
+  z-index: 2;
   top: 0;
-  left: 0;
   right: 0;
+  bottom: 0;
+  left: 0;
   height: 100%;
   width: 100%;
-  max-width: $bp-large;
-  min-width: $bp-small;
-  margin: 0 auto;
-  text-align: center;
+  background: $default-bg-color;
+  //@include user-select(none);
+  @include transition(.5s);
+
+  &.active {
+    right: $menu-width;
+    left: -$menu-width;
+  }
+
+  .inner {
+    height: inherit;
+    min-height: 100%;
+    max-width: $bp-large;
+    min-width: $bp-small;
+    margin: 0 auto;
+    text-align: center;
+    //box-shadow: 0 0 35px 5px rgba(#000, .75);
+
+    //@include breakpoint($bp-large) {
+    //  box-shadow: none;
+    //}
+  }
 }
 
 #title {
@@ -144,7 +277,7 @@ header {
   font-size: 17px;
   font-weight: bold;
   opacity: 0;
-  @include transition(all .5s);
+  @include transition(.5s);
 
   @include breakpoint($bp-medium) {
     top: 80px;
@@ -170,6 +303,7 @@ input {
   border: 1px solid $default-border-color;
   border-radius: 10px;
   outline: 0;
+  //@include user-select(none);
   @include transition(all .5s);
 
   @include breakpoint($bp-medium) {
@@ -194,17 +328,17 @@ input {
 }
 
 #items {
-  width: 85%;
-  margin: 40px auto 60px;
+  width: 100%;
+  padding: 40px 7.5% 60px;
+  background: $default-bg-color;
   @include transition(all .5s);
 
   @include breakpoint($bp-medium) {
-    width: 75%;
-    margin-top: 40px;
+    padding: 40px 12.5% 60px;
   }
 
   @include breakpoint($bp-large) {
-    margin-top: 50px;
+    padding-top: 50px;
   }
 }
 
@@ -214,7 +348,6 @@ input {
   height: 0;
   width: 100%;
   margin: 0 auto 10px;
-  list-style: none;
   color: #FFF;
   line-height: $item-height;
   background: $item-bg-color;
@@ -222,6 +355,7 @@ input {
   opacity: 0;
   cursor: default;
   overflow: hidden;
+  @include user-select(none);
   @include transition(height .15s ease-out, opacity 0.25s ease 0.15s);
 
   &.active {
@@ -248,7 +382,7 @@ input {
 
   .menu {
     position: absolute;
-    z-index: 3;
+    z-index: 2;
     top: 0;
     left: 0;
     right: 0;
@@ -261,7 +395,7 @@ input {
     //background: #888;
     opacity: 0;
     overflow: hidden;
-    @include transition(opacity .3s .35s, height .1s);
+    @include transition(opacity .3s .3s, height .1s);
 
     @include breakpoint($bp-medium) {
       padding: 0 15%;
@@ -271,7 +405,6 @@ input {
       float: left;
       width: 20%;
       text-align: center;
-      list-style: none;
 
       a {
         float: left;
@@ -282,14 +415,14 @@ input {
         line-height: $item-height;
         text-decoration: none;
         cursor: pointer;
-        @include transition(all .3s);
 
         &:last-of-type {
           padding-right: 0;
         }
 
         &:hover {
-          color: #CCC;
+          color: #FFF;
+          font-size: 20px;
           text-shadow: 0 0 5px rgba(#000, 0.4);
         }
 
@@ -307,10 +440,10 @@ input {
     right: 0;
     height: 200%;
     width: 50%;
-    background: #888;
+    @include background(linear-gradient(to bottom right, #CCC, #888));
     border-radius: 50%;
     opacity: .4;
-    @include transition(all .5s);
+    @include transition(all .4s);
   }
 
   .icon {

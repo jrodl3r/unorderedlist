@@ -251,6 +251,17 @@ $(document).ready( function () {
 
   $('input').on('focus blur', setWatermark);
   $('input').on('keypress', userInput);
+  $('#menu-button').on('click', toggleNav);
+
+  function toggleNav(e) {
+    $('#menu, #app').toggleClass('active');
+    $(e.currentTarget).toggleClass('active');
+    if ($(e.currentTarget).hasClass('fa-bars')) {
+      $(e.currentTarget).removeClass('fa-bars').addClass('fa-close');
+    } else {
+      $(e.currentTarget).removeClass('fa-close').addClass('fa-bars');
+    }
+  }
 
 
   function addItem(item) {
