@@ -30,7 +30,7 @@ $bp-medium                 :  500px;
 $bp-large                  :  800px;
 
 
-// Globals
+// Global
 // ==========================================================================
 
 ::-webkit-input-placeholder {
@@ -77,11 +77,11 @@ ul {
 
 #wrapper {
   min-width: 100%;
-  min-height: 100%;
+  min-height: 320px;
 }
 
 
-// Header / Menu
+// Header + Menu
 // ==========================================================================
 
 h1 {
@@ -373,13 +373,20 @@ input {
   cursor: default;
   overflow: hidden;
   @include user-select(none);
-  // @include backface-visibility(hidden);
-  // @include transform(translateZ(0));
   @include transition(height .15s ease-out, opacity 0.25s ease 0.15s);
 
   &.active {
     height: $item-height;
     opacity: 1;
+  }
+
+  &.inactive {
+    height: 0;
+    margin: 0;
+    opacity: 0;
+    @include transform(translateX(-100%));
+    @include transition(transform .3s 6s, opacity .3s 6s, height .3s 6.3s, margin .3s 6.3s);
+    background: transparent;
   }
 
   &:hover, &:focus {
@@ -397,6 +404,41 @@ input {
     & .icon {
       display: none;
     }
+  }
+
+  .notify {
+    position: absolute;
+    z-index: 3;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: inherit;
+    color: #999;
+    line-height: inherit;
+    font-size: 14px;
+    background: #EEE;
+    opacity: 1;
+    @include box-shadow(0 0 15px rgba(#000, .05) inset);
+    @include transition(.3s);
+
+    &.inactive {
+      opacity: 0;
+    }
+
+    span {
+      margin: 0 10px 0 5px;
+      border-left: 1px solid #CCC;
+    }
+
+    a {
+      color: #666;
+      font-weight: bold;
+
+      &:hover {
+        color: #000;
+      }
+    }
+
   }
 
   .menu {

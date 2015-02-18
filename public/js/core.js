@@ -250,7 +250,7 @@ $(document).ready( function () {
 
   $(window).on('resize', function () {
     if (window.matchMedia('(min-width: 800px)').matches) {
-      killNav();
+      closeNav();
     }
   });
 
@@ -258,9 +258,9 @@ $(document).ready( function () {
   $('input').on('focus blur', setWatermark);
   $('input').on('keypress', userInput);
   $('#menu-button').on('click', toggleNav);
-  $('#app').on('click', killNav);
+  $('#app').on('click', closeNav);
 
-  function killNav() {
+  function closeNav() {
     if ($('#menu').hasClass('active')) {
       $('#menu, #app').removeClass('active');
       $('#menu-button').removeClass('active fa-close').addClass('fa-bars');
@@ -277,29 +277,46 @@ $(document).ready( function () {
     }
   }
 
-
   function addItem(item) {
     var li   = $('<li></li>', { 'class': 'item' }).text(item),
         menu = $('<ul></ul>', { 'class': 'menu' }),
         bg   = $('<div></div>', { 'class': 'shade' }),
         icon = $('<div></div>', { 'class': 'icon fa fa-bars' });
 
-    menu.append($('<li></li>').append('<a class="fa fa-trash-o"><span>Delete</span></a>'));
-    menu.append($('<li></li>').append('<a class="fa fa-share-square-o"><span>Share</span></a>'));
-    menu.append($('<li></li>').append('<a class="fa fa-star-o"><span>Star</span></a>'));
-    menu.append($('<li></li>').append('<a class="fa fa-clipboard"><span>Copy</span></a>'));
-    menu.append($('<li></li>').append('<a class="fa fa-pencil"><span>Edit</span></a>'));
+    menu.append($('<li></li>').append('<a class="delete fa fa-trash-o"><span>Delete</span></a>'));
+    menu.append($('<li></li>').append('<a class="share fa fa-share-square-o"><span>Share</span></a>'));
+    menu.append($('<li></li>').append('<a class="star fa fa-star-o"><span>Star</span></a>'));
+    menu.append($('<li></li>').append('<a class="copy fa fa-copy"><span>Copy</span></a>'));
+    menu.append($('<li></li>').append('<a class="edit fa fa-pencil"><span>Edit</span></a>'));
     li.append(menu).append(icon).append(bg);
     $('#items').prepend(li);
     setTimeout( function () {
-      $('#items').find('li:eq(0)')
-        .addClass('active')
-        .on('click', function (e) {
-          e.preventDefault();
-          e.stopPropagation();
-          $(this).focus();
-      });
+      $('#items').find('li:eq(0)').addClass('active').on('click', focusItem);
+      $('#items').find('li:eq(0) .menu .delete').on('click', deleteItem);
     }, 1);
+  }
+
+  function deleteItem(e) {
+    e.preventDefault();
+    $(e.currentTarget).closest('.item')
+      .addClass('inactive')
+      .append($('<div></div>', { 'class': 'notify' })
+      .html('Item has been removed <span></span>')
+      .append($('<a>Undo <i class="fa fa-undo"></i></a>').on('click', undoDeleteItem)));
+  }
+
+  function undoDeleteItem(e) {
+    $(e.currentTarget).closest('.item').removeClass('inactive');
+    $(e.currentTarget).parent().addClass('inactive');
+    setTimeout( function () {
+      $(e.currentTarget).parent().remove();
+    }, 500);
+  }
+
+  function focusItem(e) {
+    e.preventDefault();
+    e.stopPropagation();
+    $(e.currentTarget).focus();
   }
 
   function userInput(e) {
