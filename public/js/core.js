@@ -248,10 +248,24 @@ var UL = {
 $(document).ready( function () {
   //UL.init();
 
+  $(window).on('resize', function () {
+    if (window.matchMedia('(min-width: 800px)').matches) {
+      killNav();
+    }
+  });
+
 
   $('input').on('focus blur', setWatermark);
   $('input').on('keypress', userInput);
   $('#menu-button').on('click', toggleNav);
+  $('#app').on('click', killNav);
+
+  function killNav() {
+    if ($('#menu').hasClass('active')) {
+      $('#menu, #app').removeClass('active');
+      $('#menu-button').removeClass('active fa-close').addClass('fa-bars');
+    }
+  }
 
   function toggleNav(e) {
     $('#menu, #app').toggleClass('active');
@@ -267,7 +281,7 @@ $(document).ready( function () {
   function addItem(item) {
     var li   = $('<li></li>', { 'class': 'item' }).text(item),
         menu = $('<ul></ul>', { 'class': 'menu' }),
-        bg   = $('<div></div>', { 'class': 'vignette' }),
+        bg   = $('<div></div>', { 'class': 'shade' }),
         icon = $('<div></div>', { 'class': 'icon fa fa-bars' });
 
     menu.append($('<li></li>').append('<a class="fa fa-trash-o"><span>Delete</span></a>'));
@@ -275,7 +289,7 @@ $(document).ready( function () {
     menu.append($('<li></li>').append('<a class="fa fa-star-o"><span>Star</span></a>'));
     menu.append($('<li></li>').append('<a class="fa fa-clipboard"><span>Copy</span></a>'));
     menu.append($('<li></li>').append('<a class="fa fa-pencil"><span>Edit</span></a>'));
-    li.append(menu).append(bg).append(icon);
+    li.append(menu).append(icon).append(bg);
     $('#items').prepend(li);
     setTimeout( function () {
       $('#items').find('li:eq(0)')

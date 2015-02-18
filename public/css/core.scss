@@ -41,6 +41,7 @@ $bp-large                  :  800px;
   margin: 0;
   padding: 0;
   @include box-sizing(border-box);
+  -webkit-tap-highlight-color: transparent;
 }
 
 html, body {
@@ -62,7 +63,6 @@ a {
   color: #FFF;
   cursor: pointer;
   outline: 0;
-  -webkit-tap-highlight-color: rgba(#000, 0);
   @include transition(.2s);
   @include user-select(none);
 
@@ -113,7 +113,8 @@ h1 {
   width: $menu-width;
   overflow-y: scroll;
   @include background(linear-gradient(to top left, #111, #444));
-  @include transition(right .5s);
+  @include box-shadow(10px 20px 30px 0px rgba(#000, .4) inset);
+  @include transition(right .4s);
 
   @include breakpoint($bp-large) {
     z-index: 10;
@@ -122,27 +123,38 @@ h1 {
     min-height: $nav-height;
     width: auto;
     background: none;
+    box-shadow: none;
   }
 
   &.active {
-    z-index: 1;
     right: 0;
     height: 100%;
+
+    li {
+      right: 0;
+      opacity: 1;
+    }
   }
 
   li {
-    float: left;
+    position: relative;
+    right: 200px;
+    display: block;
     width: 100%;
     height: 70px;
     line-height: 70px;
+    opacity: 0;
+    @include transition(right .3s .3s, opacity .5s .3s);
 
     @include breakpoint($bp-large) {
+      right: initial;
       display: none;
       float: right;
       height: 48px;
       width: auto;
       margin-top: 0;
       line-height: 48px;
+      opacity: 1;
 
       &:nth-of-type(-n+3) {
         display: block;
@@ -168,13 +180,16 @@ h1 {
     a {
       display: block;
       height: inherit;
-      line-height: inherit;
-      padding: 0 0 0 35px;
-      text-decoration: none;
+      padding: 0 0 0 40px;
       color: #999;
+      line-height: inherit;
+      text-decoration: none;
+      font-size: 16px;
 
       &:hover {
         color: #EEE;
+        text-shadow: 0 0 10px rgba(#000, .9);
+        //@include background(linear-gradient(to top, rgba(#000, .1), rgba(#000, 0), rgba(#000, 0)));
       }
 
       @include breakpoint($bp-large) {
@@ -188,15 +203,17 @@ h1 {
     }
 
     i {
+      position: relative;
+      top: 2px;
       height: inherit;
       width: 20px;
       margin-right: 20px;
       line-height: inherit;
       text-align: center;
-      font-size: 18px;
+      font-size: 20px;
 
       &.fa-cog, &.fa-lock, &.fa-share-square-o {
-        font-size: 19px;
+        font-size: 22px;
       }
 
       @include breakpoint($bp-large) {
@@ -245,11 +262,16 @@ h1 {
   width: 100%;
   background: $default-bg-color;
   //@include user-select(none);
-  @include transition(.5s);
+  @include transition(.4s);
 
   &.active {
     right: $menu-width;
     left: -$menu-width;
+  }
+
+  @include breakpoint($bp-large) {
+    right: 0;
+    left: 0;
   }
 
   .inner {
@@ -259,11 +281,6 @@ h1 {
     min-width: $bp-small;
     margin: 0 auto;
     text-align: center;
-    //box-shadow: 0 0 35px 5px rgba(#000, .75);
-
-    //@include breakpoint($bp-large) {
-    //  box-shadow: none;
-    //}
   }
 }
 
@@ -276,6 +293,7 @@ h1 {
   margin: 0 auto;
   font-size: 17px;
   font-weight: bold;
+  text-transform: capitalize;
   opacity: 0;
   @include transition(.5s);
 
@@ -303,7 +321,6 @@ input {
   border: 1px solid $default-border-color;
   border-radius: 10px;
   outline: 0;
-  //@include user-select(none);
   @include transition(all .5s);
 
   @include breakpoint($bp-medium) {
@@ -356,6 +373,8 @@ input {
   cursor: default;
   overflow: hidden;
   @include user-select(none);
+  // @include backface-visibility(hidden);
+  // @include transform(translateZ(0));
   @include transition(height .15s ease-out, opacity 0.25s ease 0.15s);
 
   &.active {
@@ -370,7 +389,7 @@ input {
       opacity: 1;
     }
 
-    & .vignette {
+    & .shade {
       opacity: 1;
       @include transform(translateX(-60%) scale(4));
     }
@@ -392,10 +411,9 @@ input {
     padding: 0 5%;
     border-radius: $item-border-radius;
     //box-shadow: 0 0 18px rgba(0,0,0,0.4) inset;
-    //background: #888;
     opacity: 0;
     overflow: hidden;
-    @include transition(opacity .3s .3s, height .1s);
+    @include transition(opacity .3s .2s, height .1s);
 
     @include breakpoint($bp-medium) {
       padding: 0 15%;
@@ -433,16 +451,16 @@ input {
     }
   }
 
-  .vignette {
+  .shade {
     position: absolute;
     top: -50%;
     left: 100%;
     right: 0;
     height: 200%;
     width: 50%;
-    @include background(linear-gradient(to bottom right, #CCC, #888));
     border-radius: 50%;
     opacity: .4;
+    @include background(linear-gradient(to bottom right, #CCC, #888));
     @include transition(all .4s);
   }
 
