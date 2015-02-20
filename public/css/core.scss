@@ -50,13 +50,9 @@ html, body {
 
 body {
   min-height: 100%;
-  min-width: $bp-small;
   font-family: $default-font;
   overflow-x: hidden;
-
-  @include breakpoint($bp-large) {
-    background: $default-bg-color;
-  }
+  background: $default-bg-color;
 }
 
 a {
@@ -76,8 +72,11 @@ ul {
 }
 
 #wrapper {
-  min-width: 100%;
-  min-height: 320px;
+  position: relative;
+  height: 100%;
+  width: 100%;
+  min-height: $bp-small;
+  min-width: $bp-small;
 }
 
 
@@ -87,12 +86,13 @@ ul {
 h1 {
   position: fixed;
   z-index: 10;
-  width: 100%;
   height: $nav-height;
+  width: 100%;
+  min-width: $bp-small;
+  color: #FFF;
+  font-size: 20px;
   line-height: $nav-height;
   text-align: center;
-  font-size: 20px;
-  color: #FFF;
   background: $nav-bg-color;
   cursor: default;
   @include user-select(none);
@@ -101,6 +101,29 @@ h1 {
   @include breakpoint($bp-large) {
     padding-left: 12px;
     text-align: left;
+  }
+
+  #menu-button {
+    position: absolute;
+    top: 0;
+    right: 0;
+    display: block;
+    height: inherit;
+    padding: 0 15px;
+    font-size: 22px;
+    line-height: inherit;
+
+    @include breakpoint($bp-large) {
+      right: -$menu-width;
+    }
+
+    &.active {
+      color: #888;
+
+      &:hover {
+        color: #555;
+      }
+    }
   }
 }
 
@@ -140,8 +163,8 @@ h1 {
     position: relative;
     right: 200px;
     display: block;
-    width: 100%;
     height: 70px;
+    width: 100%;
     line-height: 70px;
     opacity: 0;
     @include transition(right .3s .3s, opacity .5s .3s);
@@ -171,10 +194,6 @@ h1 {
 
     &:last-of-type {
       margin-bottom: 60px;
-
-      @include breakpoint($bp-large) {
-        margin-bottom: 0;
-      }
     }
 
     a {
@@ -182,9 +201,9 @@ h1 {
       height: inherit;
       padding: 0 0 0 40px;
       color: #999;
+      font-size: 16px;
       line-height: inherit;
       text-decoration: none;
-      font-size: 16px;
 
       &:hover {
         color: #EEE;
@@ -223,30 +242,6 @@ h1 {
   }
 }
 
-#menu-button {
-  position: fixed;
-  z-index: 10;
-  top: 0;
-  right: 0;
-  display: block;
-  height: $nav-height;
-  padding: 0 15px;
-  line-height: $nav-height;
-  font-size: 22px;
-
-  @include breakpoint($bp-large) {
-    right: -$menu-width;
-  }
-
-  &.active {
-    color: #888;
-
-    &:hover {
-      color: #555;
-    }
-  }
-}
-
 
 // Content
 // ==========================================================================
@@ -278,7 +273,6 @@ h1 {
     height: inherit;
     min-height: 100%;
     max-width: $bp-large;
-    min-width: $bp-small;
     margin: 0 auto;
     text-align: center;
   }
@@ -383,10 +377,10 @@ input {
   &.inactive {
     height: 0;
     margin: 0;
+    background: transparent;
     opacity: 0;
     @include transform(translateX(-100%));
     @include transition(transform .3s 6s, opacity .3s 6s, height .3s 6.3s, margin .3s 6.3s);
-    background: transparent;
   }
 
   &:hover, &:focus {
@@ -406,7 +400,15 @@ input {
     }
   }
 
-  .notify {
+  > span {
+    display: inline-block;
+    width: 80%;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+  }
+
+  .overlay {
     position: absolute;
     z-index: 3;
     top: 0;
@@ -414,12 +416,24 @@ input {
     width: 100%;
     height: inherit;
     color: #999;
-    line-height: inherit;
     font-size: 14px;
+    line-height: inherit;
     background: #EEE;
-    opacity: 1;
+    opacity: 0;
     @include box-shadow(0 0 15px rgba(#000, .05) inset);
-    @include transition(.3s);
+    @include transition(opacity .4s);
+
+    &.notify {
+
+    }
+
+    &.editor {
+
+    }
+
+    &.active {
+      opacity: 1;
+    }
 
     &.inactive {
       opacity: 0;
@@ -438,7 +452,6 @@ input {
         color: #000;
       }
     }
-
   }
 
   .menu {

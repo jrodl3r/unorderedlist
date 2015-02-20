@@ -18,6 +18,7 @@
 
 #### NEXT
 - 'revamp ui + setup responsive layout'
+- 'ADD ERROR HANDLERS TO MONGOOSE CONNECTIONS...'
 - 'add off-screen site menu'
 - 'setup share-link ZeroClipboard'
 - 'add notifications (copy, remove, etc)'

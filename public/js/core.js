@@ -277,8 +277,9 @@ $(document).ready( function () {
     }
   }
 
-  function addItem(item) {
-    var li   = $('<li></li>', { 'class': 'item' }).text(item),
+  function addItem(content) {
+    var li   = $('<li></li>', { 'class': 'item' }),
+        text = $('<span></span>').text(content),
         menu = $('<ul></ul>', { 'class': 'menu' }),
         bg   = $('<div></div>', { 'class': 'shade' }),
         icon = $('<div></div>', { 'class': 'icon fa fa-bars' });
@@ -288,11 +289,12 @@ $(document).ready( function () {
     menu.append($('<li></li>').append('<a class="star fa fa-star-o"><span>Star</span></a>'));
     menu.append($('<li></li>').append('<a class="copy fa fa-copy"><span>Copy</span></a>'));
     menu.append($('<li></li>').append('<a class="edit fa fa-pencil"><span>Edit</span></a>'));
-    li.append(menu).append(icon).append(bg);
+    li.append(text).append(menu).append(icon).append(bg);
     $('#items').prepend(li);
     setTimeout( function () {
       $('#items').find('li:eq(0)').addClass('active').on('click', focusItem);
       $('#items').find('li:eq(0) .menu .delete').on('click', deleteItem);
+      $('#items').find('li:eq(0) .menu .edit').on('click', editItem);
     }, 1);
   }
 
@@ -300,17 +302,26 @@ $(document).ready( function () {
     e.preventDefault();
     $(e.currentTarget).closest('.item')
       .addClass('inactive')
-      .append($('<div></div>', { 'class': 'notify' })
+      .append($('<div></div>', { 'class': 'overlay notify' })
       .html('Item has been removed <span></span>')
       .append($('<a>Undo <i class="fa fa-undo"></i></a>').on('click', undoDeleteItem)));
+    setTimeout(function() {
+      $(e.currentTarget).closest('.item').find('.notify').addClass('active');
+    }, 100);
   }
 
   function undoDeleteItem(e) {
+    e.preventDefault();
+    e.stopPropagation();
     $(e.currentTarget).closest('.item').removeClass('inactive');
     $(e.currentTarget).parent().addClass('inactive');
     setTimeout( function () {
       $(e.currentTarget).parent().remove();
     }, 500);
+  }
+
+  function editItem(e) {
+    $(e.currentTarget).closest('.item').attr('contenteditable', 'true').focus();
   }
 
   function focusItem(e) {
