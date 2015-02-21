@@ -18,10 +18,13 @@
 
 #### NEXT
 - 'revamp ui + setup responsive layout'
-- 'ADD ERROR HANDLERS TO MONGOOSE CONNECTIONS...'
 - 'add off-screen site menu'
 - 'setup share-link ZeroClipboard'
 - 'add notifications (copy, remove, etc)'
+
+- 'ADD ERROR HANDLERS TO MONGOOSE CONNECTIONS...'
+- 'setup UL (server) node require module'
+- 'setup UL (client), ui/interface, browser + notify modules (browserify/webpack)'
 - 'add item content max-size / ellipses logic'
 - 'add visual walkthrough intro (add list, add item, remove, copy, etc.)'
 - 'add chrome ext new options_ui for Chrome 40+'

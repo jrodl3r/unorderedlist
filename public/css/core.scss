@@ -20,13 +20,13 @@ $menu-width                :  280px;
 
 $item-height               :  46px;
 $item-border-radius        :  8px;
-$item-bg-color             :  #000;
+$item-bg-color             :  lighten($nav-bg-color, 20%);
 
 // Breakpoints
 // ==========================================================================
 
 $bp-small                  :  320px;
-$bp-medium                 :  500px;
+$bp-medium                 :  600px;
 $bp-large                  :  800px;
 
 
@@ -163,11 +163,16 @@ h1 {
     position: relative;
     right: 200px;
     display: block;
-    height: 70px;
+    height: 60px;
     width: 100%;
-    line-height: 70px;
+    line-height: 60px;
     opacity: 0;
     @include transition(right .3s .3s, opacity .5s .3s);
+
+    @include breakpoint($bp-medium) {
+      height: 70px;
+      line-height: 70px;
+    }
 
     @include breakpoint($bp-large) {
       right: initial;
@@ -185,7 +190,11 @@ h1 {
     }
 
     &:first-of-type {
-      margin-top: 80px;
+      margin-top: 70px;
+
+      @include breakpoint($bp-medium) {
+        margin-top: 80px;
+      }
 
       @include breakpoint($bp-large) {
         margin-top: 0;
