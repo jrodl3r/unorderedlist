@@ -349,7 +349,7 @@ input {
 
 #items {
   width: 100%;
-  padding: 40px 7.5% 60px;
+  padding: 40px 7.5% 75px;
   background: $default-bg-color;
   @include transition(all .5s);
 
@@ -389,7 +389,7 @@ input {
     background: transparent;
     opacity: 0;
     @include transform(translateX(-100%));
-    @include transition(transform .3s 6s, opacity .3s 6s, height .3s 6.3s, margin .3s 6.3s);
+    @include transition(transform .3s, opacity .3s, height .3s .3s, margin .3s .3s);
   }
 
   &:hover, &:focus {
@@ -415,52 +415,6 @@ input {
     white-space: nowrap;
     text-overflow: ellipsis;
     overflow: hidden;
-  }
-
-  .overlay {
-    position: absolute;
-    z-index: 3;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: inherit;
-    color: #999;
-    font-size: 14px;
-    line-height: inherit;
-    background: #EEE;
-    opacity: 0;
-    @include box-shadow(0 0 15px rgba(#000, .05) inset);
-    @include transition(opacity .4s);
-
-    &.notify {
-
-    }
-
-    &.editor {
-
-    }
-
-    &.active {
-      opacity: 1;
-    }
-
-    &.inactive {
-      opacity: 0;
-    }
-
-    span {
-      margin: 0 10px 0 5px;
-      border-left: 1px solid #CCC;
-    }
-
-    a {
-      color: #666;
-      font-weight: bold;
-
-      &:hover {
-        color: #000;
-      }
-    }
   }
 
   .menu {
@@ -545,7 +499,48 @@ input {
   }
 }
 
+#notify {
+  position: fixed;
+  z-index: 20;
+  left: 0;
+  right: 0;
+  bottom: -$item-height;
+  width: 90%;
+  height: $item-height;
+  margin: 0 auto;
+  color: #999;
+  font-size: 14px;
+  line-height: $item-height;
+  text-align: center;
+  background: #EEE;
+  border-radius: 8px;
+  opacity: 0;
+  @include box-shadow(0 0 25px 10px rgba(#FFF, .45), 0 0 15px rgba(#000, .1) inset);
+  @include transition(.4s);
 
+  &.active {
+    bottom: 20px;
+    opacity: 1;
+  }
+
+  &.delete {
+
+    span {
+      margin-right: 10px;
+      padding-right: 10px;
+      border-right: 1px solid #CCC;
+    }
+  }
+
+  a {
+    color: #777;
+    font-weight: bold;
+
+    &:hover {
+      color: #000;
+    }
+  }
+}
 
 
 /* #app {

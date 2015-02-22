@@ -3,7 +3,7 @@
 // ==========================================================================
 'use strict';
 
-var UL = {
+/*var UL = {
 
   socket               :  io.connect(),
   container            :  $('#app'),
@@ -243,43 +243,26 @@ var UL = {
 
     this.menu_bar.addClass('visible');
   }
-};
-
-$(document).ready( function () {
-  //UL.init();
-
-  $(window).on('resize', function () {
-    if (window.matchMedia('(min-width: 800px)').matches) {
-      closeNav();
-    }
-  });
+};*/
 
 
-  $('input').on('focus blur', setWatermark);
-  $('input').on('keypress', userInput);
-  $('#menu-button').on('click', toggleNav);
-  $('#app').on('click', closeNav);
+var UL = {
 
-  function closeNav() {
-    if ($('#menu').hasClass('active')) {
-      $('#menu, #app').removeClass('active');
-      $('#menu-button').removeClass('active fa-close').addClass('fa-bars');
-    }
-  }
+  notify_status: false,
 
-  function toggleNav(e) {
-    $('#menu, #app').toggleClass('active');
-    $(e.currentTarget).toggleClass('active');
-    if ($(e.currentTarget).hasClass('fa-bars')) {
-      $(e.currentTarget).removeClass('fa-bars').addClass('fa-close');
-    } else {
-      $(e.currentTarget).removeClass('fa-close').addClass('fa-bars');
-    }
-  }
 
-  function addItem(content) {
-    var li   = $('<li></li>', { 'class': 'item' }),
-        text = $('<span></span>').text(content),
+  init: function init() {
+    $('input').on('focus blur', UL.setWatermark);
+    $('input').on('keypress', UL.userInput);
+    $('#menu-button').on('click', UL.toggleNav);
+    $('#app').on('click', UL.closeNav);
+  },
+
+  // Items: Add Item
+  addItem: function addItem(item) {
+    var id   = Math.floor(Math.random()*1000),
+        li   = $('<li></li>', { 'class': 'item' }).attr('id', id),
+        text = $('<span></span>').text(item),
         menu = $('<ul></ul>', { 'class': 'menu' }),
         bg   = $('<div></div>', { 'class': 'shade' }),
         icon = $('<div></div>', { 'class': 'icon fa fa-bars' });
@@ -289,64 +272,91 @@ $(document).ready( function () {
     menu.append($('<li></li>').append('<a class="star fa fa-star-o"><span>Star</span></a>'));
     menu.append($('<li></li>').append('<a class="copy fa fa-copy"><span>Copy</span></a>'));
     menu.append($('<li></li>').append('<a class="edit fa fa-pencil"><span>Edit</span></a>'));
+
     li.append(text).append(menu).append(icon).append(bg);
     $('#items').prepend(li);
+
     setTimeout( function () {
-      $('#items').find('li:eq(0)').addClass('active').on('click', focusItem);
-      $('#items').find('li:eq(0) .menu .delete').on('click', deleteItem);
-      $('#items').find('li:eq(0) .menu .edit').on('click', editItem);
+      $('#items').find('li:eq(0)').addClass('active').on('click', UL.focusItem);
+      $('#items').find('li:eq(0) .menu .delete').on('click', UL.deleteItem);
+      $('#items').find('li:eq(0) .menu .edit').on('click', UL.editItem);
     }, 1);
-  }
+  },
 
-  function deleteItem(e) {
+  // Items: Edit Item
+  editItem: function editItem(e) {
+    $(e.currentTarget).closest('.item').attr('contenteditable', 'true').focus();
+  },
+
+  // Items: Remove Item
+  deleteItem: function deleteItem(e) {
     e.preventDefault();
-    $(e.currentTarget).closest('.item')
-      .addClass('inactive')
-      .append($('<div></div>', { 'class': 'overlay notify' })
-      .html('Item has been removed <span></span>')
-      .append($('<a>Undo <i class="fa fa-undo"></i></a>').on('click', undoDeleteItem)));
-    setTimeout(function() {
-      $(e.currentTarget).closest('.item').find('.notify').addClass('active');
-    }, 100);
-  }
+    $(e.currentTarget).closest('.item').addClass('inactive');
+    UL.notify('delete', $(e.currentTarget).closest('.item').attr('id'));
+  },
 
-  function undoDeleteItem(e) {
+  // Items: Putback Item
+  undeleteItem: function undoDeleteItem(e) {
     e.preventDefault();
     e.stopPropagation();
-    $(e.currentTarget).closest('.item').removeClass('inactive');
-    $(e.currentTarget).parent().addClass('inactive');
-    setTimeout( function () {
-      $(e.currentTarget).parent().remove();
-    }, 500);
-  }
+  //   $(e.currentTarget).closest('.item').removeClass('inactive');
+  //   $(e.currentTarget).parent().addClass('inactive');
+  //   setTimeout( function () {
+  //     $(e.currentTarget).parent().remove();
+  //   }, 500);
 
-  function editItem(e) {
-    $(e.currentTarget).closest('.item').attr('contenteditable', 'true').focus();
-  }
+    console.log('undeleteItem');
+  },
 
-  function focusItem(e) {
+  // Notify: Show Notification
+  notify: function notify(type, id) {
+    var status = true,
+        msg = '';
+
+    switch (type) {
+      case 'delete':
+        msg = 'Item has been removed';
+        console.log(type, id);
+        break;
+      default:
+        console.log('default notification');
+    }
+
+    $('body').append($('<div></div>', { 'id': 'notify', 'class': type })
+      .html('<span>' + msg + '</span>')
+      .append($('<a>Undo <i class="fa fa-undo"></i></a>').on('click', UL.undeleteItem)));
+    setTimeout(function() {
+      $('#notify').addClass('active');
+    }, 1);
+
+  },
+
+  // UI: Mobile Hover Fix
+  focusItem: function focusItem(e) {
     e.preventDefault();
     e.stopPropagation();
     $(e.currentTarget).focus();
-  }
+  },
 
-  function userInput(e) {
-    if (e.keyCode === 13) {
-      // load list
+  // UI: Handle Text Input (Enter Key)
+  userInput: function userInput(e) {
+    var ENTER_KEY = 13;
+    if (e.keyCode === ENTER_KEY) {
+      // create list
       if (!$(e.currentTarget).hasClass('active') && $(e.currentTarget).val().length > 0) {
         $('#title').text($(e.currentTarget).val()).addClass('active');
         $(e.currentTarget).val('').attr('placeholder', 'Add Item').addClass('active').focus();
       // add item
       } else if ($(e.currentTarget).val().length > 0) {
-        addItem($(e.currentTarget).val());
+        UL.addItem($(e.currentTarget).val());
         $(e.currentTarget).val('');
       }
     }
-  }
+  },
 
-  function setWatermark(e) {
+  // UI: Handle Text Input Watermark
+  setWatermark: function setWatermark(e) {
     var placeholder = $(e.currentTarget).attr('placeholder');
-
     if (placeholder.length) {
       $(e.currentTarget).attr('placeholder', '');
     } else {
@@ -356,6 +366,36 @@ $(document).ready( function () {
         $(e.currentTarget).attr('placeholder', 'List Name');
       }
     }
-  }
+  },
 
+  // Menu: Hide Sidebar Menu
+  closeNav: function closeNav() {
+    if ($('#menu').hasClass('active')) {
+      $('#menu, #app').removeClass('active');
+      $('#menu-button').removeClass('active fa-close').addClass('fa-bars');
+    }
+  },
+
+  // Menu: Toggle Sidebar Menu
+  toggleNav: function toggleNav(e) {
+    $('#menu, #app').toggleClass('active');
+    $(e.currentTarget).toggleClass('active');
+    if ($(e.currentTarget).hasClass('fa-bars')) {
+      $(e.currentTarget).removeClass('fa-bars').addClass('fa-close');
+    } else {
+      $(e.currentTarget).removeClass('fa-close').addClass('fa-bars');
+    }
+  }
+};
+
+
+
+$(document).ready( function () {
+  UL.init();
+});
+
+$(window).on('resize', function () {
+  if (window.matchMedia('(min-width: 800px)').matches) {
+    UL.closeNav();
+  }
 });
