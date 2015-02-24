@@ -248,7 +248,7 @@
 
 var UL = {
 
-  notify_status: false,
+  deleted_item: false,
 
 
   init: function init() {
@@ -272,10 +272,8 @@ var UL = {
     menu.append($('<li></li>').append('<a class="star fa fa-star-o"><span>Star</span></a>'));
     menu.append($('<li></li>').append('<a class="copy fa fa-copy"><span>Copy</span></a>'));
     menu.append($('<li></li>').append('<a class="edit fa fa-pencil"><span>Edit</span></a>'));
-
     li.append(text).append(menu).append(icon).append(bg);
     $('#items').prepend(li);
-
     setTimeout( function () {
       $('#items').find('li:eq(0)').addClass('active').on('click', UL.focusItem);
       $('#items').find('li:eq(0) .menu .delete').on('click', UL.deleteItem);
@@ -290,45 +288,48 @@ var UL = {
 
   // Items: Remove Item
   deleteItem: function deleteItem(e) {
+    var id = $(e.currentTarget).closest('.item').attr('id');
     e.preventDefault();
     $(e.currentTarget).closest('.item').addClass('inactive');
-    UL.notify('delete', $(e.currentTarget).closest('.item').attr('id'));
+    UL.deleted_item = id;
+    UL.showNotify('delete', id);
   },
 
   // Items: Putback Item
   undeleteItem: function undoDeleteItem(e) {
     e.preventDefault();
-    e.stopPropagation();
-  //   $(e.currentTarget).closest('.item').removeClass('inactive');
-  //   $(e.currentTarget).parent().addClass('inactive');
-  //   setTimeout( function () {
-  //     $(e.currentTarget).parent().remove();
-  //   }, 500);
-
-    console.log('undeleteItem');
+    $('#' + UL.deleted_item).removeClass('inactive');
+    UL.hideNotify();
   },
 
   // Notify: Show Notification
-  notify: function notify(type, id) {
-    var status = true,
-        msg = '';
+  showNotify: function showNotify(type, id) {
+    var div = $('<div></div>', { 'id': 'notify', 'class': type }),
+        msg = '',
+        btn = '';
 
     switch (type) {
       case 'delete':
-        msg = 'Item has been removed';
-        console.log(type, id);
+        msg = $('<span></span>').text('Item has been removed');
+        btn = $('<a>Undo <i class="fa fa-undo"></i></a>').on('click', UL.undeleteItem);
         break;
       default:
-        console.log('default notification');
+        msg = $('<span></span>').text('Default Notification');
     }
 
-    $('body').append($('<div></div>', { 'id': 'notify', 'class': type })
-      .html('<span>' + msg + '</span>')
-      .append($('<a>Undo <i class="fa fa-undo"></i></a>').on('click', UL.undeleteItem)));
-    setTimeout(function() {
+    div.append(msg).append(btn);
+    $('body').append(div);
+    setTimeout( function () {
       $('#notify').addClass('active');
     }, 1);
+  },
 
+  // Notify: Hide Notification
+  hideNotify: function hideNotify() {
+    $('#notify').removeClass('active');
+    setTimeout( function () {
+      $('#notify').remove();
+    }, 300);
   },
 
   // UI: Mobile Hover Fix

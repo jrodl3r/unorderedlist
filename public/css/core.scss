@@ -22,6 +22,8 @@ $item-height               :  46px;
 $item-border-radius        :  8px;
 $item-bg-color             :  lighten($nav-bg-color, 20%);
 
+$notify-height             :  56px;
+
 // Breakpoints
 // ==========================================================================
 
@@ -94,6 +96,7 @@ h1 {
   line-height: $nav-height;
   text-align: center;
   background: $nav-bg-color;
+  box-shadow: 0 0 40px 5px rgba(#FFF, .3);
   cursor: default;
   @include user-select(none);
   @include transition(.5s);
@@ -504,22 +507,21 @@ input {
   z-index: 20;
   left: 0;
   right: 0;
-  bottom: -$item-height;
-  width: 90%;
-  height: $item-height;
+  bottom: -$notify-height;
+  width: 100%;
+  height: $notify-height;
   margin: 0 auto;
   color: #999;
-  font-size: 14px;
-  line-height: $item-height;
+  font-size: 16px;
+  line-height: $notify-height;
   text-align: center;
   background: #EEE;
-  border-radius: 8px;
   opacity: 0;
   @include box-shadow(0 0 25px 10px rgba(#FFF, .45), 0 0 15px rgba(#000, .1) inset);
-  @include transition(.4s);
+  @include transition(.25s);
 
   &.active {
-    bottom: 20px;
+    bottom: 0;
     opacity: 1;
   }
 
