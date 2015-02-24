@@ -251,11 +251,12 @@ var UL = {
   last_deleted: null,
   notify_timer: null,
   notify_delay: 8000,
+  list_scrolled: false,
 
 
   init: function init() {
-    $('input').on('focus blur', UL.setWatermark);
-    $('input').on('keypress', UL.userInput);
+    $('#text-input').on('focus blur', UL.focusInput);
+    $('#text-input').on('keypress', UL.handleInput);
     $('#menu-button').on('click', UL.toggleNav);
     $('#app').on('click', UL.closeNav);
   },
@@ -277,22 +278,48 @@ var UL = {
     li.append(text).append(menu).append(icon).append(bg);
     $('#items').prepend(li);
     setTimeout(function() {
-      $('#items').find('li:eq(0)').addClass('active').on('click', UL.focusItem);
+      $('#items').find('li:eq(0)').addClass('active')
+        .on('touchmove', UL.moveItem)
+        .on('mouseenter touchend', UL.showItemMenu)
+        .on('mouseleave touchleave', UL.hideItemMenu);
       $('#items').find('li:eq(0) .menu .delete').on('click', UL.deleteItem);
-      $('#items').find('li:eq(0) .menu .edit').on('click', UL.editItem);
+      //$('#items').find('li:eq(0) .menu .edit').on('click', UL.editItem);
     }, 1);
   },
 
-  // TODO Items: Edit Item
-  editItem: function editItem(e) {
-    $(e.currentTarget).closest('.item').attr('contenteditable', 'true').focus();
+  showItemMenu: function showItemMenu(e) {
+    $('#items .item').removeClass('context');
+    if (e.type === 'touchend') {
+      $('#text-input.focused').removeClass('focused').blur();
+    }
+    if (!UL.list_scrolled) {
+      $(this).addClass('context');
+    }
+    UL.list_scrolled = false;
   },
+
+  hideItemMenu: function hideItemMenu(e) {
+    e.preventDefault();
+    $(this).removeClass('context');
+  },
+
+  moveItem: function moveItem(e) {
+    UL.list_scrolled = true;
+  },
+
+  // TODO Items: Edit Item
+  // editItem: function editItem() {
+  //   $(this).closest('.item').css('background', '#6F9');
+  // },
 
   // Items: Remove Item
   deleteItem: function deleteItem(e) {
-    var id = $(e.currentTarget).closest('.item').attr('id');
+    var button = $(this),
+        item   = button.closest('.item'),
+        id     = item.attr('id');
     e.preventDefault();
-    $(e.currentTarget).closest('.item').addClass('inactive');
+    e.stopPropagation();
+    item.addClass('inactive').removeClass('context');
     UL.last_deleted = id;
     UL.showNotify('delete', id);
   },
@@ -310,22 +337,22 @@ var UL = {
     var panel   = $('#notify'),
         content = $('#notify .inner'),
         message, button;
-
+    // clear existing
     if (panel.hasClass('active')) {
       clearTimeout(UL.notify_timer);
       content.empty();
     }
-
+    // item deleted
     if (type === 'delete') {
-        message = $('<span></span>').text('Item has been removed');
-        button  = $('<a>Undo <i class="fa fa-undo"></i></a>').on('click', UL.undeleteItem);
-        content.append(message).append(button);
-
+      message = $('<span></span>').text('Item has been removed');
+      button  = $('<a>Undo <i class="fa fa-undo"></i></a>').on('click', UL.undeleteItem);
+      content.append(message).append(button);
+    // item copied
     } else if (type === 'copy') {
       message = $('<span></span>').text('Item copied to clipboard');
       content.append(message);
     }
-
+    // show + start hide timer
     panel.addClass('active ' + type);
     UL.notify_timer = setTimeout(function() {
        UL.hideNotify();
@@ -338,45 +365,45 @@ var UL = {
     $('#notify .inner').empty();
   },
 
-  // UI: Mobile Hover Fix
-  focusItem: function focusItem(e) {
-    e.preventDefault();
-    e.stopPropagation();
-    $(e.currentTarget).focus();
-  },
-
   // UI: Handle Text Input (Enter Key)
-  userInput: function userInput(e) {
-    var ENTER_KEY = 13;
+  handleInput: function userInput(e) {
+    var el = $(this),
+        ENTER_KEY = 13;
     if (e.keyCode === ENTER_KEY) {
-      // create list
-      if (!$(e.currentTarget).hasClass('active') && $(e.currentTarget).val().length > 0) {
-        $('#title').text($(e.currentTarget).val()).addClass('active');
-        $(e.currentTarget).val('').attr('placeholder', 'Add Item').addClass('active').focus();
+
+      // TODO: load list
+
+      // new list
+      if (!el.hasClass('active') && el.val().length > 0) {
+        $('#title').text(el.val()).addClass('active');
+        el.val('').attr('placeholder', 'Add Item').addClass('active').focus();
       // add item
-      } else if ($(e.currentTarget).val().length > 0) {
-        UL.addItem($(e.currentTarget).val());
-        $(e.currentTarget).val('');
+      } else if (el.val().length > 0) {
+        UL.addItem(el.val());
+        el.val('');
       }
     }
   },
 
   // UI: Handle Text Input Watermark
-  setWatermark: function setWatermark(e) {
-    var placeholder = $(e.currentTarget).attr('placeholder');
-    if (placeholder.length) {
-      $(e.currentTarget).attr('placeholder', '');
+  focusInput: function focusInput() {
+    var el = $('#text-input');
+    if (el.attr('placeholder').length) {
+      el.attr('placeholder', '').addClass('focused');
     } else {
-      if ($(e.currentTarget).hasClass('active')) {
-        $(e.currentTarget).attr('placeholder', 'Add Item');
+      if (el.hasClass('active')) {
+        el.attr('placeholder', 'Add Item').removeClass('focused');
       } else {
-        $(e.currentTarget).attr('placeholder', 'List Name');
+        el.attr('placeholder', 'List Name').removeClass('focused');
       }
     }
   },
 
   // Menu: Hide Sidebar Menu
-  closeNav: function closeNav() {
+  closeNav: function closeNav(e) {
+    if (e !== undefined) {
+      e.preventDefault();
+    }
     if ($('#menu').hasClass('active')) {
       $('#menu, #app').removeClass('active');
       $('#menu-button').removeClass('active fa-close').addClass('fa-bars');
@@ -385,22 +412,24 @@ var UL = {
 
   // Menu: Toggle Sidebar Menu
   toggleNav: function toggleNav(e) {
+    var el = $(this);
+    e.preventDefault();
     $('#menu, #app').toggleClass('active');
-    $(e.currentTarget).toggleClass('active');
-    if ($(e.currentTarget).hasClass('fa-bars')) {
-      $(e.currentTarget).removeClass('fa-bars').addClass('fa-close');
+    el.toggleClass('active');
+    if (el.hasClass('fa-bars')) {
+      el.removeClass('fa-bars').addClass('fa-close');
     } else {
-      $(e.currentTarget).removeClass('fa-close').addClass('fa-bars');
+      el.removeClass('fa-close').addClass('fa-bars');
     }
   }
 };
 
-
-
+// init
 $(document).ready(function() {
   UL.init();
 });
 
+// resize
 $(window).on('resize', function() {
   if (window.matchMedia('(min-width: 800px)').matches) {
     UL.closeNav();

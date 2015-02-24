@@ -62,7 +62,7 @@ a {
   cursor: pointer;
   outline: 0;
   @include transition(.2s);
-  @include user-select(none);
+  //@include user-select(none);
 
   &:hover {
     color: #888;
@@ -286,7 +286,7 @@ h1 {
     max-width: $bp-large;
     margin: 0 auto;
     text-align: center;
-    @include user-select(none);
+    //@include user-select(none);
   }
 }
 
@@ -356,7 +356,7 @@ input {
   padding: 40px 7.5% 75px;
   background: $default-bg-color;
   @include transition(all .5s);
-  @include user-select(none);
+  //@include user-select(none);
 
   @include breakpoint($bp-medium) {
     padding: 40px 12.5% 85px;
@@ -397,7 +397,8 @@ input {
     @include transition(transform .3s, opacity .3s, height .3s .3s, margin .3s .3s);
   }
 
-  &:hover, &:focus {
+  //&:hover, &:focus {
+  &.context {
 
     & .menu {
       height: 100%;
@@ -531,10 +532,15 @@ input {
   &.delete {
 
     span {
-      margin-right: 10px;
-      padding-right: 10px;
+      padding-right: 15px;
       border-right: 1px solid #CCC;
     }
+  }
+
+  .inner {
+    display: block;
+    height: 100%;
+    width: 100%;
   }
 
   span {
@@ -543,6 +549,9 @@ input {
   }
 
   a {
+    display: inline-block;
+    height: inherit;
+    padding: 0 15px;
     color: #777;
     font-weight: bold;
 
