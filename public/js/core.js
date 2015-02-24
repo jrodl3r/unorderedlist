@@ -248,7 +248,9 @@
 
 var UL = {
 
-  deleted_item: false,
+  last_deleted: null,
+  notify_timer: null,
+  notify_delay: 8000,
 
 
   init: function init() {
@@ -260,7 +262,7 @@ var UL = {
 
   // Items: Add Item
   addItem: function addItem(item) {
-    var id   = Math.floor(Math.random()*1000),
+    var id   = Math.floor(Math.random()*10000),
         li   = $('<li></li>', { 'class': 'item' }).attr('id', id),
         text = $('<span></span>').text(item),
         menu = $('<ul></ul>', { 'class': 'menu' }),
@@ -274,14 +276,14 @@ var UL = {
     menu.append($('<li></li>').append('<a class="edit fa fa-pencil"><span>Edit</span></a>'));
     li.append(text).append(menu).append(icon).append(bg);
     $('#items').prepend(li);
-    setTimeout( function () {
+    setTimeout(function() {
       $('#items').find('li:eq(0)').addClass('active').on('click', UL.focusItem);
       $('#items').find('li:eq(0) .menu .delete').on('click', UL.deleteItem);
       $('#items').find('li:eq(0) .menu .edit').on('click', UL.editItem);
     }, 1);
   },
 
-  // Items: Edit Item
+  // TODO Items: Edit Item
   editItem: function editItem(e) {
     $(e.currentTarget).closest('.item').attr('contenteditable', 'true').focus();
   },
@@ -291,45 +293,49 @@ var UL = {
     var id = $(e.currentTarget).closest('.item').attr('id');
     e.preventDefault();
     $(e.currentTarget).closest('.item').addClass('inactive');
-    UL.deleted_item = id;
+    UL.last_deleted = id;
     UL.showNotify('delete', id);
   },
 
   // Items: Putback Item
   undeleteItem: function undoDeleteItem(e) {
     e.preventDefault();
-    $('#' + UL.deleted_item).removeClass('inactive');
+    $('#' + UL.last_deleted).removeClass('inactive');
+    clearTimeout(UL.notify_timer);
     UL.hideNotify();
   },
 
   // Notify: Show Notification
   showNotify: function showNotify(type, id) {
-    var div = $('<div></div>', { 'id': 'notify', 'class': type }),
-        msg = '',
-        btn = '';
+    var panel   = $('#notify'),
+        content = $('#notify .inner'),
+        message, button;
 
-    switch (type) {
-      case 'delete':
-        msg = $('<span></span>').text('Item has been removed');
-        btn = $('<a>Undo <i class="fa fa-undo"></i></a>').on('click', UL.undeleteItem);
-        break;
-      default:
-        msg = $('<span></span>').text('Default Notification');
+    if (panel.hasClass('active')) {
+      clearTimeout(UL.notify_timer);
+      content.empty();
     }
 
-    div.append(msg).append(btn);
-    $('body').append(div);
-    setTimeout( function () {
-      $('#notify').addClass('active');
-    }, 1);
+    if (type === 'delete') {
+        message = $('<span></span>').text('Item has been removed');
+        button  = $('<a>Undo <i class="fa fa-undo"></i></a>').on('click', UL.undeleteItem);
+        content.append(message).append(button);
+
+    } else if (type === 'copy') {
+      message = $('<span></span>').text('Item copied to clipboard');
+      content.append(message);
+    }
+
+    panel.addClass('active ' + type);
+    UL.notify_timer = setTimeout(function() {
+       UL.hideNotify();
+    }, UL.notify_delay);
   },
 
   // Notify: Hide Notification
   hideNotify: function hideNotify() {
-    $('#notify').removeClass('active');
-    setTimeout( function () {
-      $('#notify').remove();
-    }, 300);
+    $('#notify').removeClass();
+    $('#notify .inner').empty();
   },
 
   // UI: Mobile Hover Fix
@@ -391,11 +397,11 @@ var UL = {
 
 
 
-$(document).ready( function () {
+$(document).ready(function() {
   UL.init();
 });
 
-$(window).on('resize', function () {
+$(window).on('resize', function() {
   if (window.matchMedia('(min-width: 800px)').matches) {
     UL.closeNav();
   }

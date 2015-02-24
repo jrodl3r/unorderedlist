@@ -268,7 +268,6 @@ h1 {
   height: 100%;
   width: 100%;
   background: $default-bg-color;
-  //@include user-select(none);
   @include transition(.4s);
 
   &.active {
@@ -287,6 +286,7 @@ h1 {
     max-width: $bp-large;
     margin: 0 auto;
     text-align: center;
+    @include user-select(none);
   }
 }
 
@@ -301,6 +301,7 @@ h1 {
   font-weight: bold;
   text-transform: capitalize;
   opacity: 0;
+  cursor: default;
   @include transition(.5s);
 
   @include breakpoint($bp-medium) {
@@ -355,9 +356,10 @@ input {
   padding: 40px 7.5% 75px;
   background: $default-bg-color;
   @include transition(all .5s);
+  @include user-select(none);
 
   @include breakpoint($bp-medium) {
-    padding: 40px 12.5% 60px;
+    padding: 40px 12.5% 85px;
   }
 
   @include breakpoint($bp-large) {
@@ -378,7 +380,7 @@ input {
   opacity: 0;
   cursor: default;
   overflow: hidden;
-  @include user-select(none);
+  //@include user-select(none);
   @include transition(height .15s ease-out, opacity 0.25s ease 0.15s);
 
   &.active {
@@ -517,12 +519,13 @@ input {
   text-align: center;
   background: #EEE;
   opacity: 0;
-  @include box-shadow(0 0 25px 10px rgba(#FFF, .45), 0 0 15px rgba(#000, .1) inset);
-  @include transition(.25s);
+  @include box-shadow(0 0 40px 5px rgba(#FFF, .5), 0 0 15px rgba(#000, .1) inset);
+  @include transition(.4s);
 
   &.active {
     bottom: 0;
     opacity: 1;
+    @include transition-delay(.2s);
   }
 
   &.delete {
@@ -532,6 +535,11 @@ input {
       padding-right: 10px;
       border-right: 1px solid #CCC;
     }
+  }
+
+  span {
+    cursor: default;
+    @include user-select(none);
   }
 
   a {
