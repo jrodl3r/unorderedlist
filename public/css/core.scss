@@ -19,6 +19,7 @@ $nav-bg-color              :  #000;
 $menu-width                :  280px;
 
 $item-height               :  46px;
+$item-spacing              :  10px;
 $item-border-radius        :  8px;
 $item-bg-color             :  lighten($nav-bg-color, 20%);
 
@@ -27,7 +28,9 @@ $notify-height             :  56px;
 // Breakpoints
 // ==========================================================================
 
-$bp-small                  :  320px;
+$bp-tiny                   :  320px;
+$bp-small                  :  360px;
+$bp-landscape              :  480px;
 $bp-medium                 :  600px;
 $bp-large                  :  800px;
 
@@ -37,6 +40,9 @@ $bp-large                  :  800px;
 
 ::-webkit-input-placeholder {
     color: #DDD;
+}
+::-webkit-scrollbar {
+    display: none;
 }
 
 * {
@@ -77,8 +83,8 @@ ul {
   position: relative;
   height: 100%;
   width: 100%;
-  min-height: $bp-small;
-  min-width: $bp-small;
+  min-height: $bp-tiny;
+  min-width: $bp-tiny;
 }
 
 
@@ -90,7 +96,7 @@ h1 {
   z-index: 10;
   height: $nav-height;
   width: 100%;
-  min-width: $bp-small;
+  min-width: $bp-tiny;
   color: #FFF;
   font-size: 20px;
   line-height: $nav-height;
@@ -302,7 +308,7 @@ h1 {
   text-transform: capitalize;
   opacity: 0;
   cursor: default;
-  @include transition(.5s);
+  @include transition(.4s);
 
   @include breakpoint($bp-medium) {
     top: 80px;
@@ -318,39 +324,46 @@ h1 {
 }
 
 input {
-  /* position: relative;
-  top: 160px; */
+  position: absolute;
+  top: 160px;
+  right: 0;
+  left: 0;
   height: 52px;
-  width: 85%;
-  max-width: $bp-medium;
-  margin-top: 160px;
+  width: 270px;
+  margin: 0 auto;
   color: #000;
   font-size: 20px;
   text-align: center;
   border: 1px solid $default-border-color;
   border-radius: 10px;
   outline: 0;
-  @include transition(all .4s);
+  @include transition(.4s);
+
+  @include breakpoint($bp-small) {
+    width: 330px;
+  }
+
+  @include breakpoint($bp-landscape) {
+    width: 460px;
+  }
 
   @include breakpoint($bp-medium) {
-    width: 75%;
+    width: 500px;
   }
 
   @include breakpoint($bp-large) {
-    margin-top: 180px;
+    top: 180px;
+    width: 560px;
   }
 
   &.active {
-    //margin-top: 110px;
     @include transform(translateY(-50px));
 
     @include breakpoint($bp-medium) {
-      //margin-top: 130px;
-      //@include transform(translateY(-30px));
+      @include transform(translateY(-30px));
     }
 
     @include breakpoint($bp-large) {
-      //margin-top: 150px;
       @include transform(translateY(-30px));
     }
   }
@@ -358,20 +371,18 @@ input {
 
 #items {
   position: relative;
+  top: 210px;
+  height: 0;
   width: 100%;
-  //padding: 40px 7.5% 75px;
-  //padding: 0 7.5% 75px;
   background: $default-bg-color;
-  @include transition(all .5s);
-  //@include user-select(none);
+  @include transition(.5s);
 
   @include breakpoint($bp-medium) {
-    //padding: 40px 12.5% 85px;
-    //padding: 0 12.5% 85px;
+    top: 230px;
   }
 
   @include breakpoint($bp-large) {
-    //padding-top: 50px;
+    top: 250px;
   }
 }
 
@@ -382,7 +393,7 @@ input {
   right: 0;
   left: 0;
   height: $item-height;
-  width: 85%;
+  width: 290px;
   margin: 0 auto;
   color: #FFF;
   line-height: $item-height;
@@ -391,7 +402,24 @@ input {
   opacity: 0;
   cursor: default;
   overflow: hidden;
-  @include transition(transform .25s, opacity .25s .15s);
+  @include transition(width .4s, transform .25s, opacity .25s .15s);
+
+
+  @include breakpoint($bp-small) {
+    width: 330px;
+  }
+
+  @include breakpoint($bp-landscape) {
+    width: 440px;
+  }
+
+  @include breakpoint($bp-medium) {
+    width: 500px;
+  }
+
+  @include breakpoint($bp-large) {
+    width: 600px;
+  }
 
   &.active {
     transform: translateY($item-height);
