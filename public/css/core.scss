@@ -318,6 +318,8 @@ h1 {
 }
 
 input {
+  /* position: relative;
+  top: 160px; */
   height: 52px;
   width: 85%;
   max-width: $bp-medium;
@@ -328,7 +330,7 @@ input {
   border: 1px solid $default-border-color;
   border-radius: 10px;
   outline: 0;
-  @include transition(all .5s);
+  @include transition(all .4s);
 
   @include breakpoint($bp-medium) {
     width: 75%;
@@ -339,40 +341,49 @@ input {
   }
 
   &.active {
-    margin-top: 110px;
+    //margin-top: 110px;
+    @include transform(translateY(-50px));
 
     @include breakpoint($bp-medium) {
-      margin-top: 130px;
+      //margin-top: 130px;
+      //@include transform(translateY(-30px));
     }
 
     @include breakpoint($bp-large) {
-      margin-top: 150px;
+      //margin-top: 150px;
+      @include transform(translateY(-30px));
     }
   }
 }
 
 #items {
+  position: relative;
   width: 100%;
-  padding: 40px 7.5% 75px;
+  //padding: 40px 7.5% 75px;
+  //padding: 0 7.5% 75px;
   background: $default-bg-color;
   @include transition(all .5s);
   //@include user-select(none);
 
   @include breakpoint($bp-medium) {
-    padding: 40px 12.5% 85px;
+    //padding: 40px 12.5% 85px;
+    //padding: 0 12.5% 85px;
   }
 
   @include breakpoint($bp-large) {
-    padding-top: 50px;
+    //padding-top: 50px;
   }
 }
 
 .item {
-  position: relative;
+  position: absolute;
   z-index: 1;
-  height: 0;
-  width: 100%;
-  margin: 0 auto 10px;
+  top: 0;
+  right: 0;
+  left: 0;
+  height: $item-height;
+  width: 85%;
+  margin: 0 auto;
   color: #FFF;
   line-height: $item-height;
   background: $item-bg-color;
@@ -380,24 +391,19 @@ input {
   opacity: 0;
   cursor: default;
   overflow: hidden;
-  //@include user-select(none);
-  @include transition(height .15s ease-out, opacity 0.25s ease 0.15s);
+  @include transition(transform .25s, opacity .25s .15s);
 
   &.active {
-    height: $item-height;
+    transform: translateY($item-height);
     opacity: 1;
   }
 
   &.inactive {
-    height: 0;
-    margin: 0;
     background: transparent;
     opacity: 0;
-    @include transform(translateX(-100%));
-    @include transition(transform .3s, opacity .3s, height .3s .3s, margin .3s .3s);
+    @include transition(transform .3s, opacity .15s);
   }
 
-  //&:hover, &:focus {
   &.context {
 
     & .menu {
@@ -510,7 +516,6 @@ input {
   z-index: 20;
   left: 0;
   right: 0;
-  bottom: -$notify-height;
   width: 100%;
   height: $notify-height;
   margin: 0 auto;
@@ -521,11 +526,12 @@ input {
   background: #EEE;
   opacity: 0;
   @include box-shadow(0 0 40px 5px rgba(#FFF, .5), 0 0 15px rgba(#000, .1) inset);
+  @include transform(translateY($notify-height));
   @include transition(.4s);
 
   &.active {
-    bottom: 0;
     opacity: 1;
+    @include transform(translateY(-$notify-height));
     @include transition-delay(.2s);
   }
 

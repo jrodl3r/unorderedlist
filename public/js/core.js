@@ -248,6 +248,7 @@
 
 var UL = {
 
+  //item_count: 0,
   last_deleted: null,
   notify_timer: null,
   notify_delay: 8000,
@@ -277,8 +278,9 @@ var UL = {
     menu.append($('<li></li>').append('<a class="edit fa fa-pencil"><span>Edit</span></a>'));
     li.append(text).append(menu).append(icon).append(bg);
     $('#items').prepend(li);
+    UL.moveItemsDown();
     setTimeout(function() {
-      $('#items').find('li:eq(0)').addClass('active')
+      $('#items li:eq(0)').addClass('active')
         .on('touchmove', UL.moveItem)
         .on('mouseenter touchend', UL.showItemMenu)
         .on('mouseleave touchleave', UL.hideItemMenu);
@@ -307,6 +309,35 @@ var UL = {
     UL.list_scrolled = true;
   },
 
+  moveItemsDown: function moveItemsDown() {
+    var count  = $('#items > li').length,
+        height = parseInt($('#items > li:eq(0)').css('height')) + 10;
+    while (count--) {
+      $('#items > li:eq(' + count + ')').css('transform', 'translateY(' + (height * count) + 'px)');
+    }
+    UL.item_count++;
+  },
+
+  moveItemsUp: function moveItemsUp(el) {
+    var count  = el.length,
+        height = parseInt(el.eq(0).css('height')) + 10,
+        pos;
+    while (count--) {
+      pos = parseInt(el.eq(count).css('transform').split(',')[5]) - height;
+      el.eq(count).css('transform', 'translateY(' + pos + 'px)');
+      console.log(count, pos);
+    }
+  },
+
+  // updateItemPos: function updateItemPos(el, dir) {
+  //   var count  = el.length,
+  //       height = (parseInt(el.eq(0).css('height')) + 10) * dir;
+  //   while (count--) {
+  //     el.eq(count).css('transform', 'translateY(' + (height * count) + 'px)');
+  //   }
+  //   UL.item_count++;
+  // },
+
   // TODO Items: Edit Item
   // editItem: function editItem() {
   //   $(this).closest('.item').css('background', '#6F9');
@@ -316,10 +347,12 @@ var UL = {
   deleteItem: function deleteItem(e) {
     var button = $(this),
         item   = button.closest('.item'),
-        id     = item.attr('id');
+        id     = item.attr('id'),
+        pos    = item.css('transform');
     e.preventDefault();
     e.stopPropagation();
-    item.addClass('inactive').removeClass('context');
+    item.addClass('inactive').css('transform', pos + ' translateX(-120%)').removeClass('context');
+    UL.moveItemsUp(item.nextAll());
     UL.last_deleted = id;
     UL.showNotify('delete', id);
   },
