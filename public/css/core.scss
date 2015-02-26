@@ -59,7 +59,6 @@ html, body {
 body {
   min-height: 100%;
   font-family: $default-font;
-  overflow-x: hidden;
   background: $default-bg-color;
 }
 
@@ -85,6 +84,7 @@ ul {
   width: 100%;
   min-height: $bp-tiny;
   min-width: $bp-tiny;
+  @include transform(translateZ(0));
 }
 
 
@@ -140,13 +140,14 @@ h1 {
   position: fixed;
   z-index: 1;
   top: 0;
-  right: -$menu-width;
+  right: 0;
   height: 100%;
   width: $menu-width;
   overflow-y: scroll;
   @include background(linear-gradient(to top left, #111, #444));
   @include box-shadow(10px 20px 30px 0px rgba(#000, .4) inset);
-  @include transition(right .4s);
+  @include transform(translate3d($menu-width, 0, 0));
+  @include transition(transform .4s);
 
   @include breakpoint($bp-large) {
     z-index: 10;
@@ -159,24 +160,24 @@ h1 {
   }
 
   &.active {
-    right: 0;
     height: 100%;
+    @include transform(translate3d(0, 0, 0));
 
     li {
-      right: 0;
       opacity: 1;
+      @include transform(translate3d(0, 0, 0));
     }
   }
 
   li {
     position: relative;
-    right: 200px;
     display: block;
     height: 60px;
     width: 100%;
     line-height: 60px;
     opacity: 0;
-    @include transition(right .3s .3s, opacity .5s .3s);
+    @include transform(translate3d(-200px, 0, 0));
+    @include transition(transform .3s .3s, opacity .5s .3s);
 
     @include breakpoint($bp-medium) {
       height: 70px;
@@ -274,25 +275,16 @@ h1 {
   height: 100%;
   width: 100%;
   background: $default-bg-color;
+  @include transform(translateZ(0));
   @include transition(.4s);
 
   &.active {
-    right: $menu-width;
-    left: -$menu-width;
+    @include transform(translate3d(-$menu-width, 0, 0));
   }
 
   @include breakpoint($bp-large) {
     right: 0;
     left: 0;
-  }
-
-  .inner {
-    height: inherit;
-    min-height: 100%;
-    max-width: $bp-large;
-    margin: 0 auto;
-    text-align: center;
-    //@include user-select(none);
   }
 }
 
@@ -305,6 +297,7 @@ h1 {
   margin: 0 auto;
   font-size: 17px;
   font-weight: bold;
+  text-align: center;
   text-transform: capitalize;
   opacity: 0;
   cursor: default;
@@ -362,20 +355,18 @@ input {
     @include breakpoint($bp-medium) {
       @include transform(translateY(-30px));
     }
-
-    @include breakpoint($bp-large) {
-      @include transform(translateY(-30px));
-    }
   }
 }
 
 #items {
   position: relative;
   top: 210px;
-  height: 0;
+  height: $item-height;
   width: 100%;
-  background: $default-bg-color;
-  @include transition(.5s);
+  max-width: $bp-large;
+  margin: 0 auto;
+  text-align: center;
+  @include transform(translateZ(0));
 
   @include breakpoint($bp-medium) {
     top: 230px;
@@ -388,7 +379,7 @@ input {
 
 .item {
   position: absolute;
-  z-index: 1;
+  z-index: 0;
   top: 0;
   right: 0;
   left: 0;
@@ -403,7 +394,6 @@ input {
   cursor: default;
   overflow: hidden;
   @include transition(width .4s, transform .25s, opacity .25s .15s);
-
 
   @include breakpoint($bp-small) {
     width: 330px;
@@ -422,7 +412,7 @@ input {
   }
 
   &.active {
-    transform: translateY($item-height);
+    transform: translate3d($item-height, 0, 0);
     opacity: 1;
   }
 
@@ -441,7 +431,7 @@ input {
 
     & .shade {
       opacity: 1;
-      @include transform(translateX(-60%) scale(4));
+      @include transform(translate3d(-60%, 0, 0) scale(4));
     }
 
     & .icon {
@@ -459,7 +449,7 @@ input {
 
   .menu {
     position: absolute;
-    z-index: 2;
+    z-index: 1;
     top: 0;
     left: 0;
     right: 0;
@@ -471,6 +461,7 @@ input {
     //box-shadow: 0 0 18px rgba(0,0,0,0.4) inset;
     opacity: 0;
     overflow: hidden;
+    @include transform(translateZ(0));
     @include transition(opacity .3s .2s, height .1s);
 
     @include breakpoint($bp-medium) {
@@ -498,8 +489,8 @@ input {
 
         &:hover {
           color: #FFF;
-          font-size: 20px;
-          text-shadow: 0 0 5px rgba(#000, 0.4);
+          //text-shadow: 0 0 5px rgba(#000, 0.4);
+          @include transform(scale(1.2));
         }
 
         span {
@@ -519,7 +510,7 @@ input {
     border-radius: 50%;
     opacity: .4;
     @include background(linear-gradient(to bottom right, #CCC, #888));
-    @include transition(all .4s);
+    @include transition(.4s);
   }
 
   .icon {
@@ -533,9 +524,9 @@ input {
     line-height: inherit;
     text-decoration: none;
 
-    @include breakpoint($bp-large) {
+    /* @include breakpoint($bp-large) {
       display: none;
-    }
+    } */
   }
 }
 
