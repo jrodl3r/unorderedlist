@@ -248,11 +248,13 @@
 
 var UL = {
 
-  //item_count: 0,
-  last_deleted: null,
-  notify_timer: null,
-  notify_delay: 8000,
-  list_scrolled: false,
+  item_count       :  0,
+  item_height      :  56,
+  list_height      :  80,
+  last_deleted     :  null,
+  notify_timer     :  null,
+  notify_delay     :  8000,
+  list_scrolled    :  false,
 
 
   init: function init() {
@@ -262,7 +264,7 @@ var UL = {
     $('#app').on('click', UL.closeNav);
   },
 
-  // Items: Add Item
+  // List: Add Item
   addItem: function addItem(item) {
     var id   = Math.floor(Math.random()*10000),
         li   = $('<li></li>', { 'class': 'item' }).attr('id', id),
@@ -281,7 +283,7 @@ var UL = {
     UL.moveItemsDown();
     setTimeout(function() {
       $('#items li:eq(0)').addClass('active')
-        .on('touchmove', UL.moveItem)
+        .on('touchmove', UL.scrollList)
         .on('mouseenter touchend', UL.showItemMenu)
         .on('mouseleave touchleave', UL.hideItemMenu);
       $('#items').find('li:eq(0) .menu .delete').on('click', UL.deleteItem);
@@ -289,35 +291,18 @@ var UL = {
     }, 1);
   },
 
-  showItemMenu: function showItemMenu(e) {
-    $('#items .item').removeClass('context');
-    if (e.type === 'touchend') {
-      $('#text-input.focused').removeClass('focused').blur();
-    }
-    if (!UL.list_scrolled) {
-      $(this).addClass('context');
-    }
-    UL.list_scrolled = false;
-  },
-
-  hideItemMenu: function hideItemMenu(e) {
-    e.preventDefault();
-    $(this).removeClass('context');
-  },
-
-  moveItem: function moveItem(e) {
-    UL.list_scrolled = true;
-  },
-
+  // List: Move Items Down (Adding Item)
   moveItemsDown: function moveItemsDown() {
-    var count  = $('#items > li').length,
-        height = parseInt($('#items > li:eq(0)').css('height')) + 10;
+    var count = ++UL.item_count;
+    UL.list_height += UL.item_height;
     while (count--) {
-      $('#items > li:eq(' + count + ')').css('transform', 'translateY(' + (height * count) + 'px)');
+      $('#items > li').eq(count).css('transform', 'translate3d(0, ' + (UL.item_height * count) + 'px, 0)');
     }
-    UL.item_count++;
+    $('#items').css('height', UL.list_height + 'px');
+    //$('#items').css('transform', 'scale3d(1, ' + UL.item_count + ', 1)');
   },
 
+  // List: Move Items Up (Deleting Item)
   moveItemsUp: function moveItemsUp(el) {
     var count  = el.length,
         height = parseInt(el.eq(0).css('height')) + 10,
@@ -338,12 +323,12 @@ var UL = {
   //   UL.item_count++;
   // },
 
-  // TODO Items: Edit Item
+  // TODO List: Edit Item
   // editItem: function editItem() {
   //   $(this).closest('.item').css('background', '#6F9');
   // },
 
-  // Items: Remove Item
+  // List: Remove Item
   deleteItem: function deleteItem(e) {
     var button = $(this),
         item   = button.closest('.item'),
@@ -357,12 +342,30 @@ var UL = {
     UL.showNotify('delete', id);
   },
 
-  // Items: Putback Item
+  // List: Putback Item
   undeleteItem: function undoDeleteItem(e) {
     e.preventDefault();
     $('#' + UL.last_deleted).removeClass('inactive');
     clearTimeout(UL.notify_timer);
     UL.hideNotify();
+  },
+
+  // List: Show Item Context Menu
+  showItemMenu: function showItemMenu(e) {
+    $('#items .item').removeClass('context');
+    if (e.type === 'touchend') {
+      $('#text-input.focused').removeClass('focused').blur();
+    }
+    if (!UL.list_scrolled) {
+      $(this).addClass('context');
+    }
+    UL.list_scrolled = false;
+  },
+
+  // List: Hide Item Context Menu
+  hideItemMenu: function hideItemMenu(e) {
+    e.preventDefault();
+    $(this).removeClass('context');
   },
 
   // Notify: Show Notification
@@ -396,6 +399,11 @@ var UL = {
   hideNotify: function hideNotify() {
     $('#notify').removeClass();
     $('#notify .inner').empty();
+  },
+
+  // UI: Enable Touch Scrolling Flag
+  scrollList: function scrollList(e) {
+    UL.list_scrolled = true;
   },
 
   // UI: Handle Text Input (Enter Key)
@@ -432,7 +440,7 @@ var UL = {
     }
   },
 
-  // Menu: Hide Sidebar Menu
+  // UI / Menu: Hide Sidebar Menu
   closeNav: function closeNav(e) {
     if (e !== undefined) {
       e.preventDefault();
@@ -443,7 +451,7 @@ var UL = {
     }
   },
 
-  // Menu: Toggle Sidebar Menu
+  // UI / Menu: Toggle Sidebar Menu
   toggleNav: function toggleNav(e) {
     var el = $(this);
     e.preventDefault();
