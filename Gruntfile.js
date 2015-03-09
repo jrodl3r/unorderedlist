@@ -12,7 +12,7 @@ module.exports = function(grunt) {
         options: {
           style: 'expanded',
           compass: true,
-          require: ['breakpoint']
+          //require: ['breakpoint']
         },
         files: {
           'public/css/core.css': 'public/css/core.scss'
@@ -22,7 +22,7 @@ module.exports = function(grunt) {
         options: {
           style: 'compressed',
           compass: true,
-          require: ['breakpoint'],
+          //require: ['breakpoint'],
           sourcemap: 'none'
         },
         files: {
@@ -99,10 +99,10 @@ module.exports = function(grunt) {
         files: ['Gruntfile.js', 'app.js', 'models/*.js', 'public/js/*.js', 'chrome/ext/*.js'],
         tasks: ['jshint']
       },
-      // test: {
-      //   files: ['spec/**/*.js', 'tmpl/inc/*.html', 'public/js/*.js'],
-      //   tasks: ['test']
-      // },
+      test: {
+        files: ['spec/**/*.js', 'tmpl/inc/*.html', 'public/js/*.js'],
+        tasks: ['test']
+      },
       html: {
         files: ['tmpl/**/*.html'],
         tasks: ['preprocess']
@@ -127,8 +127,7 @@ module.exports = function(grunt) {
   // Register Tasks
   // ----------------------------------------------------------
   grunt.registerTask('default', ['sass:dev', 'jshint', 'preprocess', 'jasmine']);
-  //grunt.registerTask('dev', ['sass:dev', 'jshint', 'preprocess', 'jasmine', 'watch']);
-  grunt.registerTask('dev', ['sass:dev', 'jshint', 'preprocess', 'watch']);
+  grunt.registerTask('dev', ['sass:dev', 'jshint', 'preprocess', 'jasmine', 'watch']);
   grunt.registerTask('dist', ['sass:dist', 'jshint', 'jasmine', 'preprocess']);
   grunt.registerTask('test', ['jasmine']);
   grunt.registerTask('heroku', ['sass:dist']);

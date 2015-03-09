@@ -28,8 +28,8 @@ We've all used these tools and methods for years, but they all tend to be a litt
 
 After the initial setup (see below) it's as simple as:
 
-**`Source:`** Copy ( **⌘**+**C** ) » Add New Item Hotkey ( **Alt**+**Shift**+**C** )<br>
-**`Target:`** Get Last Item Hotkey ( **Alt**+**Shift**+**V** ) » Paste ( **⌘**+**V** )
+**`Source:`** Copy ( **⌘**+**C** ) » Hotkey ( **Alt**+**Shift**+**C** )<br>
+**`Target:`** Hotkey ( **Alt**+**Shift**+**V** ) » Paste ( **⌘**+**V** )
 
 
 ### Setup
@@ -37,7 +37,6 @@ After the initial setup (see below) it's as simple as:
 1. Create your list at [UnorderedList.com](http://unorderedlist.com)
 2. Click Download to install the [Chrome Extension](https://chrome.google.com/webstore/detail/unorderedlist/jehhmlpdedncbbemoncbfabfaongchma)
 3. Click the Chrome Button to add/edit your list name
-4. (Optional) You can customize or create global keyboard shortcuts by clicking `Edit Hotkeys`
 
 All set. You're good to go! :beers:
 

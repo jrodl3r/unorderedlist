@@ -3,69 +3,47 @@
 // ==========================================================================
 
 @import 'compass';
-@import 'breakpoint';
-
-
-// Defaults
-// ==========================================================================
-
-$default-font              :  Helvetica, Arial, sans-serif;
-$default-border-color      :  #000;
-$default-bg-color          :  #FFF;
-$nav-height                :  48px;
-$nav-bg-color              :  #000;
-$menu-width                :  280px;
-$item-height               :  46px;
-$item-spacing              :  10px;
-$item-border-radius        :  8px;
-$item-bg-color             :  lighten($nav-bg-color, 20%);
-$notify-height             :  56px;
-
-// Breakpoints
-// ==========================================================================
-
-$bp-tiny                   :  320px;
-$bp-small                  :  360px;
-$bp-landscape              :  480px;
-$bp-medium                 :  600px;
-$bp-large                  :  800px;
-
-
-// Global
-// ==========================================================================
-
-::-webkit-input-placeholder {
-    color: #DDD;
-}
-::-webkit-scrollbar {
-    display: none;
-}
 
 * {
   margin: 0;
   padding: 0;
   @include box-sizing(border-box);
-  -webkit-tap-highlight-color: transparent;
 }
 
-html, body {
-  height: 100%;
-}
-
-body {
-  min-height: 100%;
-  font-family: $default-font;
-  background: $default-bg-color;
+#app {
+  display: block;
+  width: 60%;
+  min-width: 420px;
+  margin: 5% auto;
+  text-align: center;
 }
 
 a {
-  color: #FFF;
-  cursor: pointer;
-  outline: 0;
-  @include transition(.3s);
+  text-decoration: none;
 
-  &:hover {
-    color: #888;
+  &:focus {
+    outline: none;
+
+    & h1 {
+      color: #8A2BE2;
+
+      & span {
+        color: #2F4F4F;
+      }
+    }
+  }
+}
+
+h1 {
+  display: inline-block;
+  width: 360px;
+  margin: 0 auto 10px;
+  color: #F0F;
+  font-family: monospace;
+  font-size: 28px;
+
+  & span {
+    color: #808080;
   }
 }
 
@@ -73,514 +51,168 @@ ul {
   list-style: none;
 }
 
-#wrapper {
-  position: relative;
-  height: 100%;
-  width: 100%;
-  min-height: $bp-tiny;
-  min-width: $bp-tiny;
-  overflow-x: hidden;
-  -webkit-overflow-scrolling: touch;
+#list-title {
+  visibility: hidden;
+  height: 30px;
+  color: #999;
+  font-size: 11px;
+  font-family: monospace;
+  text-transform: capitalize;
+  line-height: 30px;
+  cursor: default;
 }
 
+form {
+  width: 360px;
+  margin: 0 auto;
 
-// Header + Menu
-// ==========================================================================
+  input {
+    color: #888;
+    text-align: center;
+    border: 1px solid #DDD;
+    border-radius: 2px;
+    outline: none;
 
-h1 {
-  position: fixed;
-  z-index: 10;
-  height: $nav-height;
-  width: 100%;
-  min-width: $bp-tiny;
-  color: #FFF;
-  font-size: 20px;
-  text-align: center;
-  line-height: $nav-height;
-  background: $nav-bg-color;
-  cursor: default;
-  @include user-select(none);
-
-  span {
-    display: block;
-    width: 100%;
-    @include transform(translateZ(0));
-    @include transition(.6s);
-
-    @include breakpoint($bp-large) {
-      width: 0%;
-      min-width: auto;
-      padding-left: 12px;
-    }
-  }
-
-  #menu-button {
-    position: absolute;
-    top: 0;
-    left: 0;
-    display: block;
-    height: inherit;
-    padding: 0 15px;
-    font-size: 22px;
-    line-height: inherit;
-    @include transform(translateZ(0));
-
-    @include breakpoint($bp-large) {
-      left: -$menu-width;
+    &[type=text] {
+      width: 100%;
+      margin-bottom: 16px;
+      padding: 4px;
     }
 
-    &.active {
-      color: #888;
+    &[type=submit] {
+      padding: 4px 14px;
+      color: #666;
+      font-size: 10px;
+      font-weight: bold;
+      @include background(linear-gradient(#FCFCFC, #EEE));
 
-      &:hover {
+      &:hover, &:focus {
         color: #555;
+        border-color: #CCC;
+        @include box-shadow(rgba(#000, .1) 0 1px 1px);
+        cursor: pointer;
+      }
+
+      &:focus {
+        color: #8A2BE2;
       }
     }
   }
 }
 
-#menu {
-  position: fixed;
-  z-index: 2;
-  top: 0;
-  left: -$menu-width;
-  height: 100%;
-  width: $menu-width;
-  overflow-y: scroll;
-  @include background(linear-gradient(to top left, #111, #444));
-  @include transform(translateZ(0));
-  @include transition(left .4s);
+#add-item-form {
+  display: none;
+}
 
-  @include breakpoint($bp-large) {
-    z-index: 10;
-    right: 0;
-    left: initial;
-    height: $nav-height;
-    min-height: $nav-height;
-    width: auto;
-    background: none;
-  }
+#item-list {
+  display: none;
+  width: 80%;
+  min-width: 420px;
+  margin: 20px auto;
+  padding: 30px;
 
-  &.active {
-    left: 0;
+  & li {
+    position: relative;
+    margin-bottom: 4px;
+    padding: 10px 30px;
+    text-align: center;
+    color: #2F4F4F;
+    font-family: Helvetica;
+    font-size: 14px;
+    line-height: 18px;
+    word-wrap: break-word;
+    background: #FBFBFB;
+    border-radius: 5px;
+    @include transition-property(all);
+    @include transition-duration(.2s);
+    -webkit-user-select: none;
+    user-select: none;
 
-    li {
-      opacity: 1;
+    span {
+      -webkit-user-select: initial;
+      user-select: initial;
     }
+
+    .remove, .clip {
+      z-index: 2;
+      position: absolute;
+      @include transform(translateY(-50%));
+      top: 50%;
+      right: 0;
+      height: 30px;
+      width: 30px;
+      color: #CCC;
+      font-size: 15px;
+      text-align: center;
+      line-height: 30px;
+      @include transition-property(all);
+      @include transition-duration(.2s);
+
+      &:hover, &.zeroclipboard-is-hover {
+        color: #BA55D3; //#4169E1;
+        @include text-shadow(rgba(#FFF, 1) 0 0 3px);
+        cursor: pointer;
+      }
+    }
+
+    .clip {
+      left: 0;
+    }
+
+    &:hover {
+      color: #708080; //#BA55D3;
+      @include box-shadow(rgba(#000, 0.025) 0 0 15px inset);
+      background: #FAFAFA;
+      outline: none;
+      cursor: default;
+
+      & div {
+        color: #708090;
+      }
+    }
+
+    &:focus {
+      background: #F8F8F8;
+      outline: none;
+    }
+  }
+}
+
+#nav {
+  display: none;
+  z-index: 99;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  height: 40px;
+  text-align: center;
+  background: #FFF;
+  border-top: 1px solid #EEE;
+
+  &.visible {
+    display: block;
   }
 
   li {
-    position: relative;
-    display: block;
-    height: 60px;
-    width: 100%;
-    line-height: 60px;
-    opacity: 0;
-    @include transform(translateZ(0));
-    @include transition(opacity .3s .3s);
-
-    @include breakpoint($bp-medium) {
-      height: 70px;
-      line-height: 70px;
-    }
-
-    @include breakpoint($bp-large) {
-      display: none;
-      float: right;
-      height: 48px;
-      width: auto;
-      margin-top: 0;
-      line-height: 48px;
-      opacity: 1;
-
-      &:nth-of-type(-n+3) {
-        display: block;
-      }
-    }
+    display: inline;
+    padding-left: 15px;
+    height: 40px;
+    line-height: 40px;
 
     &:first-of-type {
-      margin-top: 70px;
-
-      @include breakpoint($bp-medium) {
-        margin-top: 80px;
-      }
-
-      @include breakpoint($bp-large) {
-        margin-top: 0;
-      }
-    }
-
-    &:last-of-type {
-      margin-bottom: 60px;
+      padding-left: 0;
     }
 
     a {
-      display: block;
-      height: inherit;
-      padding: 0 0 0 40px;
+      color: #808080;
+      font-family: Helvetica;
       color: #999;
-      font-size: 16px;
-      line-height: inherit;
-      text-decoration: none;
+      font-size: 12px;
 
       &:hover {
-        color: #EEE;
-        text-shadow: 0 0 10px rgba(#000, .9);
+        color: #708090;
+        border-bottom: 2px solid #F0F;
       }
-
-      @include breakpoint($bp-large) {
-        padding: 0 25px 0 0;
-        color: #FFF;
-
-        &:hover {
-          color: #888;
-        }
-      }
-    }
-
-    i {
-      position: relative;
-      top: 2px;
-      height: inherit;
-      width: 20px;
-      margin-right: 20px;
-      line-height: inherit;
-      text-align: center;
-      font-size: 20px;
-
-      &.fa-cog, &.fa-lock, &.fa-share-square-o {
-        font-size: 22px;
-      }
-
-      @include breakpoint($bp-large) {
-        display: none;
-      }
-    }
-  }
-}
-
-
-// Content
-// ==========================================================================
-
-#main {
-  position: absolute;
-  z-index: 1;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  height: 100%;
-  width: 100%;
-  background: $default-bg-color;
-  @include transform(translateZ(0));
-  @include transition(left .4s);
-
-  &.active {
-    left: $menu-width;
-  }
-
-  @include breakpoint($bp-large) {
-    right: 0;
-    left: 0;
-  }
-}
-
-#title {
-  position: absolute;
-  top: 70px;
-  right: 0;
-  left: 0;
-  height: 30px;
-  margin: 0 auto;
-  font-size: 17px;
-  font-weight: bold;
-  text-align: center;
-  text-transform: capitalize;
-  opacity: 0;
-  cursor: default;
-  @include transition(.4s);
-
-  @include breakpoint($bp-medium) {
-    top: 80px;
-  }
-
-  @include breakpoint($bp-large) {
-    top: 95px;
-  }
-
-  &.active {
-    opacity: 1;
-  }
-}
-
-input {
-  position: absolute;
-  top: 160px;
-  right: 0;
-  left: 0;
-  height: 52px;
-  width: 270px;
-  margin: 0 auto;
-  color: #000;
-  font-size: 20px;
-  text-align: center;
-  border: 1px solid $default-border-color;
-  border-radius: 10px;
-  outline: 0;
-  @include transition(.4s);
-
-  @include breakpoint($bp-small) {
-    width: 330px;
-  }
-
-  @include breakpoint($bp-landscape) {
-    width: 460px;
-  }
-
-  @include breakpoint($bp-medium) {
-    width: 500px;
-  }
-
-  @include breakpoint($bp-large) {
-    top: 180px;
-    width: 560px;
-  }
-
-  &.active {
-    top: 110px;
-
-    @include breakpoint($bp-medium) {
-      top: 130px;
-    }
-  }
-}
-
-#items {
-  position: relative;
-  top: 215px;
-  height: auto;
-  width: 100%;
-  max-width: $bp-large;
-  margin: 0 auto;
-  padding-bottom: 80px;
-  text-align: center;
-  background: $default-bg-color;
-
-  @include transform(translateZ(0));
-  @include transition(.3s);
-
-  @include breakpoint($bp-medium) {
-    top: 230px;
-  }
-
-  @include breakpoint($bp-large) {
-    top: 250px;
-  }
-}
-
-.item {
-  position: relative;
-  z-index: 2;
-  left: 0;
-  display: block;
-  height: 0;
-  width: 290px;
-  margin: 0 auto;
-  color: #FFF;
-  line-height: $item-height;
-  background: $item-bg-color;
-  border-radius: $item-border-radius;
-  opacity: 0;
-  cursor: default;
-  overflow: hidden;
-  @include transform(translateZ(0));
-  @include transition(width .3s, height .2s, opacity .2s .15s);
-
-  @include breakpoint($bp-small) {
-    width: 330px;
-  }
-
-  @include breakpoint($bp-landscape) {
-    width: 440px;
-  }
-
-  @include breakpoint($bp-medium) {
-    width: 500px;
-  }
-
-  @include breakpoint($bp-large) {
-    width: 600px;
-  }
-
-  &.active {
-    height: $item-height;
-    margin-bottom: 10px;
-    opacity: 1;
-  }
-
-  &.inactive {
-    left: 100%;
-    height: 0;
-    margin-bottom: 0;
-    background: transparent;
-    opacity: 0;
-    @include transition(all .3s, height .3s .3s, margin .3s .3s);
-  }
-
-  &.context {
-
-    .menu {
-      height: 100%;
-      opacity: 1;
-    }
-
-    .shade {
-      opacity: 1;
-      @include transform(translate3d(-60%, 0, 0) scale(4));
-    }
-  }
-
-  &.fa-bars:before {
-    position: absolute;
-    top: 0;
-    right: 15px;
-  }
-
-  > span {
-    display: inline-block;
-    width: 80%;
-    font-family: $default-font;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    overflow: hidden;
-  }
-
-  .menu {
-    position: absolute;
-    z-index: 4;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 0;
-    width: 100%;
-    margin: 0 auto;
-    padding: 0 5%;
-    border-radius: $item-border-radius;
-    opacity: 0;
-    //overflow: hidden;
-    background: #f69;
-    //@include transform(translateZ(0));
-    @include transition(opacity .3s .2s, height .1s);
-
-    @include breakpoint($bp-medium) {
-      padding: 0 15%;
-    }
-
-    li {
-      float: left;
-      width: 20%;
-      text-align: center;
-
-      a {
-        float: left;
-        height: $item-height;
-        width: 100%;
-        color: #000;
-        font-size: 18px;
-        line-height: $item-height;
-        text-decoration: none;
-        cursor: pointer;
-        @include transform(translateZ(0));
-
-        &:last-of-type {
-          padding-right: 0;
-        }
-
-        &:hover {
-          color: #FFF;
-          text-shadow: 0 0 5px rgba(#000, 0.2);
-        }
-
-        span {
-          display: none;
-        }
-      }
-    }
-  }
-
-  .shade {
-    position: absolute;
-    z-index: 3;
-    top: -50%;
-    left: 100%;
-    right: 0;
-    height: 200%;
-    width: 50%;
-    border-radius: 50%;
-    opacity: .4;
-    @include background(linear-gradient(to bottom right, #CCC, #888));
-    @include transform(translate3d(0, 0, 0), scale(1));
-    @include transition(.4s);
-  }
-}
-
-
-// Notifications
-// ==========================================================================
-
-#notify {
-  position: fixed;
-  z-index: 20;
-  left: 0;
-  right: 0;
-  width: 100%;
-  height: $notify-height;
-  margin: 0 auto;
-  color: #999;
-  font-size: 16px;
-  line-height: $notify-height;
-  text-align: center;
-  background: #EEE;
-  opacity: 0;
-  @include box-shadow(0 0 40px 5px rgba(#FFF, .5), 0 0 15px rgba(#000, .1) inset);
-  @include transform(translateY($notify-height));
-  @include transition(.4s);
-
-  &.active {
-    opacity: 1;
-    @include transform(translateY(-$notify-height));
-    @include transition-delay(.2s);
-  }
-
-  &.delete {
-
-    span {
-      padding-right: 15px;
-      border-right: 1px solid #CCC;
-    }
-  }
-
-  .inner {
-    display: block;
-    height: 100%;
-    width: 100%;
-  }
-
-  span {
-    cursor: default;
-    @include user-select(none);
-  }
-
-  a {
-    display: inline-block;
-    height: inherit;
-    padding: 0 15px;
-    color: #777;
-    font-weight: bold;
-
-    &:hover {
-      color: #000;
     }
   }
 }

@@ -1,15 +1,12 @@
 #### LATER
 - 'add analytics'
-- 'fix repetitive clipboard resource download bug'
 - 'add flash feature detection for ZeroClipboard'
 - 'setup hotkeys (delete, copy, move-up, move-down, etc)'
 - 'add list history & item recovery logic + layout'
 - 'add input overload detection (50 submits / 60s = 30s timeout)'
 - 'setup content-type detection logic + layout (link, text, etc.)'
-- 'setup browser navigation control w/ dynamic url updating'
 - 'add preprocess + minify to heroku dist build (remove dist)'
 - 'add chrome ext create new list link/option'
-- 'add chrome ext functionality / notification for global + chrome pages'
 - 'add release version to menubar (package.json » grunt preprocess)'
 - 'add optional social login'
 - 'add private lists'
@@ -18,22 +15,9 @@
 
 #### NEXT
 - 'revamp ui + setup responsive layout'
-  - 'cleanup responsive layout element widths'
-  - 'cleanup notification logic + layout'
-[»»» PUSH / NEWUI «««]
-  - 'edit item mode logic + layout'
-  - 'open/search/share item logic + layout'
-  - 'copy item to clipboard (ZeroClipboard w/ Flash enabled)'
-  - 'add drag-n-drop item logic + layout (move/anim items up + down)'
-  - 'star item logic + layout (move/anim items up)'
-  - 'add animated svg menu button'
-  - 'assess safari rounded-corner animation bug'
-  - X 'update context menu hover animation'
-  - X 'update off-screen menu animation'
-
-- 'ADD ERROR HANDLERS TO MONGOOSE CONNECTIONS...'
-- 'setup UL (server) node require module'
-- 'setup UL (client), ui/interface, browser + notify modules (browserify/webpack)'
+- 'add off-screen site menu'
+- 'setup share-link ZeroClipboard'
+- 'add notifications (copy, remove, etc)'
 - 'add item content max-size / ellipses logic'
 - 'add visual walkthrough intro (add list, add item, remove, copy, etc.)'
 - 'add chrome ext new options_ui for Chrome 40+'
@@ -45,8 +29,6 @@
 
 
 #### READY
-- 'add off-screen site menu'
-- 'add notifications (copy, remove, etc)'
 - 'tag `0.0.2` release (stable)'
 - 'update menu nav logic + layout'
 - 'distribute chrome ext to play store + add extension link logic'
