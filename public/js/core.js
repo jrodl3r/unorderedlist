@@ -248,80 +248,46 @@
 
 var UL = {
 
-  item_count       :  0,
-  item_height      :  56,
-  list_height      :  80,
+  // item_count       :  0,
+  // item_height      :  56,
+  // list_height      :  80,
   last_deleted     :  null,
   notify_timer     :  null,
   notify_delay     :  8000,
-  list_scrolled    :  false,
+  //list_scrolled    :  false,
 
 
   init: function init() {
     $('#text-input').on('focus blur', UL.focusInput);
     $('#text-input').on('keypress', UL.handleInput);
     $('#menu-button').on('click', UL.toggleNav);
-    $('#app').on('click', UL.closeNav);
+    $('#main').on('click', UL.closeNav);
   },
 
   // List: Add Item
   addItem: function addItem(item) {
     var id   = Math.floor(Math.random()*10000),
-        li   = $('<li></li>', { 'class': 'item' }).attr('id', id),
+        li   = $('<li></li>', { 'class': 'item icon fa fa-bars' }).attr('id', id),
         text = $('<span></span>').text(item),
         menu = $('<ul></ul>', { 'class': 'menu' }),
-        bg   = $('<div></div>', { 'class': 'shade' }),
-        icon = $('<div></div>', { 'class': 'icon fa fa-bars' });
+        bg   = $('<div></div>', { 'class': 'shade' });
 
     menu.append($('<li></li>').append('<a class="delete fa fa-trash-o"><span>Delete</span></a>'));
     menu.append($('<li></li>').append('<a class="share fa fa-share-square-o"><span>Share</span></a>'));
     menu.append($('<li></li>').append('<a class="star fa fa-star-o"><span>Star</span></a>'));
     menu.append($('<li></li>').append('<a class="copy fa fa-copy"><span>Copy</span></a>'));
     menu.append($('<li></li>').append('<a class="edit fa fa-pencil"><span>Edit</span></a>'));
-    li.append(text).append(menu).append(icon).append(bg);
+    li.append(text).append(menu).append(bg);
     $('#items').prepend(li);
-    UL.moveItemsDown();
     setTimeout(function() {
-      $('#items li:eq(0)').addClass('active')
+      $('#items li').eq(0).addClass('active')
         .on('touchmove', UL.scrollList)
         .on('mouseenter touchend', UL.showItemMenu)
         .on('mouseleave touchleave', UL.hideItemMenu);
-      $('#items').find('li:eq(0) .menu .delete').on('click', UL.deleteItem);
+      $('#items li').eq(0).find('a.delete').on('click', UL.deleteItem);
       //$('#items').find('li:eq(0) .menu .edit').on('click', UL.editItem);
     }, 1);
   },
-
-  // List: Move Items Down (Adding Item)
-  moveItemsDown: function moveItemsDown() {
-    var count = ++UL.item_count;
-    UL.list_height += UL.item_height;
-    while (count--) {
-      $('#items > li').eq(count).css('transform', 'translate3d(0, ' + (UL.item_height * count) + 'px, 0)');
-    }
-    $('#items').css('height', UL.list_height + 'px');
-    //$('#items').css('transform', 'scale3d(1, ' + UL.item_count + ', 1)');
-  },
-
-  // List: Move Items Up (Deleting Item)
-  moveItemsUp: function moveItemsUp(el) {
-    var count  = el.length,
-        height = parseInt(el.eq(0).css('height')) + 10,
-        pos;
-    while (count--) {
-      pos = parseInt(el.eq(count).css('transform').split(',')[5]) - height;
-      el.eq(count).css('transform', 'translateY(' + pos + 'px)');
-      console.log(count, pos);
-    }
-  },
-
-  // updateItemPos: function updateItemPos(el, dir) {
-  //   var count  = el.length,
-  //       height = (parseInt(el.eq(0).css('height')) + 10) * dir;
-  //   while (count--) {
-  //     el.eq(count).css('transform', 'translateY(' + (height * count) + 'px)');
-  //   }
-  //   UL.item_count++;
-  // },
 
   // TODO List: Edit Item
   // editItem: function editItem() {
@@ -332,12 +298,11 @@ var UL = {
   deleteItem: function deleteItem(e) {
     var button = $(this),
         item   = button.closest('.item'),
-        id     = item.attr('id'),
-        pos    = item.css('transform');
+        id     = item.attr('id');
+
     e.preventDefault();
     e.stopPropagation();
-    item.addClass('inactive').css('transform', pos + ' translateX(-120%)').removeClass('context');
-    UL.moveItemsUp(item.nextAll());
+    item.removeClass('context').addClass('inactive');
     UL.last_deleted = id;
     UL.showNotify('delete', id);
   },
@@ -373,6 +338,7 @@ var UL = {
     var panel   = $('#notify'),
         content = $('#notify .inner'),
         message, button;
+
     // clear existing
     if (panel.hasClass('active')) {
       clearTimeout(UL.notify_timer);
@@ -410,9 +376,10 @@ var UL = {
   handleInput: function userInput(e) {
     var el = $(this),
         ENTER_KEY = 13;
+
     if (e.keyCode === ENTER_KEY) {
 
-      // TODO: load list
+      // TODO: ADD load list
 
       // new list
       if (!el.hasClass('active') && el.val().length > 0) {
@@ -429,6 +396,7 @@ var UL = {
   // UI: Handle Text Input Watermark
   focusInput: function focusInput() {
     var el = $('#text-input');
+
     if (el.attr('placeholder').length) {
       el.attr('placeholder', '').addClass('focused');
     } else {
@@ -446,7 +414,7 @@ var UL = {
       e.preventDefault();
     }
     if ($('#menu').hasClass('active')) {
-      $('#menu, #app').removeClass('active');
+      $('#menu, #main').removeClass('active');
       $('#menu-button').removeClass('active fa-close').addClass('fa-bars');
     }
   },
@@ -454,8 +422,9 @@ var UL = {
   // UI / Menu: Toggle Sidebar Menu
   toggleNav: function toggleNav(e) {
     var el = $(this);
+
     e.preventDefault();
-    $('#menu, #app').toggleClass('active');
+    $('#menu, #main, #wrapper').toggleClass('active');
     el.toggleClass('active');
     if (el.hasClass('fa-bars')) {
       el.removeClass('fa-bars').addClass('fa-close');

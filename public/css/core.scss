@@ -12,17 +12,13 @@
 $default-font              :  Helvetica, Arial, sans-serif;
 $default-border-color      :  #000;
 $default-bg-color          :  #FFF;
-
 $nav-height                :  48px;
 $nav-bg-color              :  #000;
-
 $menu-width                :  280px;
-
 $item-height               :  46px;
 $item-spacing              :  10px;
 $item-border-radius        :  8px;
 $item-bg-color             :  lighten($nav-bg-color, 20%);
-
 $notify-height             :  56px;
 
 // Breakpoints
@@ -66,8 +62,7 @@ a {
   color: #FFF;
   cursor: pointer;
   outline: 0;
-  @include transition(.2s);
-  //@include user-select(none);
+  @include transition(.3s);
 
   &:hover {
     color: #888;
@@ -84,7 +79,8 @@ ul {
   width: 100%;
   min-height: $bp-tiny;
   min-width: $bp-tiny;
-  @include transform(translateZ(0));
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
 }
 
 
@@ -99,31 +95,38 @@ h1 {
   min-width: $bp-tiny;
   color: #FFF;
   font-size: 20px;
-  line-height: $nav-height;
   text-align: center;
+  line-height: $nav-height;
   background: $nav-bg-color;
-  box-shadow: 0 0 40px 5px rgba(#FFF, .3);
   cursor: default;
   @include user-select(none);
-  @include transition(.5s);
 
-  @include breakpoint($bp-large) {
-    padding-left: 12px;
-    text-align: left;
+  span {
+    display: block;
+    width: 100%;
+    @include transform(translateZ(0));
+    @include transition(.6s);
+
+    @include breakpoint($bp-large) {
+      width: 0%;
+      min-width: auto;
+      padding-left: 12px;
+    }
   }
 
   #menu-button {
     position: absolute;
     top: 0;
-    right: 0;
+    left: 0;
     display: block;
     height: inherit;
     padding: 0 15px;
     font-size: 22px;
     line-height: inherit;
+    @include transform(translateZ(0));
 
     @include breakpoint($bp-large) {
-      right: -$menu-width;
+      left: -$menu-width;
     }
 
     &.active {
@@ -138,34 +141,31 @@ h1 {
 
 #menu {
   position: fixed;
-  z-index: 1;
+  z-index: 2;
   top: 0;
-  right: 0;
+  left: -$menu-width;
   height: 100%;
   width: $menu-width;
   overflow-y: scroll;
   @include background(linear-gradient(to top left, #111, #444));
-  @include box-shadow(10px 20px 30px 0px rgba(#000, .4) inset);
-  @include transform(translate3d($menu-width, 0, 0));
-  @include transition(transform .4s);
+  @include transform(translateZ(0));
+  @include transition(left .4s);
 
   @include breakpoint($bp-large) {
     z-index: 10;
     right: 0;
+    left: initial;
     height: $nav-height;
     min-height: $nav-height;
     width: auto;
     background: none;
-    box-shadow: none;
   }
 
   &.active {
-    height: 100%;
-    @include transform(translate3d(0, 0, 0));
+    left: 0;
 
     li {
       opacity: 1;
-      @include transform(translate3d(0, 0, 0));
     }
   }
 
@@ -176,8 +176,8 @@ h1 {
     width: 100%;
     line-height: 60px;
     opacity: 0;
-    @include transform(translate3d(-200px, 0, 0));
-    @include transition(transform .3s .3s, opacity .5s .3s);
+    @include transform(translateZ(0));
+    @include transition(opacity .3s .3s);
 
     @include breakpoint($bp-medium) {
       height: 70px;
@@ -185,7 +185,6 @@ h1 {
     }
 
     @include breakpoint($bp-large) {
-      right: initial;
       display: none;
       float: right;
       height: 48px;
@@ -227,7 +226,6 @@ h1 {
       &:hover {
         color: #EEE;
         text-shadow: 0 0 10px rgba(#000, .9);
-        //@include background(linear-gradient(to top, rgba(#000, .1), rgba(#000, 0), rgba(#000, 0)));
       }
 
       @include breakpoint($bp-large) {
@@ -265,9 +263,9 @@ h1 {
 // Content
 // ==========================================================================
 
-#app {
+#main {
   position: absolute;
-  z-index: 2;
+  z-index: 1;
   top: 0;
   right: 0;
   bottom: 0;
@@ -276,10 +274,10 @@ h1 {
   width: 100%;
   background: $default-bg-color;
   @include transform(translateZ(0));
-  @include transition(.4s);
+  @include transition(left .4s);
 
   &.active {
-    @include transform(translate3d(-$menu-width, 0, 0));
+    left: $menu-width;
   }
 
   @include breakpoint($bp-large) {
@@ -350,23 +348,27 @@ input {
   }
 
   &.active {
-    @include transform(translateY(-50px));
+    top: 110px;
 
     @include breakpoint($bp-medium) {
-      @include transform(translateY(-30px));
+      top: 130px;
     }
   }
 }
 
 #items {
   position: relative;
-  top: 210px;
-  height: $item-height;
+  top: 215px;
+  height: auto;
   width: 100%;
   max-width: $bp-large;
   margin: 0 auto;
+  padding-bottom: 80px;
   text-align: center;
+  background: $default-bg-color;
+
   @include transform(translateZ(0));
+  @include transition(.3s);
 
   @include breakpoint($bp-medium) {
     top: 230px;
@@ -378,12 +380,11 @@ input {
 }
 
 .item {
-  position: absolute;
-  z-index: 0;
-  top: 0;
-  right: 0;
+  position: relative;
+  z-index: 2;
   left: 0;
-  height: $item-height;
+  display: block;
+  height: 0;
   width: 290px;
   margin: 0 auto;
   color: #FFF;
@@ -393,7 +394,8 @@ input {
   opacity: 0;
   cursor: default;
   overflow: hidden;
-  @include transition(width .4s, transform .25s, opacity .25s .15s);
+  @include transform(translateZ(0));
+  @include transition(width .3s, height .2s, opacity .2s .15s);
 
   @include breakpoint($bp-small) {
     width: 330px;
@@ -412,36 +414,43 @@ input {
   }
 
   &.active {
-    transform: translate3d($item-height, 0, 0);
+    height: $item-height;
+    margin-bottom: 10px;
     opacity: 1;
   }
 
   &.inactive {
+    left: 100%;
+    height: 0;
+    margin-bottom: 0;
     background: transparent;
     opacity: 0;
-    @include transition(transform .3s, opacity .15s);
+    @include transition(all .3s, height .3s .3s, margin .3s .3s);
   }
 
   &.context {
 
-    & .menu {
+    .menu {
       height: 100%;
       opacity: 1;
     }
 
-    & .shade {
+    .shade {
       opacity: 1;
       @include transform(translate3d(-60%, 0, 0) scale(4));
     }
+  }
 
-    & .icon {
-      display: none;
-    }
+  &.fa-bars:before {
+    position: absolute;
+    top: 0;
+    right: 15px;
   }
 
   > span {
     display: inline-block;
     width: 80%;
+    font-family: $default-font;
     white-space: nowrap;
     text-overflow: ellipsis;
     overflow: hidden;
@@ -449,7 +458,7 @@ input {
 
   .menu {
     position: absolute;
-    z-index: 1;
+    z-index: 4;
     top: 0;
     left: 0;
     right: 0;
@@ -458,10 +467,10 @@ input {
     margin: 0 auto;
     padding: 0 5%;
     border-radius: $item-border-radius;
-    //box-shadow: 0 0 18px rgba(0,0,0,0.4) inset;
     opacity: 0;
-    overflow: hidden;
-    @include transform(translateZ(0));
+    //overflow: hidden;
+    background: #f69;
+    //@include transform(translateZ(0));
     @include transition(opacity .3s .2s, height .1s);
 
     @include breakpoint($bp-medium) {
@@ -482,6 +491,7 @@ input {
         line-height: $item-height;
         text-decoration: none;
         cursor: pointer;
+        @include transform(translateZ(0));
 
         &:last-of-type {
           padding-right: 0;
@@ -489,8 +499,7 @@ input {
 
         &:hover {
           color: #FFF;
-          //text-shadow: 0 0 5px rgba(#000, 0.4);
-          @include transform(scale(1.2));
+          text-shadow: 0 0 5px rgba(#000, 0.2);
         }
 
         span {
@@ -502,6 +511,7 @@ input {
 
   .shade {
     position: absolute;
+    z-index: 3;
     top: -50%;
     left: 100%;
     right: 0;
@@ -510,25 +520,14 @@ input {
     border-radius: 50%;
     opacity: .4;
     @include background(linear-gradient(to bottom right, #CCC, #888));
+    @include transform(translate3d(0, 0, 0), scale(1));
     @include transition(.4s);
   }
-
-  .icon {
-    position: absolute;
-    z-index: 1;
-    top: 0;
-    right: 0;
-    height: inherit;
-    padding: 0 15px;
-    color: #FFF;
-    line-height: inherit;
-    text-decoration: none;
-
-    /* @include breakpoint($bp-large) {
-      display: none;
-    } */
-  }
 }
+
+
+// Notifications
+// ==========================================================================
 
 #notify {
   position: fixed;
@@ -585,211 +584,3 @@ input {
     }
   }
 }
-
-
-/* #app {
-  display: block;
-  width: 60%;
-  min-width: 420px;
-  margin: 5% auto;
-  text-align: center;
-}
-
-a {
-  text-decoration: none;
-
-  &:focus {
-    outline: none;
-
-    & h1 {
-      color: #8A2BE2;
-
-      & span {
-        color: #2F4F4F;
-      }
-    }
-  }
-}
-
-h1 {
-  display: inline-block;
-  width: 360px;
-  margin: 0 auto 10px;
-  color: #F0F;
-  font-family: monospace;
-  font-size: 28px;
-
-  & span {
-    color: #808080;
-  }
-}
-
-ul {
-  list-style: none;
-}
-
-#list-title {
-  visibility: hidden;
-  height: 30px;
-  color: #999;
-  font-size: 11px;
-  font-family: monospace;
-  text-transform: capitalize;
-  line-height: 30px;
-  cursor: default;
-}
-
-form {
-  width: 360px;
-  margin: 0 auto;
-
-  input {
-    color: #888;
-    text-align: center;
-    border: 1px solid #DDD;
-    border-radius: 2px;
-    outline: none;
-
-    &[type=text] {
-      width: 100%;
-      margin-bottom: 16px;
-      padding: 4px;
-    }
-
-    &[type=submit] {
-      padding: 4px 14px;
-      color: #666;
-      font-size: 10px;
-      font-weight: bold;
-      @include background(linear-gradient(#FCFCFC, #EEE));
-
-      &:hover, &:focus {
-        color: #555;
-        border-color: #CCC;
-        @include box-shadow(rgba(#000, .1) 0 1px 1px);
-        cursor: pointer;
-      }
-
-      &:focus {
-        color: #8A2BE2;
-      }
-    }
-  }
-}
-
-#add-item-form {
-  display: none;
-}
-
-#item-list {
-  display: none;
-  width: 80%;
-  min-width: 420px;
-  margin: 20px auto;
-  padding: 30px;
-
-  & li {
-    position: relative;
-    margin-bottom: 4px;
-    padding: 10px 30px;
-    text-align: center;
-    color: #2F4F4F;
-    font-family: Helvetica;
-    font-size: 14px;
-    line-height: 18px;
-    word-wrap: break-word;
-    background: #FBFBFB;
-    border-radius: 5px;
-    @include transition-property(all);
-    @include transition-duration(.2s);
-    -webkit-user-select: none;
-    user-select: none;
-
-    span {
-      -webkit-user-select: initial;
-      user-select: initial;
-    }
-
-    .remove, .clip {
-      z-index: 2;
-      position: absolute;
-      @include transform(translateY(-50%));
-      top: 50%;
-      right: 0;
-      height: 30px;
-      width: 30px;
-      color: #CCC;
-      font-size: 15px;
-      text-align: center;
-      line-height: 30px;
-      @include transition-property(all);
-      @include transition-duration(.2s);
-
-      &:hover, &.zeroclipboard-is-hover {
-        color: #BA55D3; //#4169E1;
-        @include text-shadow(rgba(#FFF, 1) 0 0 3px);
-        cursor: pointer;
-      }
-    }
-
-    .clip {
-      left: 0;
-    }
-
-    &:hover {
-      color: #708080; //#BA55D3;
-      @include box-shadow(rgba(#000, 0.025) 0 0 15px inset);
-      background: #FAFAFA;
-      outline: none;
-      cursor: default;
-
-      & div {
-        color: #708090;
-      }
-    }
-
-    &:focus {
-      background: #F8F8F8;
-      outline: none;
-    }
-  }
-}
-
-#nav {
-  display: none;
-  z-index: 99;
-  position: fixed;
-  bottom: 0;
-  width: 100%;
-  height: 40px;
-  text-align: center;
-  background: #FFF;
-  border-top: 1px solid #EEE;
-
-  &.visible {
-    display: block;
-  }
-
-  li {
-    display: inline;
-    padding-left: 15px;
-    height: 40px;
-    line-height: 40px;
-
-    &:first-of-type {
-      padding-left: 0;
-    }
-
-    a {
-      color: #808080;
-      font-family: Helvetica;
-      color: #999;
-      font-size: 12px;
-
-      &:hover {
-        color: #708090;
-        border-bottom: 2px solid #F0F;
-      }
-    }
-  }
-} */

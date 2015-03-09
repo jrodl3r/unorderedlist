@@ -18,9 +18,18 @@
 
 #### NEXT
 - 'revamp ui + setup responsive layout'
-- 'add off-screen site menu'
-- 'setup share-link ZeroClipboard'
-- 'add notifications (copy, remove, etc)'
+  - 'cleanup responsive layout element widths'
+  - 'cleanup notification logic + layout'
+[»»» PUSH / NEWUI «««]
+  - 'edit item mode logic + layout'
+  - 'open/search/share item logic + layout'
+  - 'copy item to clipboard (ZeroClipboard w/ Flash enabled)'
+  - 'add drag-n-drop item logic + layout (move/anim items up + down)'
+  - 'star item logic + layout (move/anim items up)'
+  - 'add animated svg menu button'
+  - 'assess safari rounded-corner animation bug'
+  - X 'update context menu hover animation'
+  - X 'update off-screen menu animation'
 
 - 'ADD ERROR HANDLERS TO MONGOOSE CONNECTIONS...'
 - 'setup UL (server) node require module'
@@ -36,6 +45,8 @@
 
 
 #### READY
+- 'add off-screen site menu'
+- 'add notifications (copy, remove, etc)'
 - 'tag `0.0.2` release (stable)'
 - 'update menu nav logic + layout'
 - 'distribute chrome ext to play store + add extension link logic'
