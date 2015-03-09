@@ -28,8 +28,8 @@ We've all used these tools and methods for years, but they all tend to be a litt
 
 After the initial setup (see below) it's as simple as:
 
-**`Source:`** Copy ( **⌘**+**C** ) » Hotkey ( **Alt**+**Shift**+**C** )<br>
-**`Target:`** Hotkey ( **Alt**+**Shift**+**V** ) » Paste ( **⌘**+**V** )
+**`Source:`** Copy ( **⌘**+**C** ) » Add Item Hotkey ( **Alt**+**Shift**+**C** )<br>
+**`Target:`** Get Item Hotkey ( **Alt**+**Shift**+**V** ) » Paste ( **⌘**+**V** )
 
 
 ### Setup
@@ -40,4 +40,7 @@ After the initial setup (see below) it's as simple as:
 
 All set. You're good to go! :beers:
 
-_(Chrome will sync to your other desktops by default.)_
+### _Notes_
+
+* By default Chrome will sync the extension to your other computers
+* Adjust the default hotkeys or create global keyboard shortcuts by clicking **Edit Hotkeys**

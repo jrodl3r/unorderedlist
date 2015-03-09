@@ -1,24 +1,7 @@
-#### LATER
-- 'add analytics'
-- 'add flash feature detection for ZeroClipboard'
-- 'setup hotkeys (delete, copy, move-up, move-down, etc)'
-- 'add list history & item recovery logic + layout'
-- 'add input overload detection (50 submits / 60s = 30s timeout)'
-- 'setup content-type detection logic + layout (link, text, etc.)'
-- 'add preprocess + minify to heroku dist build (remove dist)'
-- 'add chrome ext create new list link/option'
-- 'add release version to menubar (package.json » grunt preprocess)'
-- 'add optional social login'
-- 'add private lists'
-- 'add grunt-unCSS'
-
-
 #### NEXT
-- 'revamp ui + setup responsive layout'
-- 'add off-screen site menu'
+- 'setup mongoose db connection error handling'
 - 'setup share-link ZeroClipboard'
 - 'add notifications (copy, remove, etc)'
-- 'add item content max-size / ellipses logic'
 - 'add visual walkthrough intro (add list, add item, remove, copy, etc.)'
 - 'add chrome ext new options_ui for Chrome 40+'
 - 'add chrome ext action popup hotkey (quick list change)'
@@ -26,6 +9,26 @@
 - 'add list name validation + reserved words ('test', symbols, ".", `.`, '.', etc.)'
 - 'setup jasmine-node / mocha + supertest (express + socket tests) and integrate w/ codeship'
 - 'tag `0.0.3` github release (stable)'
+
+
+#### LATER
+- 'add analytics'
+- 'fix repetitive clipboard resource download bug'
+- 'add flash feature detection for ZeroClipboard'
+- 'setup hotkeys (delete, copy, move-up, move-down, etc)'
+- 'add list history & item recovery logic + layout'
+- 'add input overload detection (50 submits / 60s = 30s timeout)'
+- 'setup content-type detection logic + layout (link, text, etc.)'
+- 'setup browser navigation control w/ dynamic url updating'
+- 'add preprocess + minify to heroku dist build (remove dist)'
+- 'add chrome ext create new list link/option'
+- 'add chrome ext functionality / notification for global + chrome pages'
+- 'add release version to menubar (package.json » grunt preprocess)'
+- 'breakup node core into require/exports modules'
+- 'breakup client core w/ browserify/webpack'
+- 'add optional social login'
+- 'add private lists'
+- 'add grunt-unCSS'
 
 
 #### READY
