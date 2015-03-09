@@ -11,8 +11,7 @@ module.exports = function(grunt) {
       dev: {
         options: {
           style: 'expanded',
-          compass: true,
-          //require: ['breakpoint']
+          compass: true
         },
         files: {
           'public/css/core.css': 'public/css/core.scss'
@@ -22,11 +21,20 @@ module.exports = function(grunt) {
         options: {
           style: 'compressed',
           compass: true,
-          //require: ['breakpoint'],
           sourcemap: 'none'
         },
         files: {
           'public/css/core.css': 'public/css/core.scss'
+        }
+      },
+      prototype: {
+        options: {
+          style: 'expanded',
+          compass: true,
+          require: ['breakpoint']
+        },
+        files: {
+          'prototype/core.css': 'prototype/core.scss'
         }
       }
     },
@@ -65,7 +73,7 @@ module.exports = function(grunt) {
           'chrome': true
         }
       },
-      files: ['Gruntfile.js', 'app.js', 'models/*.js', 'public/js/*.js', 'chrome/ext/*.js']
+      files: ['Gruntfile.js', 'app.js', 'models/*.js', 'public/js/*.js', 'chrome/ext/*.js', 'prototype/core.js']
     },
 
 
@@ -96,7 +104,7 @@ module.exports = function(grunt) {
         tasks: ['sass:dist']
       },
       js: {
-        files: ['Gruntfile.js', 'app.js', 'models/*.js', 'public/js/*.js', 'chrome/ext/*.js'],
+        files: ['<%= jshint.files %>'],
         tasks: ['jshint']
       },
       test: {
@@ -109,6 +117,10 @@ module.exports = function(grunt) {
       },
       options: {
         livereload: true
+      },
+      prototype: {
+        files: ['prototype/core.scss'],
+        tasks: ['sass:prototype']
       }
     }
 
@@ -129,6 +141,7 @@ module.exports = function(grunt) {
   grunt.registerTask('default', ['sass:dev', 'jshint', 'preprocess', 'jasmine']);
   grunt.registerTask('dev', ['sass:dev', 'jshint', 'preprocess', 'jasmine', 'watch']);
   grunt.registerTask('dist', ['sass:dist', 'jshint', 'jasmine', 'preprocess']);
+  grunt.registerTask('proto', ['sass:prototype', 'jshint', 'watch']);
   grunt.registerTask('test', ['jasmine']);
   grunt.registerTask('heroku', ['sass:dist']);
 

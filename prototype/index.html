@@ -1,0 +1,41 @@
+<!doctype html>
+<html class="no-js" lang="en-us">
+<head>
+  <title>UnorderedList Prototype</title>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+  <meta name="description" content="UnorderedList » Fast, Simple Cloud Clipboard.">
+  <meta name="google-site-verification" content="iVXO7Vfe3ONCBhNvOoAnymMVa-TAMR2ob4yxvxfpyLs">
+  <link rel="chrome-webstore-item" href="https://chrome.google.com/webstore/detail/jehhmlpdedncbbemoncbfabfaongchma">
+  <link rel="stylesheet" href="/public/css/font-awesome.css">
+  <link rel="stylesheet" href="core.css">
+  <link rel="icon" type="image/x-icon" href="/public/favicon.ico">
+</head>
+<body>
+  <h1>
+    <span>UnorderedList</span>
+    <a id="menu-button" class="fa fa-bars"></a>
+  </h1>
+  <ul id="menu">
+    <li><a href="#"><i class="fa fa-lock"></i>Login</a></li>
+    <li><a href="#"><i class="fa fa-share-square-o"></i>Share</a></li>
+    <li><a href="#"><i class="fa fa-download"></i>Chrome Extension</a></li>
+    <li><a href="#"><i class="fa fa-cog"></i>Settings</a></li>
+    <li><a href="#"><i class="fa fa-life-ring"></i>Help &amp; Support</a></li>
+  </ul>
+  <div id="wrapper">
+    <div id="main">
+      <div id="title"></div>
+      <input id="text-input" type="text" placeholder="List Name" autocomplete="off" tabindex="1">
+      <ul id="items"></ul>
+    </div>
+  </div>
+  <div id="notify">
+    <div class="inner"></div>
+  </div>
+  <script src="/public/js/vendor/jquery.min.js"></script>
+  <!-- <script src="/public/js/vendor/clipboard.min.js"></script> -->
+  <script src="core.js"></script>
+</body>
+</html>

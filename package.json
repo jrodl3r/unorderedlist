@@ -24,6 +24,7 @@
     "grunt-contrib-jshint": "^0.11.0",
     "grunt-contrib-watch": "^0.6.1",
     "grunt-preprocess": "^4.1.0",
+    "mongoose": "^3.8.24",
     "time-grunt": "^1.0.0"
   },
   "license": "MIT"
