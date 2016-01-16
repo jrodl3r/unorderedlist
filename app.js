@@ -27,7 +27,7 @@ if (env === 'development') {
 } else if (env === 'test') {
   mongoose.connect('mongodb://' + process.env.TEST_MONGOLAB_HOST + '/ul');
 } else if (env === 'production') {
-  mongoose.connect('mongodb://' + process.env.MONGOLAB_URI + '/ul');
+  mongoose.connect('mongodb://' + process.env.MONGOLAB_URI + '/lists');
 }
 
 
