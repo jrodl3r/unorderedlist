@@ -27,7 +27,7 @@ if (env === 'development') {
 } else if (env === 'test') {
   mongoose.connect('mongodb://' + process.env.TEST_MONGOLAB_HOST + '/ul');
 } else if (env === 'production') {
-  mongoose.connect('mongodb://' + process.env.MONGOLAB_URI);
+  mongoose.connect('mongodb://unorderedlist:voodoo69@ds031751.mongolab.com:31751/heroku_app33369843');
 }
 
 
