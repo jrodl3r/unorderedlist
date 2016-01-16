@@ -143,7 +143,7 @@ module.exports = function(grunt) {
   grunt.registerTask('dist', ['sass:dist', 'jshint', 'jasmine', 'preprocess']);
   grunt.registerTask('proto', ['sass:prototype', 'jshint', 'watch']);
   grunt.registerTask('test', ['jasmine']);
-  grunt.registerTask('heroku', ['sass:dist --force']);
+  grunt.registerTask('heroku', ['sass:dist']);
 
 
   // Show Timer
