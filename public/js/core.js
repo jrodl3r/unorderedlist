@@ -212,7 +212,7 @@ var UL = {
   // add share link to nav
   add_share_link: function add_share_link() {
 
-    var domain = location.host || 'unorderedlist.com',
+    var domain = location.host || 'www.unorderedlist.net',
           link = 'http://' + domain + '/' + encodeURI(this.list_title.text());
     $('<li></li>').append($('<a>Share</a>').attr({ 'id': 'share', 'href': link })).prependTo(this.menu_bar);
     this.show_menu();

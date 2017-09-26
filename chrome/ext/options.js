@@ -47,8 +47,9 @@ UL.submitInput = function submitInput(e) {
 UL.openListLink = function openListLink(e) {
 
   var list_name = document.getElementById('list').value;
+  var encoded_list_name = encodeURI(list_name);
   e.preventDefault();
-  chrome.tabs.create({url: 'http://unorderedlist.net/' + encodeURI(list_name) });
+  chrome.tabs.create({url: 'http://www.unorderedlist.net/' + encoded_list_name });
 };
 
 // Open Keyboard Settings

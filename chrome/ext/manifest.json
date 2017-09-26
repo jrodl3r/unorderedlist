@@ -1,7 +1,7 @@
 {
   "name": "UnorderedList",
   "description": "UnorderedList Chrome Extension",
-  "homepage_url": "http://unorderedlist.net",
+  "homepage_url": "http://www.unorderedlist.net",
   "version": "0.0.5",
   "manifest_version": 2,
   "permissions": [
