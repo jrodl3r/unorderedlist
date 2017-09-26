@@ -39,7 +39,7 @@ After the initial setup (see below) it's as simple as:
 
 ### Setup
 
-1. Create your list at [UnorderedList.com](http://unorderedlist.com)
+1. Create your list at [UnorderedList.net](http://unorderedlist.net)
 2. Click Download to install the [Chrome Extension](https://chrome.google.com/webstore/detail/unorderedlist/jehhmlpdedncbbemoncbfabfaongchma)
 3. Click the Chrome Button to add/edit your list name
 
