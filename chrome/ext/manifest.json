@@ -2,7 +2,7 @@
   "name": "UnorderedList",
   "description": "UnorderedList Chrome Extension",
   "homepage_url": "http://www.unorderedlist.net",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "manifest_version": 2,
   "permissions": [
     "tabs",
