@@ -5,7 +5,7 @@
 [![release](https://img.shields.io/github/release/jrodl3r/unorderedlist.svg?style=flat)](https://github.com/jrodl3r/unorderedlist/releases)
 [![license](https://img.shields.io/npm/l/express.svg?style=flat)](https://github.com/jrodl3r/unorderedlist/blob/master/LICENSE)
 
-#UnorderedList
+# UnorderedList
 
 Have you ever found yourself needing to copy a link or text snippet to another computer?
 
@@ -28,8 +28,13 @@ We've all used these tools and methods for years, but they all tend to be a litt
 
 After the initial setup (see below) it's as simple as:
 
-**`Source:`** Copy ( **⌘**+**C** ) » Add Item Hotkey ( **Alt**+**Shift**+**C** )<br>
-**`Target:`** Get Item Hotkey ( **Alt**+**Shift**+**V** ) » Paste ( **⌘**+**V** )
+#### Adding List Items _(From Source Device)_:
+1. Copy the text snippet to your clipboard ( **⌘**+**C** )
+2. Add it to your list ( **Alt**+**Shift**+**C** )
+
+#### Using List Items _(On Target Device)_:
+1. Grap the item from your list ( **Alt**+**Shift**+**V** )
+2. Then just paste it from your clipboard ( **⌘**+**V** )
 
 
 ### Setup
