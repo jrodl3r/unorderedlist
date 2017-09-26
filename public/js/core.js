@@ -229,7 +229,9 @@ var UL = {
           }
         });
       }
-      $('<li></li>').append($('<a>Download</a>').attr({ 'id': 'download', 'href': '#' })).appendTo(this.menu_bar);
+      $('<li></li>').append($('<a>Download</a>').attr({
+        'id': 'download',
+        'href': 'https://chrome.google.com/webstore/detail/unorderedlist/jehhmlpdedncbbemoncbfabfaongchma' })).appendTo(this.menu_bar);
       $('#download').on('click', function (e) {
         e.preventDefault();
         chrome.webstore.install();
