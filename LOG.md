@@ -78,7 +78,7 @@
 #### TESTS
 - **POST**
   - curl -d '{"item":"testing 1, 2, 3..."}' -H "Content-Type: application/json" http://localhost:3000/foo
-  - curl -d '{"item":"testing 1, 2, 3..."}' -H "Content-Type: application/json" http://unorderedlist.com/foo
+  - curl -d '{"item":"testing 1, 2, 3..."}' -H "Content-Type: application/json" http://unorderedlist.net/foo
 - **GET**
   - curl http://localhost:3000/get/foo
-  - curl http://unorderedlist.com/get/foo
+  - curl http://unorderedlist.net/get/foo

@@ -1,7 +1,7 @@
 {
   "name": "UnorderedList",
   "description": "UnorderedList Chrome Extension",
-  "homepage_url": "http://unorderedlist.com",
+  "homepage_url": "http://unorderedlist.net",
   "version": "0.0.4",
   "manifest_version": 2,
   "permissions": [
@@ -15,7 +15,7 @@
   ],
   "externally_connectable": {
     "ids": ["jehhmlpdedncbbemoncbfabfaongchma"],
-    "matches": ["*://unorderedlist.com/*"]
+    "matches": ["*://unorderedlist.net/*"]
   },
   "options_page": "options.html",
   "browser_action": {

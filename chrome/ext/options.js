@@ -48,7 +48,7 @@ UL.openListLink = function openListLink(e) {
 
   var list_name = document.getElementById('list').value;
   e.preventDefault();
-  chrome.tabs.create({url: 'http://unorderedlist.com/' + encodeURI(list_name) });
+  chrome.tabs.create({url: 'http://unorderedlist.net/' + encodeURI(list_name) });
 };
 
 // Open Keyboard Settings

@@ -8,7 +8,7 @@ var list_title         = 'List Title',
     list_output        = '<li id="2" tabindex="1"><span>Item 02</span><div class="remove fa fa-trash-o"></div><div class="clip fa fa-paperclip" data-clipboard-text="Item 02"></div></li><li id="1" tabindex="1"><span>Item 01</span><div class="remove fa fa-trash-o"></div><div class="clip fa fa-paperclip" data-clipboard-text="Item 01"></div></li>',
     item               = { _id: 3, body: 'Item 03' },
     item_output        = '<li id="3" tabindex="1"><span>Item 03</span><div class="remove fa fa-trash-o"></div><div class="clip fa fa-paperclip" data-clipboard-text="Item 03"></div></li>',
-    domain             = location.host || 'unorderedlist.com',
+    domain             = location.host || 'unorderedlist.net',
     share_link_output  = '<li><a id="share" href="http://' + domain + '/List%20Title">Share</a></li>';
 
 jasmine.getFixtures().fixturesPath = 'tmpl/inc';

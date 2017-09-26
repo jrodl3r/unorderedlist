@@ -7,7 +7,7 @@ var UL = {
 
   init: function init() {
 
-    this.domain = 'http://unorderedlist.com/';
+    this.domain = 'http://unorderedlist.net/';
     this.proxy = null;
     this.getListName();
   },
