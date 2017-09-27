@@ -30,11 +30,11 @@ After the initial setup (see below) it's as simple as:
 
 #### Adding List Items _(From Source Device)_:
 1. Copy the text snippet to your clipboard ( **⌘**+**C** )
-2. Add it to your list ( **Alt**+**Shift**+**C** )
+2. Now add it to your list using the hotkey ( **Alt**+**Shift**+**V** )
 
 #### Using List Items _(On Target Device)_:
-1. Grap the item from your list ( **Alt**+**Shift**+**V** )
-2. Then just paste it from your clipboard ( **⌘**+**V** )
+1. Load the most recent list item to your clipboard ( **Alt**+**Shift**+**C** )
+2. Then just paste it anywhere you'd like ( **⌘**+**V** )
 
 
 ### Setup
