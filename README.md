@@ -33,7 +33,7 @@ After the initial setup (see below) it's as simple as:
 2. Now add it to your list using the hotkey ( **Alt**+**Shift**+**V** )
 
 #### Using List Items _(On Target Device)_:
-1. Load the most recent list item to your clipboard ( **Alt**+**Shift**+**C** )
+1. Load the most recent list item onto your clipboard ( **Alt**+**Shift**+**C** )
 2. Then just paste it anywhere you'd like ( **⌘**+**V** )
 
 
