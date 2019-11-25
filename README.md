@@ -49,3 +49,11 @@ All set. You're good to go! :beers:
 
 * By default Chrome will sync the extension to your other computers
 * Adjust the default hotkeys or create global keyboard shortcuts by clicking **Edit Hotkeys**
+
+<br>
+<br>
+<br>
+
+_**This project is no longer supported.**_
+
+
